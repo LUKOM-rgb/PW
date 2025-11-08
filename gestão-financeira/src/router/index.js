@@ -27,12 +27,7 @@ const router = createRouter({
       name: 'sobre',
       component: SobreView,
     },
-    // rota “catch-all” (404)
-    {
-      path: '/:pathMatch(.*)*',
-      name: 'not-found',
-      component: () => import('../views/NotFound.vue'),
-    },
+    // possivel rota para página de 404
   ],
 })
 
