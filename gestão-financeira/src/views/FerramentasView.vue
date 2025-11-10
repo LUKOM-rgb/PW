@@ -4,31 +4,9 @@
     <p>Ferramentas: juros compostos, crédito habitação, reforma, orçamento e tempo para pagar dívida.</p>
 
     <section class="grid">
-      <!-- Componente separado -->
+      <!-- Componentes separados -->
       <JurosCompostos />
-
-      <!-- As outras calculadoras ainda integradas -->
-      <!-- Crédito Habitação -->
-      <article class="card">
-        <h2>Simulador de Crédito Habitação</h2>
-        <form @submit.prevent>
-          <label>Valor do empréstimo (€)</label>
-          <input type="number" step="0.01" placeholder="200000" />
-
-          <label>Taxa anual (%)</label>
-          <input type="number" step="0.01" placeholder="3.5" />
-
-          <label>Prazo (anos)</label>
-          <input type="number" step="1" placeholder="30" />
-
-          <div class="row">
-            <button type="button" class="btn">Calcular Prestação</button>
-            <button type="reset" class="btn">Limpar</button>
-          </div>
-
-          <div class="result">Prestação: —</div>
-        </form>
-      </article>
+      <SimuladorCredito />
 
       <!-- Reforma -->
       <article class="card">
@@ -107,9 +85,14 @@
 
 <script>
 import JurosCompostos from '../components/juroscompostos.vue';
+import SimuladorCredito from '../components/SimuladorCredito.vue';
+
 export default {
   name: 'FerramentasView',
-  components: { JurosCompostos }
+  components: {
+    JurosCompostos,
+    SimuladorCredito
+  }
 };
 </script>
 
