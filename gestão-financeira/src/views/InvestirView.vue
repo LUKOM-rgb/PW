@@ -1,6 +1,12 @@
+<script setup>
+// 1. Importar o componente que acabou de criar
+import StockDisplay from '../components/Investir.vue';
+</script>
+
 <template>
-  <div class="view sobre">
-    <h1>Investir</h1>
-    <p>A nossa missão é ajudar a investir melhor o seu dinheiro</p>
-  </div>
+  <main>
+    <h1>Meu Projeto de Ações</h1>
+    
+    <StockDisplay />
+  </main>
 </template>
