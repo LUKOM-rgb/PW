@@ -8,30 +8,6 @@
       <JurosCompostos />
       <SimuladorCredito />
 
-      <!-- Reforma -->
-      <article class="card">
-        <h2>Calculadora de Reforma</h2>
-        <form @submit.prevent>
-          <label>Total desejado (€)</label>
-          <input type="number" step="0.01" placeholder="300000" />
-
-          <label>Anos até à reforma</label>
-          <input type="number" placeholder="25" />
-
-          <label>Taxa anual (%)</label>
-          <input type="number" step="0.01" placeholder="4" />
-
-          <label>Saldo atual (€)</label>
-          <input type="number" step="0.01" placeholder="10000" />
-
-          <div class="row">
-            <button type="button" class="btn">Calcular</button>
-            <button type="reset" class="btn">Limpar</button>
-          </div>
-
-          <div class="result">Poupança mensal: —</div>
-        </form>
-      </article>
 
       <!-- Orçamento -->
       <article class="card">
@@ -46,7 +22,7 @@
           <label>Alimentação (%)</label>
           <input type="number" placeholder="15" />
 
-          <label>Poupança (%)</label>
+          <label>Investir (%)</label>
           <input type="number" placeholder="20" />
 
           <div class="row">
