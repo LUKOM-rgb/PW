@@ -18,7 +18,7 @@ async function fetchStockData() {
       params: {
         function: 'TIME_SERIES_INTRADAY',
         symbol: 'AMZN',  // Pode ser dinâmico, ex.: ref('AAPL')
-        interval: '5min'
+        interval: '15min'
       }
     });
     
