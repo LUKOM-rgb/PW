@@ -37,7 +37,7 @@
 
 /* NAVBAR */
 header {
-  background-color: #004aad;
+  background-color: #120A8F;
   color: white;
   padding: 1rem 2rem;
 }

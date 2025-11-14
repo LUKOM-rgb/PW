@@ -44,17 +44,8 @@ fetchStockData();
     <div v-if="error" style="color: red;">{{ error }}</div>
     
     <!-- Exibir dados brutos para depuração -->
-    <pre v-if="stockData">{{ JSON.stringify(stockData, null, 2) }}</pre>
+    <pre v-if="stockData">{{ JSON.stringify(stockData, null, 1) }}</pre>
     
-    <!-- Exemplo de exibição formatada (opcional) -->
-    <div v-if="stockData && stockData['Time Series (5min)']">
-      <h3>Série Temporal Intradiária (IBM)</h3>
-      <ul>
-        <li v-for="(value, key) in Object.entries(stockData['Time Series (5min)']).slice(0, 5)" :key="key">
-          {{ key }}: Preço de Fechamento - ${{ value['4. close'] }}
-        </li>
-      </ul>
-    </div>
   </div>
 </template>
 

@@ -16,7 +16,7 @@
           <label>Rendimento mensal (€)</label>
           <input type="number" placeholder="2000" />
 
-          <label>Moradia (%)</label>
+          <label>Residencia  (%)</label>
           <input type="number" placeholder="30" />
 
           <label>Alimentação (%)</label>
