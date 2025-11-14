@@ -9,6 +9,7 @@
           <li><router-link to="/blog">Blog</router-link></li>
           <li><router-link to="/sobre">Sobre Nós</router-link></li>
           <li><router-link to="/investir">Investir</router-link></li>
+          <li><router-link to="/admin">Admin</router-link></li>
         </ul>
       </nav>
     </header>

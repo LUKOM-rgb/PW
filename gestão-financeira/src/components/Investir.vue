@@ -17,7 +17,7 @@ async function fetchStockData() {
       // 3. Parâmetros específicos da chamada (baseURL e apikey são automáticos)
       params: {
         function: 'TIME_SERIES_INTRADAY',
-        symbol: 'IBM',  // Pode ser dinâmico, ex.: ref('AAPL')
+        symbol: 'AMZN',  // Pode ser dinâmico, ex.: ref('AAPL')
         interval: '5min'
       }
     });

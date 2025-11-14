@@ -6,7 +6,6 @@ import StockDisplay from '../components/Investir.vue';
 <template>
   <main>
     <h1>Meu Projeto de Ações</h1>
-    
-    <StockDisplay />
+        <StockDisplay />
   </main>
 </template>
