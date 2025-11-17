@@ -9,6 +9,7 @@
           <li><router-link to="/blog">Blog</router-link></li>
           <li><router-link to="/sobre">Sobre Nós</router-link></li>
           <li><router-link to="/investir">Investir</router-link></li>
+          <li><router-link to="/adicionarinvest">Adicionar Investimento</router-link></li>
         </ul>
       </nav>
     </header>
@@ -16,7 +17,7 @@
     <!-- Aqui é onde as páginas (views) vão ser renderizadas -->
     <main>
       <router-view />
-    </main>
+    </main> 
 
     <footer>
       <p>© 2025 Gestão Financeira — Todos os direitos reservados.</p>

@@ -31,7 +31,12 @@ const router = createRouter({
       path: '/investir',
       name: 'investir',
       component: () => import('../views/InvestirView.vue'),
-    }
+    },
+    {
+      path: '/adicionarinvest',
+      name: 'adicionarinvest',
+      component: () => import('../views/AdicionarInvestView.vue'),
+    },
     // possivel rota para página de 404
   ],
 })
