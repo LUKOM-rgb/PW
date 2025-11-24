@@ -111,6 +111,7 @@ const sair = () => {
 </script>
 
 <style scoped>
+
 .auth-container { display: flex; justify-content: center; margin-top: 50px; font-family: sans-serif; }
 .auth-box, .dashboard-box { width: 300px; padding: 30px; border: 1px solid #ccc; border-radius: 10px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
 input { width: 100%; padding: 10px; margin: 10px 0; box-sizing: border-box; border: 1px solid #ddd; border-radius: 5px; }
