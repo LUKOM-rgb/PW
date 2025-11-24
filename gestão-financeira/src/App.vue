@@ -10,6 +10,7 @@
           <li><router-link to="/sobre">Sobre Nós</router-link></li>
           <li><router-link to="/investir">Investir</router-link></li>
           <li><router-link to="/adicionarinvest">Admin</router-link></li>
+          <li><router-link to="/login">Login</router-link></li>
         </ul>
       </nav>
     </header>

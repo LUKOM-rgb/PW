@@ -1,0 +1,15 @@
+<template>
+    <form>
+        <h2>Login</h2>
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required />
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required />
+        </div>
+        <button type="submit">Login</button>
+    </form>
+    <RouterLink to="../views/criarloginView.vue">Criar Conta</RouterLink>
+</template>

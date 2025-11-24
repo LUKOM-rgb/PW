@@ -37,6 +37,16 @@ const router = createRouter({
       name: 'adicionarinvest',
       component: () => import('../views/AdicionarInvestView.vue'),
     },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('../views/LoginView.vue'),
+    },
+    {
+      path: '/gestão-financeira/src/views/criarloginView.vue',
+      name: 'criarlogin',
+      component: () => import('../views/criarloginView.vue'),
+    }
     // possivel rota para página de 404
   ],
 })
