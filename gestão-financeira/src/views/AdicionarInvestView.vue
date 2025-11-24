@@ -14,7 +14,7 @@ export default {
     addinvest() {
       // Verificar se o input não está vazio
       if (this.investInput.trim() === '') {
-        alert('Por favor, insira o nome de um filme ou série!')
+        alert('Por favor, insira o Investimento que quer adicionar.')
         return // Sai do método sem adicionar
       }
 
@@ -41,7 +41,7 @@ export default {
       <!-- @keyup.enter: executa método ao pressionar Enter -->
       <input
         type="text"
-        placeholder="Nome da série ou filme"
+        placeholder="Nome do investimento"
         v-model="investInput"
         @keyup.enter="addinvest"
       />
