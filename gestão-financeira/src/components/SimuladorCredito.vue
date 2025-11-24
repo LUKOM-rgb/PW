@@ -17,23 +17,37 @@
       </div>
 
       <div class="result">Prestação: {{ resultadoTotal }}</div>
+
+      <div v-if="trackingStore?.userXP" class="result" style="margin-top: 10px; background: #e0f2f7; color: #007bff;">
+        Status: Nível {{ trackingStore.userLevel }} | XP: {{ trackingStore.userXP }} (Faltam {{ trackingStore.xpToNextLevel }} XP para o Nível {{ trackingStore.currentLevel + 1 }})
+      </div>
     </form>
   </article>
 </template>
 
 <script>
+// IMPORTAR: Importar a função do Pinia Store
+import { useTrackingStore } from '../stores/tracking'
+
 export default {
   name: 'SimuladorCredito',
-  data() {
+  data() { // Conteúdo existente
     return {
       emprestimo: null,
       taxa: null,
       prazo: null,
-      resultadoTotal: '—'
+      resultadoTotal: '—',
+      // Adicionar a referência ao Pinia Store aqui para ser acessível em methods
+      trackingStore: null
     };
   },
+  // Hook de ciclo de vida para inicializar o Store
+  created() {
+      // Cria a instância do store e torna-a acessível via 'this.trackingStore'
+      this.trackingStore = useTrackingStore();
+  },
   methods: {
-    calcularEmprestimo() {
+    calcularEmprestimo() { // Conteúdo existente
       if (!this.emprestimo || !this.taxa || !this.prazo) {
         this.resultadoTotal = 'Preenche todos os campos.';
         return;
@@ -42,8 +56,15 @@ export default {
       const n = this.prazo * 12;
       const resultado = (this.emprestimo * i) / (1 - Math.pow(1 + i, -n));
       this.resultadoTotal = `${resultado.toFixed(2)} €`;
+
+      // === ADICIONAR O REGISTO DE TRACKING E XP AQUI ===
+      if (this.emprestimo > 0 && this.taxa > 0 && this.prazo > 0) {
+        // Recompensa de 10 XP por completar a simulação
+        this.trackingStore.registerAction('Simulação de Crédito Habitação Concluída', 10);
+      }
+      // ================================================
     },
-    limparEmprestimo() {
+    limparEmprestimo() { // Conteúdo existente
       this.emprestimo = this.taxa = this.prazo = null;
       this.resultadoTotal = '—';
     }
@@ -52,6 +73,7 @@ export default {
 </script>
 
 <style scoped>
+/* O estilo permanece o mesmo */
 .card { background: #fff;
   border-radius: 12px;
   padding: 16px;
