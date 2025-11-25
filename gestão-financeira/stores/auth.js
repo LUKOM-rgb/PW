@@ -1,20 +1,24 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import { useRouter } from 'vue-router'; // Opcional: Para redirecionar automático
+import { useRouter } from 'vue-router';
 
 export const useAuthStore = defineStore('auth', () => {
-    // ESTADO (State)
+    
+    // --- ESTADO (STATE) ---
+    // 1. Utilizador logado atualmente
     const user = ref(JSON.parse(localStorage.getItem('usuario_logado')) || null);
     
-    // Opcional: Para usar o router dentro da store
-    // const router = useRouter(); 
+    // 2. Lista de todos os utilizadores (O ecrã vai "olhar" para esta variável)
+    const listaUsuarios = ref([]);
 
-    // AÇÕES (Actions)
-    
+    const router = useRouter();
+
+    // --- AÇÕES (ACTIONS) ---
+
+    // A. Cadastrar Novo Utilizador
     function cadastrar(nome, senha) {
         const bancoUsers = JSON.parse(localStorage.getItem('users_db')) || [];
 
-        // CORREÇÃO: A mensagem deve dizer "nome" e não "email"
         if (bancoUsers.find(u => u.nome === nome)) {
             throw new Error('Este nome de utilizador já existe!');
         }
@@ -24,12 +28,10 @@ export const useAuthStore = defineStore('auth', () => {
         localStorage.setItem('users_db', JSON.stringify(bancoUsers));
     }
 
+    // B. Fazer Login
     function login(nome, senha) {
         const bancoUsers = JSON.parse(localStorage.getItem('users_db')) || [];
-        
-        const userEncontrado = bancoUsers.find(
-            u => u.nome === nome && u.senha === senha
-        );
+        const userEncontrado = bancoUsers.find(u => u.nome === nome && u.senha === senha);
 
         if (userEncontrado) {
             user.value = userEncontrado;
@@ -39,12 +41,42 @@ export const useAuthStore = defineStore('auth', () => {
         }
     }
 
+    // C. Fazer Logout
     function logout() {
         user.value = null;
         localStorage.removeItem('usuario_logado');
-        // Se quiser redirecionar aqui direto, precisaria importar o router
-        // mas fazer isso no componente (View) também está correto.
+        router.push('/login');
     }
 
-    return { user, cadastrar, login, logout };
+    // D. Carregar Lista (Chamado ao entrar no Dashboard)
+    function carregarUsuarios() {
+        const dados = localStorage.getItem('users_db');
+        listaUsuarios.value = dados ? JSON.parse(dados) : [];
+    }
+
+    // E. Remover Utilizador (Elimina do Disco + Memória)
+    function removerUsuario(nomeAlvo) {
+        // 1. Atualizar o Banco de Dados (LocalStorage)
+        let bancoUsers = JSON.parse(localStorage.getItem('users_db')) || [];
+        const novaListaBanco = bancoUsers.filter(u => u.nome !== nomeAlvo);
+        localStorage.setItem('users_db', JSON.stringify(novaListaBanco));
+
+        // 2. Atualizar a Memória (Aqui acontece a mágica visual)
+        listaUsuarios.value = listaUsuarios.value.filter(u => u.nome !== nomeAlvo);
+
+        // 3. Se eu apaguei a minha própria conta, faz logout forçado
+        if (user.value && user.value.nome === nomeAlvo) {
+            logout();
+        }
+    }
+
+    return { 
+        user, 
+        listaUsuarios, 
+        cadastrar, 
+        login, 
+        logout, 
+        carregarUsuarios, 
+        removerUsuario 
+    };
 });
