@@ -33,7 +33,7 @@ const router = createRouter({
       path: '/investir',
       name: 'investir',
       component: () => import('../views/InvestirView.vue'),
-      meta: { requiresAuth: true } // 🔒 Rota Protegida
+      meta: { requiresAuth: true } 
     },
     {
       path: '/adicionarinvest',
@@ -46,6 +46,12 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: () => import('../views/LoginView.vue'),
+    },
+    {
+      path: "/Dashboard",
+      name: "Dashboard",
+      component: () => import('../views/DashboardView.vue'),
+      meta: { requiresAuth: true } 
     }
   ],
 })
