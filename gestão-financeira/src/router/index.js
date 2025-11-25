@@ -31,6 +31,7 @@ const router = createRouter({
       path: '/investir',
       name: 'investir',
       component: () => import('../views/InvestirView.vue'),
+       meta:{ requiresAuth: true }
     },
     {
       path: '/adicionarinvest',
