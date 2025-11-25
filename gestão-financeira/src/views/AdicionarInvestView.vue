@@ -22,6 +22,7 @@ export default {
       const newinvest = {
         id: this.investId++, // Incrementa após cada utilização
         name: this.investInput,
+        
         // Alternativa com UUID (mais robusto):
         // id: self.crypto.randomUUID(), -> https://developer.mozilla.org/en-US/docs/Web/API/Crypto/randomUUID
       }

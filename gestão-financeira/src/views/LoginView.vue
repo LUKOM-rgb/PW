@@ -1,30 +1,29 @@
 <template>
   <div class="auth-container">
     
-    <div v-if="!usuarioLogado" class="auth-box">
+    <div v-if="!authStore.user" class="auth-box">
       
       <div v-if="modo === 'login'">
         <h2>Entrar</h2>
-        <form @submit.prevent="fazerLogin">
-          <input v-model="form.email" type="email" placeholder="Email" required />
+        <form @submit.prevent="handleLogin">
+          <input v-model="form.nome" type="text" placeholder="Nome" required />
           <input v-model="form.senha" type="password" placeholder="Senha" required />
           <button type="submit" class="btn-primary">Login</button>
         </form>
         <p class="toggle-text">
-          Não tem conta? <a @click="modo = 'cadastro'">Criar conta</a>
+          Não tem conta? <a @click="trocarModo('cadastro')">Criar conta</a>
         </p>
       </div>
 
       <div v-else>
         <h2>Nova Conta</h2>
-        <form @submit.prevent="criarConta">
+        <form @submit.prevent="handleCadastro">
           <input v-model="form.nome" type="text" placeholder="Nome" required />
-          <input v-model="form.email" type="email" placeholder="Email" required />
           <input v-model="form.senha" type="password" placeholder="Senha" required />
           <button type="submit" class="btn-success">Cadastrar</button>
         </form>
         <p class="toggle-text">
-          Já tem conta? <a @click="modo = 'login'">Voltar ao Login</a>
+          Já tem conta? <a @click="trocarModo('login')">Voltar ao Login</a>
         </p>
       </div>
 
@@ -32,86 +31,58 @@
     </div>
 
     <div v-else class="dashboard-box">
-      <h1>Bem-vindo, {{ usuarioLogado.nome }}!</h1>
-      <p>Você está logado com: {{ usuarioLogado.email }}</p>
-      <button @click="sair" class="btn-danger">Sair (Logout)</button>
+      <h1>Você está logado como: {{ authStore.user.nome }}</h1>
+      <button @click="authStore.logout()" class="btn-danger">Sair (Logout)</button>
     </div>
 
   </div>
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from 'vue';
+import { ref, reactive } from 'vue';
+import { useAuthStore } from '../../stores/auth'; // Importamos a store
 
-// --- ESTADO ---
-const modo = ref('login'); // Alterna entre 'login' e 'cadastro'
-const usuarioLogado = ref(null);
+const authStore = useAuthStore();
+
+// Estado LOCAL (apenas UI)
+const modo = ref('login');
 const erro = ref('');
 
 const form = reactive({
   nome: '',
-  email: '',
   senha: ''
 });
 
-// --- AO INICIAR ---
-onMounted(() => {
-  // Verifica se já existe alguém logado no navegador
-  const sessaoAtual = localStorage.getItem('usuario_logado');
-  if (sessaoAtual) {
-    usuarioLogado.value = JSON.parse(sessaoAtual);
-  }
-});
-
-// --- AÇÕES ---
-
-const criarConta = () => {
-  const bancoUsers = JSON.parse(localStorage.getItem('users_db')) || [];
-  
-  // Verifica se email já existe
-  if (bancoUsers.find(u => u.email === form.email)) {
-    erro.value = 'Este email já existe!';
-    return;
-  }
-
-  // Cria e salva
-  const novoUser = { nome: form.nome, email: form.email, senha: form.senha };
-  bancoUsers.push(novoUser);
-  localStorage.setItem('users_db', JSON.stringify(bancoUsers));
-
-  alert('Conta criada com sucesso! Faça login.');
-  modo.value = 'login';
-  erro.value = '';
-  form.nome = ''; // Limpa campo
-};
-
-const fazerLogin = () => {
-  const bancoUsers = JSON.parse(localStorage.getItem('users_db')) || [];
-  
-  const userEncontrado = bancoUsers.find(
-    u => u.email === form.email && u.senha === form.senha
-  );
-
-  if (userEncontrado) {
-    usuarioLogado.value = userEncontrado;
-    localStorage.setItem('usuario_logado', JSON.stringify(userEncontrado));
+// Funções Wrapper para tratar erros e chamar a store
+const handleLogin = () => {
+  try {
+    authStore.login(form.nome,form.senha); // Passa os dados para a store
     erro.value = '';
-  } else {
-    erro.value = 'Email ou senha incorretos.';
+  } catch (e) {
+    erro.value = e.message; // Pega o erro lançado pela store
   }
 };
 
-const sair = () => {
-  usuarioLogado.value = null;
-  localStorage.removeItem('usuario_logado');
-  form.email = '';
-  form.senha = '';
-  modo.value = 'login';
+const handleCadastro = () => {
+  try {
+    authStore.cadastrar(form.nome,form.senha);
+    alert('Conta criada com sucesso! Faça login.');
+    trocarModo('login');
+  } catch (e) {
+    erro.value = e.message;
+  }
+};
+
+const trocarModo = (novoModo) => {
+  modo.value = novoModo;
+  erro.value = '';
+  // Limpar formulário se desejar
+  form.nome = ''; form.senha = '';
 };
 </script>
 
 <style scoped>
-
+/* O CSS permanece exatamente igual ao seu original */
 .auth-container { display: flex; justify-content: center; margin-top: 50px; font-family: sans-serif; }
 .auth-box, .dashboard-box { width: 300px; padding: 30px; border: 1px solid #ccc; border-radius: 10px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
 input { width: 100%; padding: 10px; margin: 10px 0; box-sizing: border-box; border: 1px solid #ddd; border-radius: 5px; }

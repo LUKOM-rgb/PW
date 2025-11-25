@@ -1,60 +1,45 @@
 import { defineStore } from 'pinia';
-import router from '@/router';
+import { ref } from 'vue';
 
-export const useAuthStore = defineStore('auth', {
-  state: () => ({
-    // Carrega o usuário se ele já estiver salvo no navegador
-    user: JSON.parse(localStorage.getItem('current_user')) || null,
-  }),
-  
-  getters: {
-    isAuthenticated: (state) => !!state.user,
-  },
+export const useAuthStore = defineStore('auth', () => {
+    // ESTADO (State)
+    // Inicializa verificando se já existe salvo no storage
+    const user = ref(JSON.parse(localStorage.getItem('usuario_logado')) || null);
 
-  actions: {
-    async register(userData) {
-      // Simula delay
-      await new Promise(resolve => setTimeout(resolve, 300));
+    // AÇÕES (Actions)
+    
+    function cadastrar(nome,senha) {
+        // Simula o banco de dados
+        const bancoUsers = JSON.parse(localStorage.getItem('users_db')) || [];
 
-      const usersDB = JSON.parse(localStorage.getItem('users_db')) || [];
-      
-      if (usersDB.find(u => u.email === userData.email)) {
-        throw new Error('Este email já está cadastrado.');
-      }
+        if (bancoUsers.find(u => u.nome === nome)) {
+            throw new Error('Este email já existe!');
+        }
 
-      const newUser = { 
-        id: Date.now(), 
-        name: userData.name, 
-        email: userData.email, 
-        password: userData.password 
-      };
-
-      usersDB.push(newUser);
-      localStorage.setItem('users_db', JSON.stringify(usersDB));
-      
-      // Loga automaticamente após criar
-      this.login(userData);
-    },
-
-    async login({ email, password }) {
-      await new Promise(resolve => setTimeout(resolve, 300));
-
-      const usersDB = JSON.parse(localStorage.getItem('users_db')) || [];
-      const validUser = usersDB.find(u => u.email === email && u.password === password);
-
-      if (validUser) {
-        this.user = validUser;
-        localStorage.setItem('current_user', JSON.stringify(validUser));
-        router.push('/dashboard');
-      } else {
-        throw new Error('Email ou senha incorretos.');
-      }
-    },
-
-    logout() {
-      this.user = null;
-      localStorage.removeItem('current_user');
-      router.push('/login');
+        const novoUser = { nome, senha };
+        bancoUsers.push(novoUser);
+        localStorage.setItem('users_db', JSON.stringify(bancoUsers));
     }
-  }
+
+    function login(nome, senha) {
+        const bancoUsers = JSON.parse(localStorage.getItem('users_db')) || [];
+        
+        const userEncontrado = bancoUsers.find(
+            u => u.nome === nome && u.senha === senha
+        );
+
+        if (userEncontrado) {
+            user.value = userEncontrado;
+            localStorage.setItem('usuario_logado', JSON.stringify(userEncontrado));
+        } else {
+            throw new Error('Nome ou senha incorretos.');
+        }
+    }
+
+    function logout() {
+        user.value = null;
+        localStorage.removeItem('usuario_logado');
+    }
+
+    return { user, cadastrar, login, logout };
 });
