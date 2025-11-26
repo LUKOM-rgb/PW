@@ -51,21 +51,38 @@ const router = createRouter({
       path: "/Dashboard",
       name: "Dashboard",
       component: () => import('../views/DashboardView.vue'),
-      meta: { requiresAuth: true } 
+      meta: { 
+          requiresAuth: true, 
+          apenasPara: 'admin' // <--- AQUI ESTÁ A REGRA
+      } 
     }
   ],
 })
 
-// --- O GUARDIÃO (Faltava isto) ---
 router.beforeEach((to, from, next) => {
-  // Inicializamos a store DENTRO do guard para evitar erros de inicialização
   const authStore = useAuthStore();
 
+  // 1. VERIFICAÇÃO DE LOGIN (Autenticação)
+  // Se a rota exige auth e não temos user -> Login
   if (to.meta.requiresAuth && !authStore.user) {
-    next('/login'); // Manda para o login
-  } else {
-    next(); // Deixa passar
+    return next('/login');
   }
+
+  // 2. VERIFICAÇÃO DE NOME (Autorização)
+  // Se a rota tem a regra 'apenasPara' definida...
+  if (to.meta.apenasPara) {
+    
+    // ...verificamos se o nome do user logado é diferente do exigido
+    if (authStore.user.nome !== to.meta.apenasPara) {
+      
+      // Se for diferente, barramos a entrada!
+      alert('Acesso negado! Esta página é apenas para: ' + to.meta.apenasPara);
+      return next('/'); // Manda de volta para uma página segura
+    }
+  }
+
+  // 3. Se passou por tudo, deixa entrar
+  next();
 });
 
 export default router
