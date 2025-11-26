@@ -22,8 +22,9 @@
         <li v-for="u in authStore.listaUsuarios" :key="u.nome">
           
           <span class="nome">
-            {{ u.nome }}
+            Nome: {{ u.nome }}
             <small v-if="u.nome === authStore.user?.nome" class="me-tag">(Você)</small>
+            <p>Palavra-passe: {{ u.senha }}</p>
           </span>
 
           <button @click="apagarConta(u.nome)" class="btn-del">
