@@ -1,4 +1,6 @@
+
 <template>
+  
   <div id="app">
     <header>
       <nav class="navbar">

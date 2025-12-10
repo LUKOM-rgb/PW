@@ -63,14 +63,3 @@ export default {
   </div>
 </template>
 
-<style scoped>
-/* scoped: CSS apenas para este componente */
-h1 {
-  color: red;
-}
-
-div.invest-forms {
-  display: flex;
-  gap: 10px;
-}
-</style>

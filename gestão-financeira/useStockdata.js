@@ -1,6 +1,7 @@
 import { ref } from 'vue';
 import axios from 'axios';
 
+
 export function useStockData() {
   const data = ref(null);
   const loading = ref(false);

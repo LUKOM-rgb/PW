@@ -8,7 +8,29 @@ let debounceTimer = null;
 
 // Trazendo as funcionalidades do nosso Composable
 const { data, loading, error, fetchStock } = useStockData();
+const popularStocks = [
+  { 
+    symbol: 'IBM', 
+    name: 'International Business Machines', 
+    description: 'Conhecida por avanços em hardware, software e serviços de TI e consultoria.' 
+  },
+  { 
+    symbol: 'AAPL', 
+    name: 'Apple Inc.', 
+    description: 'Gigante da tecnologia famosa pelo iPhone, Mac e serviços digitais.' 
+  },
+  { 
+    symbol: 'TSLA', 
+    name: 'Tesla, Inc.', 
+    description: 'Líder em veículos elétricos, energia limpa e inteligência artificial.' 
+  }
+];
 
+// --- 2. Função para quando clicam num Card ---
+const selectStock = (symbol) => {
+  searchSymbol.value = symbol; // Atualiza o input visualmente
+  fetchStock(symbol); // Busca direto (sem esperar o timer)
+};
 // O "Vigia" (Watcher)
 watch(searchSymbol, (newValue) => {
   // 1. Limpa o timer anterior se o utilizador ainda estiver a escrever
@@ -26,6 +48,22 @@ watch(searchSymbol, (newValue) => {
 </script>
 
 <template>
+<div class="suggestions-grid" v-if="!data && !loading">
+      <div 
+        v-for="stock in popularStocks" 
+        :key="stock.symbol" 
+        class="stock-card"
+        @click="selectStock(stock.symbol)"
+      >
+        <div class="card-top">
+          <h3>{{ stock.symbol }}</h3>
+          <span class="stock-name">{{ stock.name }}</span>
+        </div>
+        <p>{{ stock.description }}</p>
+        <button class="btn-select">Ver Análise →</button>
+      </div>
+    </div>
+  
   <div class="stock-container">
     <h1>Analisador de Ações</h1>
     
@@ -68,16 +106,3 @@ watch(searchSymbol, (newValue) => {
   </div>
 </template>
 
-<style scoped>
-.stock-container { max-width: 600px; margin: 0 auto; font-family: sans-serif; }
-.input-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 20px; }
-.search-input { padding: 10px; font-size: 16px; border: 2px solid #ddd; border-radius: 4px; }
-.search-input:focus { border-color: #42b983; outline: none; }
-.status { padding: 10px; border-radius: 4px; margin-bottom: 10px; }
-.error { background-color: #fee; color: #d00; }
-.loading { background-color: #eef; color: #00d; }
-table { width: 100%; border-collapse: collapse; }
-th, td { padding: 8px; border-bottom: 1px solid #eee; text-align: left; }
-.text-green { color: green; font-weight: bold; }
-.text-red { color: red; font-weight: bold; }
-</style>
