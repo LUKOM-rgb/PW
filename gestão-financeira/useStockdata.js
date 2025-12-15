@@ -10,7 +10,7 @@ export function useStockData() {
   const API_KEY = import.meta.env.VITE_ALPHA_VANTAGE_API_KEY;
 
   const fetchStock = async (symbol) => {
-    // Limpar estados anteriores
+    
     data.value = null;
     error.value = null;
     

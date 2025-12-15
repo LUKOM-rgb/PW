@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-// Importação da Store para verificar se o user existe
 import { useAuthStore } from '../../stores/auth.js'
 import HomeView from '../views/HomeView.vue'
 import FerramentasView from '../views/FerramentasView.vue'
@@ -52,7 +51,7 @@ const router = createRouter({
       component: () => import('../views/DashboardView.vue'),
       meta: { 
           requiresAuth: true, 
-          apenasPara: 'admin' // <--- AQUI ESTÁ A REGRA
+          apenasPara: 'admin' 
       } 
     }
   ],
@@ -61,26 +60,24 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore();
 
-  // 1. VERIFICAÇÃO DE LOGIN (Autenticação)
-  // Se a rota exige auth e não temos user -> Login
+  
   if (to.meta.requiresAuth && !authStore.user) {
     return next('/login');
   }
 
-  // 2. VERIFICAÇÃO DE NOME (Autorização)
-  // Se a rota tem a regra 'apenasPara' definida...
+  
   if (to.meta.apenasPara) {
     
-    // ...verificamos se o nome do user logado é diferente do exigido
+    
     if (authStore.user.nome !== to.meta.apenasPara) {
       
-      // Se for diferente, barramos a entrada!
+      
       alert('Acesso negado! Esta página é apenas para: ' + to.meta.apenasPara);
-      return next('/'); // Manda de volta para uma página segura
+      return next('/'); 
     }
   }
 
-  // 3. Se passou por tudo, deixa entrar
+  
   next();
 });
 

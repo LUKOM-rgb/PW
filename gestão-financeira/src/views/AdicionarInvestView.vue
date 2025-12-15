@@ -1,34 +1,33 @@
 <script>
 export default {
-  // Data: estado reativo do componente
+  
   data() {
     return {
-      investInput: '', // Input ligado ao v-model
-      investArray: [], // Array que armazena os filmes (agora objetos)
-      investId: 1, // ID incremental para cada filme
+      investInput: '', 
+      investArray: [], 
+      investId: 1, 
     }
   },
 
   methods: {
-    // Método para adicionar filme à lista
+    
     addinvest() {
-      // Verificar se o input não está vazio
+      
       if (this.investInput.trim() === '') {
         alert('Por favor, insira o Investimento que quer adicionar.')
-        return // Sai do método sem adicionar
+        return 
       }
 
-      // Cria objeto com nome e ID único
+      
       const newinvest = {
-        id: this.investId++, // Incrementa após cada utilização
+        id: this.investId++, 
         name: this.investInput,
         
-        // Alternativa com UUID (mais robusto):
-        // id: self.crypto.randomUUID(), -> https://developer.mozilla.org/en-US/docs/Web/API/Crypto/randomUUID
+        
       }
 
-      this.investArray.push(newinvest) // Adiciona objeto ao array
-      this.investInput = '' // Limpa o input após adicionar
+      this.investArray.push(newinvest) 
+      this.investInput = '' 
     },
   },
 }
@@ -38,15 +37,14 @@ export default {
 
   <div class="app">
     <div class="invest-forms">
-      <!-- v-model: liga input ao estado -->
-      <!-- @keyup.enter: executa método ao pressionar Enter -->
+      
       <input
         type="text"
         placeholder="Nome do investimento"
         v-model="investInput"
         @keyup.enter="addinvest"
       />
-      <!-- @click: executa método ao clicar -->
+      
       <button @click="addinvest">Adicionar</button>
     </div>
 

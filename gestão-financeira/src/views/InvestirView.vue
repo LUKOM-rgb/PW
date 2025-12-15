@@ -1,6 +1,6 @@
 <script setup>
 // 1. Importar o componente que acabou de criar
-import StockDisplay from '../components/Investir.vue';
+import StockDisplay from '../components/InvestirPesquisa.vue'
 </script>
 
 <template>

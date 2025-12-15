@@ -26,23 +26,22 @@ const popularStocks = [
   }
 ];
 
-// --- 2. Função para quando clicam num Card ---
+
 const selectStock = (symbol) => {
   searchSymbol.value = symbol; // Atualiza o input visualmente
   fetchStock(symbol); // Busca direto (sem esperar o timer)
 };
-// O "Vigia" (Watcher)
+
 watch(searchSymbol, (newValue) => {
-  // 1. Limpa o timer anterior se o utilizador ainda estiver a escrever
   clearTimeout(debounceTimer);
 
-  // 2. Se o campo estiver vazio, não faz nada
+
   if (!newValue) return;
 
-  // 3. Inicia um novo timer. Só chama a API se o utilizador parar por 1 segundo (1000ms)
+  
   debounceTimer = setTimeout(() => {
     console.log(`Buscando dados para: ${newValue}`);
-    fetchStock(newValue.toUpperCase()); // Converte para maiúsculas (ex: apple -> AAPL)
+    fetchStock(newValue.toUpperCase()); 
   }, 1000); 
 });
 </script>
@@ -74,11 +73,11 @@ watch(searchSymbol, (newValue) => {
         placeholder="Escreva aqui..." 
         class="search-input"
       />
-      <small>A busca iniciará 1 segundo após parar de escrever.</small>
+      <small>A procurá iniciará 1 segundo após parar de escrever.</small>
     </div>
 
-    <div v-if="loading" class="status loading">🔄 A carregar dados da API...</div>
-    <div v-if="error" class="status error">⚠️ {{ error }}</div>
+    <div v-if="loading" class="status loading">A carregar dados da API...</div>
+    <div v-if="error" class="status error"> {{ error }}</div>
 
     <div v-if="data && data.length > 0" class="results">
       <h3>Resultados para: {{ searchSymbol.toUpperCase() }}</h3>

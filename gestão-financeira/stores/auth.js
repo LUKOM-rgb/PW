@@ -15,7 +15,7 @@ export const useAuthStore = defineStore('auth', () => {
 
     // --- AÇÕES (ACTIONS) ---
 
-    // A. Cadastrar Novo Utilizador
+    
     function cadastrar(nome, senha) {
         const bancoUsers = JSON.parse(localStorage.getItem('users_db')) || [];
 
@@ -28,7 +28,7 @@ export const useAuthStore = defineStore('auth', () => {
         localStorage.setItem('users_db', JSON.stringify(bancoUsers));
     }
 
-    // B. Fazer Login
+    
     function login(nome, senha) {
         const bancoUsers = JSON.parse(localStorage.getItem('users_db')) || [];
         const userEncontrado = bancoUsers.find(u => u.nome === nome && u.senha === senha);
@@ -41,30 +41,30 @@ export const useAuthStore = defineStore('auth', () => {
         }
     }
 
-    // C. Fazer Logout
+    
     function logout() {
         user.value = null;
         localStorage.removeItem('usuario_logado');
         router.push('/login');
     }
 
-    // D. Carregar Lista (Chamado ao entrar no Dashboard)
+    
     function carregarUsuarios() {
         const dados = localStorage.getItem('users_db');
         listaUsuarios.value = dados ? JSON.parse(dados) : [];
     }
 
-    // E. Remover Utilizador (Elimina do Disco + Memória)
+    
     function removerUsuario(nomeAlvo) {
-        // 1. Atualizar o Banco de Dados (LocalStorage)
+        
         let bancoUsers = JSON.parse(localStorage.getItem('users_db')) || [];
         const novaListaBanco = bancoUsers.filter(u => u.nome !== nomeAlvo);
         localStorage.setItem('users_db', JSON.stringify(novaListaBanco));
 
-        // 2. Atualizar a Memória (Aqui acontece a mágica visual)
+        
         listaUsuarios.value = listaUsuarios.value.filter(u => u.nome !== nomeAlvo);
 
-        // 3. Se eu apaguei a minha própria conta, faz logout forçado
+        
         if (user.value && user.value.nome === nomeAlvo) {
             logout();
         }
