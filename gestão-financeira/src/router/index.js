@@ -32,13 +32,13 @@ const router = createRouter({
       path: '/investir',
       name: 'investir',
       component: () => import('../views/InvestirView.vue'),
-      meta: { requiresAuth: true } 
+      meta: { requiresAuth: true }
     },
     {
       path: '/adicionarinvest',
       name: 'adicionarinvest',
       component: () => import('../views/AdicionarInvestView.vue'),
-      meta: { requiresAuth: true } 
+      meta: { requiresAuth: true }
     },
     {
       path: '/login',
@@ -49,10 +49,10 @@ const router = createRouter({
       path: "/Dashboard",
       name: "Dashboard",
       component: () => import('../views/DashboardView.vue'),
-      meta: { 
-          requiresAuth: true, 
-          apenasPara: 'admin' 
-      } 
+      meta: {
+          requiresAuth: true,
+          apenasPara: 'adamastor'
+      }
     }
   ],
 })
@@ -60,24 +60,24 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore();
 
-  
+
   if (to.meta.requiresAuth && !authStore.user) {
     return next('/login');
   }
 
-  
+
   if (to.meta.apenasPara) {
-    
-    
+
+
     if (authStore.user.nome !== to.meta.apenasPara) {
-      
-      
+
+
       alert('Acesso negado! Esta página é apenas para: ' + to.meta.apenasPara);
-      return next('/'); 
+      return next('/');
     }
   }
 
-  
+
   next();
 });
 
