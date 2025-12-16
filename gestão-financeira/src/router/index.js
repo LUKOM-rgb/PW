@@ -51,7 +51,7 @@ const router = createRouter({
       component: () => import('../views/DashboardView.vue'),
       meta: { 
           requiresAuth: true, 
-          apenasPara: 'admin' 
+          apenasPara: 'adamastor' 
       } 
     }
   ],

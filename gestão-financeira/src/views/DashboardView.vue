@@ -49,9 +49,14 @@ onMounted(() => {
     authStore.carregarUsuarios();
 });
 
-// 2. Função de clique
+
 const apagarConta = (nome) => {
-    if(confirm(`Tem a certeza que quer apagar a conta "${nome}"?`)) {
+    
+  if (nome === "adamastor") {
+        alert('não podes apagar o pai de todos ');
+    }
+  
+  else if(confirm(`Tem a certeza que quer apagar a conta "${nome}"?`)) {
         // Chama a ação da store. A lista atualiza sozinha.
         authStore.removerUsuario(nome);
     }
