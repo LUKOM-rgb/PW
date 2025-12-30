@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
-import apiClient from '../api' // Certifica-te que tens o api.js na pasta src/
+// Sobe um nível (..), entra em 'rc', entra em 'api', escolhe 'api.js'
+import apiClient from '../rc/api/api.js'
 
 export const usarStoreAcoes = defineStore('acoes', {
   state: () => ({

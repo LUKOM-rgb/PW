@@ -40,7 +40,8 @@
 
 <script>
 import { mapStores } from 'pinia'
-import { usarStoreAcoes } from '../stores/acoes' // Importa a nova store
+// Tenta navegar para trás duas vezes para ter a certeza que sais da pasta views
+import { usarStoreAcoes } from '../../stores/acoes.js'
 import LineWithLineChart from '../components/LineWithLineChart'
 
 export default {
