@@ -20,124 +20,194 @@
         <p>Monitore onde você está gastando mais.</p>
       </div>
     </div>
+
     <div class="view home">
       <label>Digite o símbolo (ex: IBM, AAPL, GOOG):</label>
       <input
         v-model="searchSymbol"
         placeholder="Escreva aqui..."
         class="search-input"
+        @input="handleInput"
       />
-      <small>A procurá iniciará 1 segundo após parar de escrever.</small>
+      <small v-if="loading">A pesquisar...</small>
+      <small v-else>A procura iniciará 1 segundo após parar de escrever.</small>
     </div>
 
-
     <div class="chart-wrapper">
-      <h2>Evolução Financeira :{{ searchSymbol.toUpperCase() }}</h2>
+      <h2>Evolução Financeira: {{ searchSymbol?.toUpperCase() }}</h2>
 
-      <div v-if="loading" style="text-align:center; padding: 20px;">A carregar dados...</div>
-      <div v-else-if="error" style="color: #ff6b6b; text-align:center;">{{ error }}</div>
+      <div v-if="loading" style="text-align:center; padding: 20px;">
+        A carregar dados...
+      </div>
+
+      <div v-else-if="error" style="color: #ff6b6b; text-align:center; padding: 20px;">
+        {{ error }}
+      </div>
 
       <div v-else style="height: 400px; width: 100%;">
-        <LineWithLineChart :data="chartData" :options="chartOptions" />
+        <LineWithLineChart
+          v-if="chartData.labels.length > 0"
+          :data="chartData"
+          :options="chartOptions"
+        />
+        <div v-else style="text-align: center; padding: 20px;">
+          Sem dados para exibir.
+        </div>
       </div>
     </div>
 
   </div>
 </template>
-.touppercase
-<script setup>
-import { reactive, watch, onMounted, ref } from 'vue'
+
+<script>
+// 1. Imports normais
 import { useStockData } from '../../useStockdata'
 import LineWithLineChart from '../components/LineWithLineChart'
 
-// --- VARIÁVEIS DE ESTADO --- //
-const { data: stockList, loading, error, fetchStock } = useStockData();
-const searchSymbol = ref('IBM');
-let debounceTimer = null;
+// 2. Imports e Registo do Chart.js (Ficam fora do export default)
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  Filler
+} from 'chart.js'
 
-const chartData = reactive({
-  labels: [],
-  datasets: [
-    {
-      label: 'Evolução do Saldo',
-      backgroundColor: '#333333',
-      borderColor: '#07C',
-      data: [],
-      tension: 0.4,
-      pointRadius: 4,
-      pointHoverRadius: 6
-    }
-  ]
-})
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  Filler
+)
 
-// --- WATCHER 1 : Pesquisa com "Debounce" (Espera 1s) ---//
-watch(searchSymbol, (novoSimbolo) => {
+export default {
+  name: 'FinanceChart', // Opcional, bom para debugging
 
-  clearTimeout(debounceTimer);
-
-  if (!novoSimbolo) return;
-
-  // Inicia nova contagem de 1 segundo
-  debounceTimer = setTimeout(() => {
-    console.log(`A pesquisar: ${novoSimbolo}`);
-    fetchStock(novoSimbolo);
-  }, 1000);
-});
-
-// --- WATCHER 2: Atualizar Gráfico quando chegam dados ---
-watch(stockList, (novosDados) => {
-  if (novosDados && novosDados.length > 0) {
-
-    // Ordenar: Antigo -> Novo
-    const dadosOrdenados = [...novosDados].sort((a, b) =>
-      new Date(a.date) - new Date(b.date)
-    );
-
-    // Atualizar Gráfico
-    chartData.labels = dadosOrdenados.map(item => item.date);
-    chartData.datasets[0].data = dadosOrdenados.map(item => item.close);
-  }
-});
-
-
-onMounted(() => {
-
-  fetchStock(searchSymbol.value);
-});
-
-
-const chartOptions = reactive({
-  responsive: true,
-  maintainAspectRatio: false,
-  interaction: {
-    mode: 'index',
-    intersect: false
+  // Registo de Componentes
+  components: {
+    LineWithLineChart
   },
-  plugins: {
-    tooltip: {
-      enabled: true,
-      intersect: false,
-      backgroundColor: 'rgba(51, 51, 51, 0.9)',
-      titleColor: '#fff',
-      bodyColor: '#fff',
-      position: 'nearest'
-    },
-    legend: {
-      display: true,
-      labels: { color: '#fff' }
+
+  // --- INTEGRAÇÃO DO COMPOSABLE ---
+  // Para usar o teu 'useStockData' na Options API, precisamos disto aqui.
+  // Tudo o que retornares aqui fica disponível no 'this'.
+  setup() {
+    const {
+      stockData: stockList,
+      loadingStock: loading,
+      error,
+      fetchStock
+    } = useStockData();
+
+    return { stockList, loading, error, fetchStock };
+  },
+
+  // --- DADOS REATIVOS (Estado) ---
+  data() {
+    return {
+      searchSymbol: 'IBM',
+      debounceTimer: null,
+
+      // Configuração dos dados do gráfico
+      chartData: {
+        labels: [],
+        datasets: [
+          {
+            label: 'Evolução do Saldo',
+            backgroundColor: 'rgba(7, 204, 255, 0.2)',
+            borderColor: '#07C',
+            borderWidth: 2,
+            data: [],
+            tension: 0.4,
+            pointRadius: 0,
+            pointHoverRadius: 6,
+            fill: true
+          }
+        ]
+      },
+
+      // Opções visuais (pode ficar no data ou computed)
+      chartOptions: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: {
+          mode: 'index',
+          intersect: false,
+        },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            enabled: true,
+            intersect: false,
+            callbacks: {
+              label: (context) => `$ ${context.parsed.y.toFixed(2)}`
+            }
+          }
+        },
+        scales: {
+          x: { display: false },
+          y: {
+            grid: { color: '#444' },
+            ticks: { color: '#fff' }
+          }
+        }
+      }
     }
   },
-  scales: {
-    x: {
-      grid: { color: '#444' },
-      ticks: { color: '#fff' }
+
+  // --- OBSERVADORES (Watchers) ---
+  watch: {
+    // Observar a barra de pesquisa
+    searchSymbol(novoSimbolo) {
+      clearTimeout(this.debounceTimer); // Nota o uso do 'this'
+
+      if (!novoSimbolo) return;
+
+      this.debounceTimer = setTimeout(() => {
+        this.fetchStock(novoSimbolo);
+      }, 1000);
     },
-    y: {
-      grid: { color: '#444' },
-      ticks: { color: '#fff' }
+
+    // Observar os dados que vêm da API (stockList vem do setup)
+    stockList(novosDados) {
+      // Limpar arrays
+      this.chartData.labels = [];
+      this.chartData.datasets[0].data = [];
+
+      if (novosDados && novosDados.length > 0) {
+        console.log("Dados recebidos (Options API):", novosDados.length);
+
+        // Ordenar
+        const dadosOrdenados = [...novosDados].sort((a, b) =>
+          new Date(a.date) - new Date(b.date)
+        );
+
+        // Atualizar Gráfico
+        this.chartData.labels = dadosOrdenados.map(item => item.date);
+        this.chartData.datasets[0].data = dadosOrdenados.map(item => item.close);
+      }
     }
+  },
+
+  // --- CICLO DE VIDA (Lifecycle Hooks) ---
+  mounted() {
+    if (this.searchSymbol) {
+      this.fetchStock(this.searchSymbol);
+    }
+  },
+
+  beforeUnmount() { // Equivalente ao onUnmounted
+    clearTimeout(this.debounceTimer);
   }
-})
+}
 </script>
 <style scoped>
 .body {
@@ -147,12 +217,24 @@ const chartOptions = reactive({
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fonte padrão agradável */
 }
 
 .view.home {
   text-align: center;
   margin-bottom: 40px;
   margin-top: 20px;
+  width: 100%;
+}
+
+.search-input {
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #444;
+  background: #222;
+  color: #fff;
+  margin: 0 10px;
+  text-transform: uppercase; /* Visualmente em maiúsculas */
 }
 
 .cards-container {
@@ -161,7 +243,7 @@ const chartOptions = reactive({
   gap: 20px;
   flex-wrap: wrap;
   margin-bottom: 40px;
-  width: 90%; /* Ajustado para não colar nas bordas */
+  width: 90%;
   max-width: 1200px;
 }
 
@@ -170,8 +252,13 @@ const chartOptions = reactive({
   border-radius: 8px;
   padding: 1.5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-  flex: 1 1 250px; /* Cartões responsivos */
+  flex: 1 1 250px;
   text-align: center;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px); /* Efeito visual ao passar o rato */
 }
 
 .card h3 {

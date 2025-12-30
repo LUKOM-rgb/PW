@@ -2,20 +2,23 @@ import { ref } from 'vue';
 import axios from 'axios';
 
 export function useStockData() {
-  // --- ESTADO (Separado) ---
-  const stockData = ref(null); // Guarda os preços (Gráfico)
-  const newsData = ref([]);    // Guarda as notícias (Blog)
+  // --- ESTADO ---
+  const stockData = ref(null);
+  const newsData = ref([]);
 
-  const loading = ref(false);
+  // Melhoria: Separar os loadings para controlo fino da UI
+  const loadingStock = ref(false);
+  const loadingNews = ref(false);
+
   const error = ref(null);
 
   const API_KEY = import.meta.env.VITE_ALPHA_VANTAGE_API_KEY;
 
-  // --- FUNÇÃO 1: Buscar Preços (Para o Gráfico) ---
+  // --- FUNÇÃO 1: Buscar Preços ---
   const fetchStock = async (symbol) => {
-    loading.value = true;
+    loadingStock.value = true; // Usa loading específico
     error.value = null;
-    stockData.value = null; // Limpa dados antigos
+    stockData.value = null;
 
     try {
       const response = await axios.get(`https://www.alphavantage.co/query`, {
@@ -26,65 +29,71 @@ export function useStockData() {
         }
       });
 
-      if (response.data['Error Message']) throw new Error("Símbolo não encontrado.");
-      if (response.data['Note']) throw new Error("Limite da API excedido.");
+      // Tratamento de erros específicos da Alpha Vantage
+      if (response.data['Error Message']) throw new Error("Símbolo inválido ou não encontrado.");
+      if (response.data['Note']) throw new Error("Limite de API excedido (máx 5/min ou 25/dia).");
 
       const timeSeries = response.data['Time Series (Daily)'];
-      if (timeSeries) {
 
+      if (timeSeries) {
+        // Transformação de Objeto para Array
         stockData.value = Object.entries(timeSeries).map(([date, values]) => ({
           date: date,
-          close: parseFloat(values['4. close'])
+          close: parseFloat(values['4. close']) // Importante: converter string para número
         }));
       }
     } catch (err) {
-      error.value = err.message;
+      error.value = err.message || "Erro ao buscar dados.";
+      console.error(err);
     } finally {
-      loading.value = false;
+      loadingStock.value = false;
     }
   };
 
-
+  // --- FUNÇÃO 2: Buscar Notícias ---
   const fetchNews = async (symbol) => {
-    loading.value = true;
+    loadingNews.value = true; // Usa loading específico
     newsData.value = [];
+    // Nota: Não limpamos o erro global aqui para não esconder erros do gráfico se ocorrerem simultaneamente
 
     try {
       const response = await axios.get(`https://www.alphavantage.co/query`, {
         params: {
-          function: 'NEWS_SENTIMENT', // Endpoint diferente!
+          function: 'NEWS_SENTIMENT',
           tickers: symbol,
-          limit: 10, // Traz 10 notícias
+          limit: 10,
           sort: 'LATEST',
           apikey: API_KEY
         }
       });
 
       if (response.data['feed']) {
-        // Mapeia apenas os dados de texto/notícia
         newsData.value = response.data['feed'].map(item => ({
           title: item.title,
           url: item.url,
           summary: item.summary,
           source: item.source,
           image: item.banner_image,
-          topics: item.topics
+          topics: item.topics,
+          sentiment: item.overall_sentiment_label // Útil para mostrar se é boa/má notícia
         }));
       }
     } catch (err) {
       console.error("Erro notícias:", err);
-
+      // Opcional: Definir um erro específico para notícias se quiseres exibir na UI
     } finally {
-      loading.value = false;
+      loadingNews.value = false;
     }
   };
 
   return {
     stockData,
     newsData,
-    loading,
+    loadingStock, // Retorna loading separado
+    loadingNews,  // Retorna loading separado
     error,
     fetchStock,
     fetchNews
   };
+
 }
