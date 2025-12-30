@@ -14,110 +14,249 @@
     <div class="view home">
       <label>Digite o símbolo (ex: IBM, AAPL):</label>
       <input
-        v-model="simboloPesquisa"
+        v-model="searchSymbol"
         placeholder="Escreva aqui..."
         class="search-input"
+        @input="handleInput"
       />
-      <small>A pesquisa iniciará 1 segundo após parar de escrever.</small>
+      <small v-if="loading">A pesquisar...</small>
+      <small v-else>A procura iniciará 1 segundo após parar de escrever.</small>
     </div>
 
     <div class="chart-wrapper">
-      <h2>Evolução Financeira: {{ simboloPesquisa.toUpperCase() }}</h2>
+      <h2>Evolução Financeira: {{ searchSymbol?.toUpperCase() }}</h2>
 
-      <div v-if="store.aCarregar" style="text-align:center; padding: 20px;">A carregar dados...</div>
-      <div v-else-if="store.erro" style="color: #ff6b6b; text-align:center;">{{ store.erro }}</div>
+      <div v-if="loading" style="text-align:center; padding: 20px;">
+        A carregar dados...
+      </div>
+
+      <div v-else-if="error" style="color: #ff6b6b; text-align:center; padding: 20px;">
+        {{ error }}
+      </div>
 
       <div v-else style="height: 400px; width: 100%;">
         <LineWithLineChart
-            v-if="dadosGrafico.labels.length > 0"
-            :data="dadosGrafico"
-            :options="opcoesGrafico"
+          v-if="chartData.labels.length > 0"
+          :data="chartData"
+          :options="chartOptions"
         />
+        <div v-else style="text-align: center; padding: 20px;">
+          Sem dados para exibir.
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapStores } from 'pinia'
-// Tenta navegar para trás duas vezes para ter a certeza que sais da pasta views
-import { usarStoreAcoes } from '../../stores/acoes.js'
+// 1. Imports normais
+import { useStockData } from '../../useStockdata'
 import LineWithLineChart from '../components/LineWithLineChart'
 
+// 2. Imports e Registo do Chart.js
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  Filler
+} from 'chart.js'
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  Filler
+)
+
 export default {
-  components: { LineWithLineChart },
+  name: 'FinanceChart',
+
+  components: {
+    LineWithLineChart
+  },
+
+  setup() {
+
+    const {
+      stockData: stockList,
+      loadingStock: loading,
+      error,
+      fetchStock
+    } = useStockData();
+
+    return { stockList, loading, error, fetchStock };
+  },
+
   data() {
     return {
-      simboloPesquisa: 'IBM',
-      temporizador: null, // Para o Debounce
+      searchSymbol: 'IBM',
+      debounceTimer: null,
 
-      // Estrutura do Gráfico
-      dadosGrafico: {
+      chartData: {
         labels: [],
-        datasets: [{
-          label: 'Preço de Fecho',
-          backgroundColor: '#333333',
-          borderColor: '#07C',
-          data: [],
-          tension: 0.4,
-          pointRadius: 0 // Melhor performance visual
-        }]
+        datasets: [
+          {
+            label: 'Evolução do Saldo',
+            backgroundColor: 'rgba(7, 204, 255, 0.2)',
+            borderColor: '#07C',
+            borderWidth: 2,
+            data: [],
+            tension: 0.4,
+            pointRadius: 0,
+            pointHoverRadius: 6,
+            fill: true
+          }
+        ]
       },
-      opcoesGrafico: {
+
+      chartOptions: {
         responsive: true,
         maintainAspectRatio: false,
-        interaction: { mode: 'index', intersect: false },
-        plugins: { legend: { labels: { color: '#fff' } } },
+        interaction: {
+          mode: 'index',
+          intersect: false,
+        },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            enabled: true,
+            intersect: false,
+            callbacks: {
+              label: (context) => `$ ${context.parsed.y.toFixed(2)}`
+            }
+          }
+        },
         scales: {
-          x: { ticks: { color: '#fff' }, grid: { color: '#444' } },
-          y: { ticks: { color: '#fff' }, grid: { color: '#444' } }
+          x: { display: false },
+          y: {
+            grid: { color: '#444' },
+            ticks: { color: '#fff' }
+          }
         }
       }
     }
   },
-  computed: {
-    ...mapStores(usarStoreAcoes),
-    store() { return this.acoesStore }, // Atalho
-    // Helper para observar mudanças na lista da store
-    listaAcoes() { return this.store.dadosAcao }
-  },
-  watch: {
-    // 1. Debounce da Pesquisa (Espera o utilizador parar de escrever)
-    simboloPesquisa(novoValor) {
-      clearTimeout(this.temporizador)
-      if (!novoValor) return
 
-      this.temporizador = setTimeout(() => {
-        this.store.buscarAcao(novoValor)
-      }, 1000)
+  // CORREÇÃO 2: Adicionado bloco de métodos
+  methods: {
+    handleInput(event) {
+      this.searchSymbol = event.target.value.toUpperCase();
+    }
+  },
+
+  watch: {
+    searchSymbol(novoSimbolo) {
+      clearTimeout(this.debounceTimer);
+      if (!novoSimbolo) return;
+
+      this.debounceTimer = setTimeout(() => {
+        // 'this.fetchStock' funciona porque o retornámos no setup()
+        this.fetchStock(novoSimbolo);
+      }, 1000);
     },
 
-    // 2. Atualizar o Gráfico quando a Store mudar
-    listaAcoes(novosDados) {
-      if (novosDados && novosDados.length > 0) {
-        // Ordenar data (Antigo -> Novo)
-        const ordenado = [...novosDados].sort((a, b) => new Date(a.date) - new Date(b.date))
+    stockList(novosDados) {
+      this.chartData.labels = [];
+      this.chartData.datasets[0].data = [];
 
-        this.dadosGrafico.labels = ordenado.map(d => d.date)
-        this.dadosGrafico.datasets[0].data = ordenado.map(d => d.close)
-      } else {
-          this.dadosGrafico.labels = []
-          this.dadosGrafico.datasets[0].data = []
+      if (novosDados && novosDados.length > 0) {
+        console.log("Dados recebidos:", novosDados.length);
+
+        const dadosOrdenados = [...novosDados].sort((a, b) =>
+          new Date(a.date) - new Date(b.date)
+        );
+
+        this.chartData.labels = dadosOrdenados.map(item => item.date);
+        this.chartData.datasets[0].data = dadosOrdenados.map(item => item.close);
       }
     }
   },
+
   mounted() {
-    // Carrega dados iniciais
-    this.store.buscarAcao(this.simboloPesquisa)
+    if (this.searchSymbol) {
+      this.fetchStock(this.searchSymbol);
+    }
+  },
+
+  beforeUnmount() {
+    clearTimeout(this.debounceTimer);
   }
 }
 </script>
 
 <style scoped>
-/* O teu CSS mantém-se igual */
-.body { min-height: 100vh; color: #fff; width: 100%; display: flex; flex-direction: column; align-items: center; }
-.cards-container { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 40px; justify-content: center; width: 90%; max-width: 1200px; }
-.card { background: #333; border-radius: 8px; padding: 1.5rem; flex: 1 1 250px; text-align: center; }
-.chart-wrapper { background-color: #2a2a2a; padding: 20px; border-radius: 12px; width: 90%; max-width: 1200px; }
-.search-input { padding: 10px; margin: 10px 0; border-radius: 4px; border: none; width: 200px; }
+.body {
+  min-height: 100vh;
+  color: #fff;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.view.home {
+  text-align: center;
+  margin-bottom: 40px;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.search-input {
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #444;
+  background: #222;
+  color: #fff;
+  margin: 0 10px;
+  text-transform: uppercase;
+}
+
+.cards-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+  width: 90%;
+  max-width: 1200px;
+}
+
+.card {
+  background: #333333;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  flex: 1 1 250px;
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card h3 {
+  margin-top: 0;
+  color: #07C;
+}
+
+.chart-wrapper {
+  background-color: #2a2a2a;
+  padding: 20px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 1200px;
+  margin-bottom: 40px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
 </style>
