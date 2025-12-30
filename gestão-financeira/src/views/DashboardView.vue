@@ -23,7 +23,7 @@
 
           <span class="nome">
             Nome: {{ u.nome }}
-            <small v-if="u.nome === authStore.user?.nome" class="me-tag">(TUS)</small>
+            <small v-if="u.nome === authStore.user?.nome" class="me-tag">(TU)</small>
             <p>Palavra-passe: {{ u.senha }}</p>
           </span>
 

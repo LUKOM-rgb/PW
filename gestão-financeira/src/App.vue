@@ -1,8 +1,9 @@
 
 <template>
-  
   <div id="app">
-    <header>
+
+    <div class="content-body">
+
       <nav class="navbar">
         <h1 class="logo">Gestão Financeira</h1>
         <ul>
@@ -15,16 +16,15 @@
           <li><router-link to="/Dashboard">Dashboard</router-link></li>
         </ul>
       </nav>
-    </header>
 
-    <!-- Aqui é onde as páginas (views) vão ser renderizadas -->
-    <main>
-      <router-view />
-    </main> 
+      <main>
+        <router-view />
+      </main>
 
-    <footer>
+    </div> <footer>
       <p>© 2025 Gestão Financeira — Todos os direitos reservados.</p>
     </footer>
+
   </div>
 </template>
 
@@ -33,55 +33,88 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background: #f5f7fa;
-  color: #333;
+  background-color: #020B19;
   font-family: 'Inter', sans-serif;
+
 }
 
-/* NAVBAR */
-header {
-  background-color: #120A8F;
-  color: white;
-  padding: 1rem 2rem;
-}
 
-.navbar {
+.header {
+  flex-shrink: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 1rem 2rem;
+  background-color: #020B19;
+  color: white;
+  height: 60px;
+  box-sizing: border-box;
+}
+
+/* --- NOVO CONTAINER --- */
+.content-body {
+  display: flex;
+  flex: 1;
+  color: #ccc;
+}
+
+/* NAVBAR (Lateral) */
+.navbar {
+  width: 200px;
+  background-color: #020B19;
+  flex-shrink: 0;
 }
 
 .navbar ul {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  padding-inline-start: 0;
   display: flex;
-  list-style: none;
-  gap: 1.5rem;
+  flex-direction: column;
+  padding-left: 10px;
   margin: 0;
-  padding: 0;
+  list-style: none;
 }
 
 .navbar a {
-  color: white;
+  color: #ccc;
   text-decoration: none;
   font-weight: 500;
+  display: block;
+  padding: 12px;
+  border-radius: 4px;
+  transition: 0.2s;
 }
-
+.navbar a:hover {
+  background-color: #002b73;
+  color: white;
+}
 .navbar a.router-link-active {
-  border-bottom: 2px solid white;
+  background-color: #002b73;
+  color: white;
+  border-left: 4px solid #4a90e2;
 }
 
 /* MAIN CONTENT */
 main {
-  flex: 1;
+  flex-grow: 1;
   padding: 2rem;
-  max-width: 900px;
-  margin: 0 auto;
+
+  width: calc(100% - 250px);
 }
 
 /* FOOTER */
 footer {
-  background-color: #002b73;
+  background-color: #020B19;
   color: white;
   text-align: center;
   padding: 1rem;
+  flex-shrink: 0;
 }
+.logo {
+  font-size: 1.5rem;
+  padding-left: 10px;
+}
+
 </style>

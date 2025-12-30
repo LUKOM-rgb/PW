@@ -27,7 +27,7 @@
 
 <script>
 // IMPORTAR: Importar a função do Pinia Store
-import { useTrackingStore } from '../stores/tracking'
+
 
 export default {
   name: 'SimuladorCredito',
@@ -42,10 +42,7 @@ export default {
     };
   },
   // Hook de ciclo de vida para inicializar o Store
-  created() {
-      // Cria a instância do store e torna-a acessível via 'this.trackingStore'
-      this.trackingStore = useTrackingStore();
-  },
+
   methods: {
     calcularEmprestimo() { // Conteúdo existente
       if (!this.emprestimo || !this.taxa || !this.prazo) {
@@ -57,12 +54,9 @@ export default {
       const resultado = (this.emprestimo * i) / (1 - Math.pow(1 + i, -n));
       this.resultadoTotal = `${resultado.toFixed(2)} €`;
 
-      // === ADICIONAR O REGISTO DE TRACKING E XP AQUI ===
-      if (this.emprestimo > 0 && this.taxa > 0 && this.prazo > 0) {
-        // Recompensa de 10 XP por completar a simulação
-        this.trackingStore.registerAction('Simulação de Crédito Habitação Concluída', 10);
-      }
-      // ================================================
+
+
+
     },
     limparEmprestimo() { // Conteúdo existente
       this.emprestimo = this.taxa = this.prazo = null;

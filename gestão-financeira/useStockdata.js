@@ -1,22 +1,21 @@
 import { ref } from 'vue';
 import axios from 'axios';
 
-
 export function useStockData() {
-  const data = ref(null);
+  // --- ESTADO (Separado) ---
+  const stockData = ref(null); // Guarda os preços (Gráfico)
+  const newsData = ref([]);    // Guarda as notícias (Blog)
+
   const loading = ref(false);
   const error = ref(null);
-  
+
   const API_KEY = import.meta.env.VITE_ALPHA_VANTAGE_API_KEY;
 
+  // --- FUNÇÃO 1: Buscar Preços (Para o Gráfico) ---
   const fetchStock = async (symbol) => {
-    
-    data.value = null;
-    error.value = null;
-    
-    if (!symbol) return;
-
     loading.value = true;
+    error.value = null;
+    stockData.value = null; // Limpa dados antigos
 
     try {
       const response = await axios.get(`https://www.alphavantage.co/query`, {
@@ -27,27 +26,17 @@ export function useStockData() {
         }
       });
 
-      // Validar erros da API (Alpha Vantage retorna 200 mesmo com erro)
-      if (response.data['Error Message']) {
-        throw new Error(`Símbolo '${symbol}' não encontrado.`);
-      }
-      if (response.data['Note']) {
-        throw new Error("Limite da API excedido. Aguarde 1 minuto.");
-      }
+      if (response.data['Error Message']) throw new Error("Símbolo não encontrado.");
+      if (response.data['Note']) throw new Error("Limite da API excedido.");
 
-      // --- TRATAMENTO DOS DADOS ---
       const timeSeries = response.data['Time Series (Daily)'];
       if (timeSeries) {
-        data.value = Object.entries(timeSeries).map(([date, values]) => ({
+
+        stockData.value = Object.entries(timeSeries).map(([date, values]) => ({
           date: date,
-          open: parseFloat(values['1. open']),
-          high: parseFloat(values['2. high']),
-          low: parseFloat(values['3. low']),
-          close: parseFloat(values['4. close']),
-          volume: parseInt(values['5. volume'])
+          close: parseFloat(values['4. close'])
         }));
       }
-
     } catch (err) {
       error.value = err.message;
     } finally {
@@ -55,10 +44,47 @@ export function useStockData() {
     }
   };
 
+
+  const fetchNews = async (symbol) => {
+    loading.value = true;
+    newsData.value = [];
+
+    try {
+      const response = await axios.get(`https://www.alphavantage.co/query`, {
+        params: {
+          function: 'NEWS_SENTIMENT', // Endpoint diferente!
+          tickers: symbol,
+          limit: 10, // Traz 10 notícias
+          sort: 'LATEST',
+          apikey: API_KEY
+        }
+      });
+
+      if (response.data['feed']) {
+        // Mapeia apenas os dados de texto/notícia
+        newsData.value = response.data['feed'].map(item => ({
+          title: item.title,
+          url: item.url,
+          summary: item.summary,
+          source: item.source,
+          image: item.banner_image,
+          topics: item.topics
+        }));
+      }
+    } catch (err) {
+      console.error("Erro notícias:", err);
+
+    } finally {
+      loading.value = false;
+    }
+  };
+
   return {
-    data,
+    stockData,
+    newsData,
     loading,
     error,
-    fetchStock
+    fetchStock,
+    fetchNews
   };
 }

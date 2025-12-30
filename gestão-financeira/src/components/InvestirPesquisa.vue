@@ -1,56 +1,9 @@
-<script setup>
-import { ref, watch } from 'vue';
-import { useStockData } from '../../useStockdata'; // Importa a lógica que criamos acima
-
-// Variável ligada ao Input
-const searchSymbol = ref('');
-let debounceTimer = null;
-
-// Trazendo as funcionalidades do nosso Composable
-const { data, loading, error, fetchStock } = useStockData();
-const popularStocks = [
-  { 
-    symbol: 'IBM', 
-    name: 'International Business Machines', 
-    description: 'Conhecida por avanços em hardware, software e serviços de TI e consultoria.' 
-  },
-  { 
-    symbol: 'AAPL', 
-    name: 'Apple Inc.', 
-    description: 'Gigante da tecnologia famosa pelo iPhone, Mac e serviços digitais.' 
-  },
-  { 
-    symbol: 'TSLA', 
-    name: 'Tesla, Inc.', 
-    description: 'Líder em veículos elétricos, energia limpa e inteligência artificial.' 
-  }
-];
-
-
-const selectStock = (symbol) => {
-  searchSymbol.value = symbol; // Atualiza o input visualmente
-  fetchStock(symbol); // Busca direto (sem esperar o timer)
-};
-
-watch(searchSymbol, (newValue) => {
-  clearTimeout(debounceTimer);
-
-
-  if (!newValue) return;
-
-  
-  debounceTimer = setTimeout(() => {
-    console.log(`Buscando dados para: ${newValue}`);
-    fetchStock(newValue.toUpperCase()); 
-  }, 1000); 
-});
-</script>
 
 <template>
 <div class="suggestions-grid" v-if="!data && !loading">
-      <div 
-        v-for="stock in popularStocks" 
-        :key="stock.symbol" 
+      <div
+        v-for="stock in popularStocks"
+        :key="stock.symbol"
         class="stock-card"
         @click="selectStock(stock.symbol)"
       >
@@ -62,15 +15,15 @@ watch(searchSymbol, (newValue) => {
         <button class="btn-select">Ver Análise →</button>
       </div>
     </div>
-  
+
   <div class="stock-container">
     <h1>Analisador de Ações</h1>
-    
+
     <div class="input-group">
       <label>Digite o símbolo (ex: IBM, AAPL, GOOG):</label>
-      <input 
-        v-model="searchSymbol" 
-        placeholder="Escreva aqui..." 
+      <input
+        v-model="searchSymbol"
+        placeholder="Escreva aqui..."
         class="search-input"
       />
       <small>A procurá iniciará 1 segundo após parar de escrever.</small>
@@ -104,4 +57,51 @@ watch(searchSymbol, (newValue) => {
     </div>
   </div>
 </template>
+<script setup>
+import { ref, watch } from 'vue';
+import { useStockData } from '../../useStockdata'; // Importa a lógica que criamos acima
+
+// Variável ligada ao Input
+const searchSymbol = ref('');
+let debounceTimer = null;
+
+// Trazendo as funcionalidades do nosso Composable
+const { data, loading, error, fetchStock } = useStockData();
+const popularStocks = [
+  {
+    symbol: 'IBM',
+    name: 'International Business Machines',
+    description: 'Conhecida por avanços em hardware, software e serviços de TI e consultoria.'
+  },
+  {
+    symbol: 'AAPL',
+    name: 'Apple Inc.',
+    description: 'Gigante da tecnologia famosa pelo iPhone, Mac e serviços digitais.'
+  },
+  {
+    symbol: 'TSLA',
+    name: 'Tesla, Inc.',
+    description: 'Líder em veículos elétricos, energia limpa e inteligência artificial.'
+  }
+];
+
+
+const selectStock = (symbol) => {
+  searchSymbol.value = symbol; // Atualiza o input visualmente
+  fetchStock(symbol); // Busca direto (sem esperar o timer)
+};
+
+watch(searchSymbol, (newValue) => {
+  clearTimeout(debounceTimer);
+
+
+  if (!newValue) return;
+
+
+  debounceTimer = setTimeout(() => {
+    console.log(`Buscando dados para: ${newValue}`);
+    fetchStock(newValue.toUpperCase());
+  }, 1000);
+});
+</script>
 
