@@ -1,35 +1,24 @@
 import { defineStore } from 'pinia'
-// Sobe um nível (..), entra em 'rc', entra em 'api', escolhe 'api.js'
-import apiClient from '../rc/api/api.js'
+import axios from 'axios'
 
 export const usarStoreAcoes = defineStore('acoes', {
   state: () => ({
-    dadosAcao: [],      // Para o gráfico
-    dadosNoticias: [],  // Para o blog
+    dadosAcao: [],
+    dadosNoticias: [],
     aCarregar: false,
     erro: null
   }),
-
   actions: {
-    // 1. Buscar Preços
     async buscarAcao(simbolo) {
       this.aCarregar = true
       this.erro = null
       this.dadosAcao = []
 
       try {
-        // Usa o apiClient que já tem a API Key configurada
-        const resposta = await apiClient.get('/query', {
-          params: {
-            function: 'TIME_SERIES_DAILY',
-            symbol: simbolo
-          }
-        })
-
-        if (resposta.data['Error Message']) throw new Error("Símbolo não encontrado.")
-        if (resposta.data['Note']) throw new Error("Limite da API excedido.")
-
-        const serieTemporal = resposta.data['Time Series (Daily)']
+        // Pega sempre os dados fixos do db.json (simulação)
+        const resposta = await axios.get('http://localhost:3000/stock')
+        const dados = resposta.data[0]
+        const serieTemporal = dados['Time Series (Daily)']
 
         if (serieTemporal) {
           this.dadosAcao = Object.entries(serieTemporal).map(([data, valores]) => ({
@@ -40,35 +29,22 @@ export const usarStoreAcoes = defineStore('acoes', {
           }))
         }
       } catch (e) {
-        this.erro = e.message || 'Erro ao buscar dados.'
+        this.erro = 'Erro: O servidor json-server está ligado?'
         console.error(e)
       } finally {
         this.aCarregar = false
       }
     },
 
-    // 2. Buscar Notícias
     async buscarNoticias(topico) {
       this.aCarregar = true
       this.erro = null
-      this.dadosNoticias = []
-
       try {
-        const resposta = await apiClient.get('/query', {
-          params: {
-            function: 'NEWS_SENTIMENT',
-            tickers: topico,
-            limit: 10,
-            sort: 'LATEST'
-          }
-        })
-
-        if (resposta.data.feed) {
-           this.dadosNoticias = resposta.data.feed
-        }
+        const resposta = await axios.get('http://localhost:3000/news')
+        const dados = resposta.data[0]
+        if (dados.feed) this.dadosNoticias = dados.feed
       } catch (e) {
-        console.error(e)
-        this.erro = 'Não foi possível carregar as notícias.'
+        this.erro = 'Erro ao carregar notícias.'
       } finally {
         this.aCarregar = false
       }

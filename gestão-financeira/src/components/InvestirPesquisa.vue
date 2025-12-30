@@ -1,107 +1,48 @@
-
 <template>
-<div class="suggestions-grid" v-if="!data && !loading">
-      <div
-        v-for="stock in popularStocks"
-        :key="stock.symbol"
-        class="stock-card"
-        @click="selectStock(stock.symbol)"
-      >
-        <div class="card-top">
-          <h3>{{ stock.symbol }}</h3>
-          <span class="stock-name">{{ stock.name }}</span>
-        </div>
-        <p>{{ stock.description }}</p>
-        <button class="btn-select">Ver Análise →</button>
-      </div>
-    </div>
-
   <div class="stock-container">
     <h1>Analisador de Ações</h1>
+    <input v-model="termo" placeholder="Pesquisar..." class="search-input" />
 
-    <div class="input-group">
-      <label>Digite o símbolo (ex: IBM, AAPL, GOOG):</label>
-      <input
-        v-model="searchSymbol"
-        placeholder="Escreva aqui..."
-        class="search-input"
-      />
-      <small>A procurá iniciará 1 segundo após parar de escrever.</small>
-    </div>
+    <div v-if="store.aCarregar">A carregar do servidor...</div>
 
-    <div v-if="loading" class="status loading">A carregar dados da API...</div>
-    <div v-if="error" class="status error"> {{ error }}</div>
-
-    <div v-if="data && data.length > 0" class="results">
-      <h3>Resultados para: {{ searchSymbol.toUpperCase() }}</h3>
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th>Data</th>
-              <th>Fecho ($)</th>
-              <th>Volume</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="day in data.slice(0, 5)" :key="day.date">
-              <td>{{ day.date }}</td>
-              <td :class="{'text-green': day.close > day.open, 'text-red': day.close < day.open}">
-                {{ day.close.toFixed(2) }}
-              </td>
-              <td>{{ day.volume.toLocaleString() }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+    <div v-if="store.dadosAcao.length" class="table-wrapper">
+      <table>
+        <thead><tr><th>Data</th><th>Fecho ($)</th></tr></thead>
+        <tbody>
+          <tr v-for="dia in store.dadosAcao" :key="dia.date">
+            <td>{{ dia.date }}</td>
+            <td>{{ dia.close }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
-<script setup>
-import { ref, watch } from 'vue';
-import { useStockData } from '../../useStockdata'; // Importa a lógica que criamos acima
 
-// Variável ligada ao Input
-const searchSymbol = ref('');
-let debounceTimer = null;
+<script>
+import { mapStores } from 'pinia'
+import { usarStoreAcoes } from '../stores/acoes.js'
 
-// Trazendo as funcionalidades do nosso Composable
-const { data, loading, error, fetchStock } = useStockData();
-const popularStocks = [
-  {
-    symbol: 'IBM',
-    name: 'International Business Machines',
-    description: 'Conhecida por avanços em hardware, software e serviços de TI e consultoria.'
+export default {
+  data() {
+    return { termo: '', timer: null }
   },
-  {
-    symbol: 'AAPL',
-    name: 'Apple Inc.',
-    description: 'Gigante da tecnologia famosa pelo iPhone, Mac e serviços digitais.'
+  computed: {
+    ...mapStores(usarStoreAcoes),
+    store() { return this.acoesStore }
   },
-  {
-    symbol: 'TSLA',
-    name: 'Tesla, Inc.',
-    description: 'Líder em veículos elétricos, energia limpa e inteligência artificial.'
+  watch: {
+    termo(novo) {
+      clearTimeout(this.timer)
+      if(novo) this.timer = setTimeout(() => this.store.buscarAcao(novo), 500)
+    }
   }
-];
-
-
-const selectStock = (symbol) => {
-  searchSymbol.value = symbol; // Atualiza o input visualmente
-  fetchStock(symbol); // Busca direto (sem esperar o timer)
-};
-
-watch(searchSymbol, (newValue) => {
-  clearTimeout(debounceTimer);
-
-
-  if (!newValue) return;
-
-
-  debounceTimer = setTimeout(() => {
-    console.log(`Buscando dados para: ${newValue}`);
-    fetchStock(newValue.toUpperCase());
-  }, 1000);
-});
+}
 </script>
 
+<style scoped>
+.stock-container { color: white; padding: 20px; }
+.search-input { padding: 10px; margin-bottom: 20px; width: 100%; max-width: 300px; }
+table { width: 100%; color: white; border-collapse: collapse; }
+td, th { border: 1px solid #444; padding: 8px; }
+</style>

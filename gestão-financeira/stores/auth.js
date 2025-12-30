@@ -1,82 +1,23 @@
-import { defineStore } from 'pinia';
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { defineStore } from 'pinia'
 
-export const useAuthStore = defineStore('auth', () => {
-    
-    // --- ESTADO (STATE) ---
-    // 1. Utilizador logado atualmente
-    const user = ref(JSON.parse(localStorage.getItem('usuario_logado')) || null);
-    
-    // 2. Lista de todos os utilizadores (O ecrã vai "olhar" para esta variável)
-    const listaUsuarios = ref([]);
-
-    const router = useRouter();
-
-    // --- AÇÕES (ACTIONS) ---
-
-    
-    function cadastrar(nome, senha) {
-        const bancoUsers = JSON.parse(localStorage.getItem('users_db')) || [];
-
-        if (bancoUsers.find(u => u.nome === nome)) {
-            throw new Error('Este nome de utilizador já existe!');
-        }
-
-        const novoUser = { nome, senha };
-        bancoUsers.push(novoUser);
-        localStorage.setItem('users_db', JSON.stringify(bancoUsers));
+export const usarStoreAuth = defineStore('auth', {
+  state: () => ({
+    user: null,
+    isAuthenticated: false
+  }),
+  actions: {
+    async login(email, password) {
+      // Simulação simples de validação
+      if (email === 'aluno' && password === '123') {
+        this.user = { name: 'Estudante', email: email }
+        this.isAuthenticated = true
+        return true
+      }
+      return false
+    },
+    logout() {
+      this.user = null
+      this.isAuthenticated = false
     }
-
-    
-    function login(nome, senha) {
-        const bancoUsers = JSON.parse(localStorage.getItem('users_db')) || [];
-        const userEncontrado = bancoUsers.find(u => u.nome === nome && u.senha === senha);
-
-        if (userEncontrado) {
-            user.value = userEncontrado;
-            localStorage.setItem('usuario_logado', JSON.stringify(userEncontrado));
-        } else {
-            throw new Error('Nome ou senha incorretos.');
-        }
-    }
-
-    
-    function logout() {
-        user.value = null;
-        localStorage.removeItem('usuario_logado');
-        router.push('/login');
-    }
-
-    
-    function carregarUsuarios() {
-        const dados = localStorage.getItem('users_db');
-        listaUsuarios.value = dados ? JSON.parse(dados) : [];
-    }
-
-    
-    function removerUsuario(nomeAlvo) {
-        
-        let bancoUsers = JSON.parse(localStorage.getItem('users_db')) || [];
-        const novaListaBanco = bancoUsers.filter(u => u.nome !== nomeAlvo);
-        localStorage.setItem('users_db', JSON.stringify(novaListaBanco));
-
-        
-        listaUsuarios.value = listaUsuarios.value.filter(u => u.nome !== nomeAlvo);
-
-        
-        if (user.value && user.value.nome === nomeAlvo) {
-            logout();
-        }
-    }
-
-    return { 
-        user, 
-        listaUsuarios, 
-        cadastrar, 
-        login, 
-        logout, 
-        carregarUsuarios, 
-        removerUsuario 
-    };
-});
+  }
+})
