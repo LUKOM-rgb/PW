@@ -1,37 +1,16 @@
 {
   "users": [
-    { "id": 1, "email": "aluno", "password": "123", "name": "Estudante" }
-  ],
-  "stock": [
     {
-      "Note": "Mock Data",
-      "Time Series (Daily)": {
-        "2023-10-25": { "1. open": "150.00", "4. close": "155.20", "5. volume": "1200000" },
-        "2023-10-24": { "1. open": "148.50", "4. close": "150.00", "5. volume": "900000" },
-        "2023-10-23": { "1. open": "145.20", "4. close": "148.50", "5. volume": "850000" },
-        "2023-10-22": { "1. open": "146.00", "4. close": "145.20", "5. volume": "800000" },
-        "2023-10-21": { "1. open": "142.00", "4. close": "146.00", "5. volume": "950000" }
-      }
-    }
-  ],
-  "news": [
+      "id": "admin",
+      "email": "admin",
+      "password": "123",
+      "name": "Administrador Supremo"
+    },
     {
-      "feed": [
-        {
-          "title": "Mercados em Alta",
-          "summary": "Tecnologia lidera os ganhos desta semana.",
-          "source": "Mock News",
-          "url": "#",
-          "banner_image": "https://placehold.co/600x400/1e293b/FFF?text=News+1"
-        },
-        {
-          "title": "Inflação Controlada",
-          "summary": "Bancos centrais anunciam medidas.",
-          "source": "Mock News",
-          "url": "#",
-          "banner_image": "https://placehold.co/600x400/0f172a/FFF?text=News+2"
-        }
-      ]
+      "id": "40ce",
+      "name": "teste",
+      "email": "teste@gmail.com",
+      "password": "123"
     }
   ],
   "portfolio": []
