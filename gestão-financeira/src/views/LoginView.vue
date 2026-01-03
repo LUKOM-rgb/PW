@@ -47,8 +47,16 @@ const mostrarAviso = computed(() => route.query.semPermissao === 'true');
 
 const fazerLogin = async () => {
   const sucesso = await authStore.login(email.value, password.value);
+
   if (sucesso) {
-    router.push('/');
+    // --- CÓDIGO NOVO AQUI ---
+    // Verifica se o email é 'admin' (ou usa authStore.eAdmin se tiveres criado o getter)
+    if (authStore.user?.email === 'admin') {
+      router.push('/dashboard'); // Admin vai para o Dashboard
+    } else {
+      router.push('/perfil');    // Outros vão para o Perfil (ou '/' para a Home)
+    }
+    // ------------------------
   } else {
     erro.value = true;
   }

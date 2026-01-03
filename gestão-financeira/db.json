@@ -10,7 +10,36 @@
       "id": "40ce",
       "name": "teste",
       "email": "teste@gmail.com",
-      "password": "123"
+      "password": "123",
+      "xp": 150,
+      "level": 1,
+      "stats": {
+        "quiz_win": 1,
+        "calc_budget": 1,
+        "calc_total": 1,
+        "news_search": 0,
+        "news_fav": 4,
+        "stock_search": 4,
+        "types_used": [
+          "orcamento"
+        ]
+      },
+      "conquistas": [
+        "news_fav_1",
+        "quiz_first_win",
+        "calc_budget_use"
+      ],
+      "favoritos": [
+        {
+          "title": "Assenagon Asset Management S.A. Invests $2.75 Million in Bio-Techne Corp $TECH",
+          "url": "https://www.marketbeat.com/instant-alerts/filing-assenagon-asset-management-sa-invests-275-million-in-bio-techne-corp-tech-2025-12-24/",
+          "date": "2026-01-03T15:21:07.644Z"
+        }
+      ],
+      "simulador": {
+        "lastDate": "2026-01-03",
+        "plays": 2
+      }
     }
   ],
   "portfolio": []

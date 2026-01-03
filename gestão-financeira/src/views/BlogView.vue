@@ -2,35 +2,30 @@
   <div class="blog-container">
     <div class="header-blog">
       <h1>Blog Financeiro</h1>
-
       <div class="search-box">
-        <input
-          v-model="termoPesquisa"
-          type="text"
-          placeholder="Pesquisar título da notícia..."
-        />
-        <button @click="recarregar" class="btn-refresh">🔄</button>
+        <input v-model="termoPesquisa" type="text" placeholder="Pesquisar..." />
+      </div>
+      <div class="filtros">
+        <label>
+          <input type="checkbox" v-model="verFavoritos"> Ver Apenas Favoritos ❤️
+        </label>
       </div>
     </div>
 
-    <div v-if="acoesStore.aCarregar" class="loading">
-      <p>A carregar notícias...</p>
-    </div>
-
-    <div v-else-if="noticiasFiltradas.length === 0" class="no-results">
-      <p>Nenhuma notícia encontrada.</p>
-    </div>
+    <div v-if="acoesStore.aCarregar" class="loading">A carregar...</div>
 
     <div v-else class="grid">
-      <div v-for="(n, i) in noticiasFiltradas" :key="i" class="card">
-        <img
-          :src="n.banner_image || 'https://via.placeholder.com/300x150?text=Notícia'"
-          class="img"
-        />
+      <div v-for="(n, i) in noticiasExibidas" :key="i" class="card">
+        <img :src="n.banner_image || 'https://via.placeholder.com/300'" class="img" />
         <div class="card-content">
-          <h3>{{ n.title }}</h3>
-          <p class="summary">{{ truncarTexto(n.summary, 100) }}</p>
-          <a v-if="n.url" :href="n.url" target="_blank" class="btn-ler">Ler mais</a>
+          <div class="card-top">
+            <h3>{{ n.title }}</h3>
+            <button @click="toggleFav(n)" class="btn-fav">
+              {{ verificaFav(n) ? '❤️' : '🤍' }}
+            </button>
+          </div>
+          <p class="summary">{{ n.summary?.substring(0, 100) }}...</p>
+          <a :href="n.url" target="_blank" class="btn-ler">Ler mais</a>
         </div>
       </div>
     </div>
@@ -40,61 +35,50 @@
 <script>
 import { mapStores } from 'pinia';
 import { usarStoreAcoes } from '../stores/acoes';
+import { usarStoreAuth } from '../stores/auth';
 
 export default {
   name: 'BlogView',
-  data() {
-    return {
-      termoPesquisa: ''
-    };
-  },
+  data() { return { termoPesquisa: '', verFavoritos: false }; },
   computed: {
-    // Isto cria automaticamente "this.acoesStore"
-    ...mapStores(usarStoreAcoes),
+    ...mapStores(usarStoreAcoes, usarStoreAuth),
 
-    noticiasFiltradas() {
-      // Se a caixa estiver vazia, devolve tudo da store
-      if (!this.termoPesquisa) return this.acoesStore.dadosNoticias;
-
-      const termo = this.termoPesquisa.toLowerCase();
-      return this.acoesStore.dadosNoticias.filter(noticia =>
-        noticia.title && noticia.title.toLowerCase().includes(termo)
-      );
+    noticiasExibidas() {
+      let lista = this.acoesStore.dadosNoticias;
+      if (this.termoPesquisa) {
+        lista = lista.filter(n => n.title.toLowerCase().includes(this.termoPesquisa.toLowerCase()));
+      }
+      if (this.verFavoritos) {
+        lista = lista.filter(n => this.verificaFav(n));
+      }
+      return lista;
     }
   },
   methods: {
-    truncarTexto(texto, tamanho) {
-      if (!texto) return '';
-      if (texto.length <= tamanho) return texto;
-      return texto.substring(0, tamanho) + '...';
+    verificaFav(noticia) {
+      return this.authStore.user?.favoritos?.some(f => f.title === noticia.title);
     },
-    recarregar() {
-      this.termoPesquisa = '';
-      this.acoesStore.buscarNoticias('TECH');
+    toggleFav(noticia) {
+      if (!this.authStore.isAuthenticated) return alert("Faz login para guardar favoritos!");
+      this.authStore.toggleFavorito(noticia);
     }
   },
   mounted() {
-    // Chama a ação da store ao carregar a página
-    if (this.acoesStore.dadosNoticias.length === 0) {
-      this.acoesStore.buscarNoticias('TECH');
-    }
+    if (this.acoesStore.dadosNoticias.length === 0) this.acoesStore.buscarNoticias('TECH');
   }
 };
 </script>
 
 <style scoped>
-/* O CSS mantém-se exatamente igual ao anterior */
+/* Mantém o teu CSS base e adiciona: */
 .blog-container { padding: 20px; color: #333; }
-.header-blog { display: flex; flex-direction: column; align-items: center; margin-bottom: 30px; color: white; }
-.search-box { display: flex; gap: 10px; margin-top: 15px; width: 100%; max-width: 500px; }
-.search-box input { flex: 1; padding: 10px; border-radius: 5px; border: 1px solid #ddd; }
-.btn-refresh { padding: 0 15px; background-color: #4a90e2; color: white; border: none; border-radius: 5px; cursor: pointer; }
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; }
-.card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: flex; flex-direction: column; }
-.img { width: 100%; height: 180px; object-fit: cover; }
-.card-content { padding: 15px; display: flex; flex-direction: column; flex-grow: 1; }
-h3 { margin: 0 0 10px 0; font-size: 1.1rem; color: #2c3e50; }
-.summary { font-size: 0.9rem; color: #666; flex-grow: 1; }
-.btn-ler { margin-top: 15px; color: #4a90e2; font-weight: bold; text-decoration: none; }
-.no-results, .loading { text-align: center; color: #ccc; margin-top: 50px; }
+.header-blog { color: white; text-align: center; margin-bottom: 20px; }
+.card { background: white; border-radius: 8px; overflow: hidden; margin-bottom: 20px; }
+.img { width: 100%; height: 150px; object-fit: cover; }
+.card-content { padding: 15px; }
+.card-top { display: flex; justify-content: space-between; align-items: flex-start; }
+.btn-fav { background: none; border: none; font-size: 1.5rem; cursor: pointer; }
+.btn-ler { color: #2980b9; font-weight: bold; text-decoration: none; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+.filtros { margin-top: 10px; color: #ccc; }
 </style>

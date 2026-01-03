@@ -6,6 +6,7 @@
         <ul>
           <li><router-link to="/">Início</router-link></li>
           <li><router-link to="/ferramentas">Ferramentas</router-link></li>
+          <li><router-link to="/simulador">Simulador</router-link></li>
           <li><router-link to="/blog">Blog</router-link></li>
           <li><router-link to="/sobre">Sobre Nós</router-link></li>
 
