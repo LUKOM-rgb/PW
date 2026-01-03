@@ -9,8 +9,8 @@
 
       <form @submit.prevent="fazerLogin">
         <div class="form-group">
-          <label>Email:</label>
-          <input v-model="email" type="text" placeholder="Digite seu email" required />
+          <label>Nome:</label>
+          <input v-model="nome" type="text" placeholder="Digite seu nome" required />
         </div>
         <div class="form-group">
           <label>Senha:</label>
@@ -19,8 +19,7 @@
         <button type="submit" class="btn-login">Entrar</button>
       </form>
 
-      <p v-if="erro" class="error-msg">Email ou senha incorretos!</p>
-
+      <p v-if="erro" class="error-msg">Nome ou senha incorretos!</p>
       <p class="toggle-text">
         Ainda não tens conta?
         <RouterLink to="/registar">Criar uma agora</RouterLink>
@@ -30,35 +29,44 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'; // Importar computed
-import { useRouter, useRoute } from 'vue-router'; // Importar useRoute
+import { ref, computed } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
 import { usarStoreAuth } from '../stores/auth';
 
 const authStore = usarStoreAuth();
 const router = useRouter();
-const route = useRoute(); // Para ler os parâmetros do link
+const route = useRoute();
 
-const email = ref('');
+const nome = ref('');
 const password = ref('');
-const erro = ref(false);
+// Mudei 'erro' para guardar a mensagem de texto em vez de apenas true/false
+const erro = ref(null);
 
 // Verifica se no link existe "?semPermissao=true"
 const mostrarAviso = computed(() => route.query.semPermissao === 'true');
 
 const fazerLogin = async () => {
-  const sucesso = await authStore.login(email.value, password.value);
+  // Limpar erros anteriores
+  erro.value = null;
 
-  if (sucesso) {
-    // --- CÓDIGO NOVO AQUI ---
-    // Verifica se o email é 'admin' (ou usa authStore.eAdmin se tiveres criado o getter)
-    if (authStore.user?.email === 'admin') {
-      router.push('/dashboard'); // Admin vai para o Dashboard
+  // 1. Receber o objeto { success, message } da store
+  const resultado = await authStore.login(nome.value, password.value);
+
+  // 2. Verificar a propriedade .success
+  if (resultado.success) {
+    
+    // --- LÓGICA DE REDIRECIONAMENTO ---
+    // ATENÇÃO: Usar 'name' porque é assim que está na base de dados json-server
+    if (authStore.user?.name === 'admin') {
+      router.push('/dashboard'); 
     } else {
-      router.push('/perfil');    // Outros vão para o Perfil (ou '/' para a Home)
+      router.push('/perfil');    
     }
-    // ------------------------
+    // ----------------------------------
+
   } else {
-    erro.value = true;
+    // 3. Mostrar a mensagem de erro que vem da Store (ex: "Senha incorreta")
+    erro.value = resultado.message; 
   }
 };
 </script>

@@ -30,7 +30,7 @@ export const usarStoreAuth = defineStore('auth', {
   }),
 
   getters: {
-    eAdmin: (state) => state.user && state.user.email === 'admin',
+    eAdmin: (state) => state.user && state.user.nome === 'admin',
 
     // Total de favoritos
     totalFavoritos: (state) => state.user?.favoritos?.length || 0,
@@ -61,30 +61,34 @@ export const usarStoreAuth = defineStore('auth', {
 
   actions: {
     // --- LOGIN ---
-    async login(email, password) {
+    async login(nome, password) {
       try {
-        const response = await fetch(`http://localhost:3000/users?email=${email}&password=${password}`)
+        const response = await fetch(`http://localhost:3000/users?name=${nome}&password=${password}`)
         const users = await response.json()
         if (users.length > 0) {
           this.user = this._inicializarUser(users[0])
           this.isAuthenticated = true
           localStorage.setItem('user', JSON.stringify(this.user))
-          return true
+          return { success: true }
+        } else {
+          return { success: false, message: "Nome ou password incorretos." }
         }
       } catch (error) { console.error("Erro login:", error) }
-      return false
+      return { success: false, message: "Erro de conexão ao servidor." }
     },
 
     // --- REGISTO ---
-    async registar(nome, email, password) {
+    async registar(nome,  password) {
         try {
-          const check = await fetch(`http://localhost:3000/users?email=${email}`)
+          const check = await fetch(`http://localhost:3000/users?name=${nome}`)
           const users = await check.json()
-          if (users.length > 0) return false
-
+          if (users.length > 0) {
+            return { success: false, message: "Este nome de utilizador já existe." }
+          } 
           // Cria user já com estrutura de gamificação a zeros
           const novoUser = {
-              name: nome, email, password,
+              name: nome,  
+              password: password,
               xp: 0, level: 1,
               stats: { quiz_win: 0, calc_budget: 0, calc_total: 0, news_search: 0, news_fav: 0, stock_search: 0, types_used: [] },
               conquistas: [], favoritos: [],
@@ -96,8 +100,9 @@ export const usarStoreAuth = defineStore('auth', {
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify(novoUser)
           })
-          return true
-        } catch (error) { return false }
+          return { success: true }
+        } catch (error){ return { success: false, message: "Erro ao tentar registar." }
+      }
     },
 
     // --- INICIALIZADOR DE DADOS (Evita erros em users antigos) ---
@@ -229,7 +234,7 @@ export const usarStoreAuth = defineStore('auth', {
             // Campos de Perfil
             name: this.user.name,
             password: this.user.password,
-            email: this.user.email,
+            nome: this.user.nome,
 
             // Campos de Gamificação
             xp: this.user.xp,

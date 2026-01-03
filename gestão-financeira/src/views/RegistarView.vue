@@ -6,12 +6,7 @@
       <form @submit.prevent="fazerRegisto">
         <div class="form-group">
           <label>Nome:</label>
-          <input v-model="nome" type="text" placeholder="O teu nome" required />
-        </div>
-
-        <div class="form-group">
-          <label>Email:</label>
-          <input v-model="email" type="text" placeholder="Email" required />
+          <input v-model="name" type="text" placeholder="O teu nome" required />
         </div>
 
         <div class="form-group">
@@ -35,23 +30,29 @@
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { usarStoreAuth } from '../stores/auth';
+import { usarStoreAuth } from '../stores/auth'; // Confirma se o nome do ficheiro é 'auth.js'
 
 const authStore = usarStoreAuth();
 const router = useRouter();
 
-const nome = ref('');
-const email = ref('');
+const name = ref('');
 const password = ref('');
 const erro = ref(null);
 
 const fazerRegisto = async () => {
-  const sucesso = await authStore.registar(nome.value, email.value, password.value);
-  if (sucesso) {
+  // Limpar erro anterior
+  erro.value = null;
+
+  // Agora recebemos um objeto { success, message }
+  const resultado = await authStore.registar(name.value, password.value);
+
+  // Verificamos a propriedade .success
+  if (resultado.success) {
     alert('Conta criada com sucesso! Por favor faça login.');
     router.push('/login');
   } else {
-    erro.value = 'Erro: Esse email já existe ou falha no servidor.';
+   
+    erro.value = resultado.message;
   }
 };
 </script>
