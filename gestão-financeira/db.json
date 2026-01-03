@@ -2,14 +2,12 @@
   "users": [
     {
       "id": "admin",
-      "email": "admin",
       "password": "123",
-      "name": "Administrador Supremo"
+      "name": "Adamastor"
     },
     {
       "id": "40ce",
       "name": "teste",
-      "email": "teste@gmail.com",
       "password": "123",
       "xp": 150,
       "level": 1,
