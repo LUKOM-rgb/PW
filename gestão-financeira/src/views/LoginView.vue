@@ -4,7 +4,7 @@
       <h1>Entrar</h1>
 
       <div v-if="mostrarAviso" class="aviso-box">
-        ⚠️ Precisas de fazer login para aceder a essa página!
+         Precisas de fazer login para aceder a essa página!
       </div>
 
       <form @submit.prevent="fazerLogin">

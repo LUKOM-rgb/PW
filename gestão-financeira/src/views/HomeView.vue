@@ -2,7 +2,7 @@
   <div class="home-container">
     <section class="hero">
       <div class="hero-content">
-        <h1 v-if="authStore.user">Olá, {{ authStore.user.name }}! 👋</h1>
+        <h1 v-if="authStore.user">Olá, {{ authStore.user.name }}! </h1>
         <h1 v-else>Bem-vindo à Gestão Financeira</h1>
         <p>A tua plataforma para dominar o mercado.</p>
 

@@ -25,7 +25,7 @@
 
     <div v-else-if="resultado" class="resultado-area">
       <h2 :class="ganhou ? 'win' : 'lose'">
-        {{ ganhou ? '🎉 Acertaste!' : '❌ Erraste!' }}
+        {{ ganhou ? ' Acertaste!' : ' Erraste!' }}
       </h2>
       <p>O preço de fecho foi: <strong>${{ precoFecho }}</strong></p>
       <p v-if="ganhou" class="xp-gain">+50 XP</p>
@@ -33,7 +33,7 @@
     </div>
 
     <div v-else class="limit-area">
-      <h2>😴 Mercado Fechado para ti!</h2>
+      <h2> Mercado Fechado para ti!</h2>
       <p>Já jogaste 2 vezes hoje. Volta amanhã para ganhar mais XP.</p>
     </div>
   </div>

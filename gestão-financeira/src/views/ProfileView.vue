@@ -35,7 +35,7 @@
 
       <hr class="divider">
 
-      <h3>✏️ Editar Dados Pessoais</h3>
+      <h3>Editar Dados Pessoais</h3>
       <form @submit.prevent="atualizarPerfil" class="edit-form">
         <div class="form-group">
           <label>Nome:</label>
