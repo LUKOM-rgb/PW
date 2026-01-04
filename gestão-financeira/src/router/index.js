@@ -8,7 +8,7 @@ import SobreView from '../views/SobreView.vue'
 import InvestirPesquisa from '../components/InvestirPesquisa.vue'
 import DashboardView from '../views/DashboardView.vue'
 import ProfileView from '../views/ProfileView.vue'
-import SimuladorView from '../views/SimuladorView.vue' // <--- Nova Importação
+import SimuladorView from '../views/SimuladorView.vue'
 import NotFoundView from '../views/NotFoundView.vue'
 import { usarStoreAuth } from '../stores/auth'
 

@@ -120,8 +120,8 @@ export default {
       // 2. Manda guardar tudo no servidor (chama a função que corrigimos no auth.js)
       const sucesso = await this.authStore.atualizarUserAPI();
 
-      if (sucesso) alert('Perfil atualizado com sucesso! ✅');
-      else alert('Erro ao atualizar perfil. ❌');
+      if (sucesso) alert('Perfil atualizado com sucesso!');
+      else alert('Erro ao atualizar perfil.');
     },
 
     sair() {
