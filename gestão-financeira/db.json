@@ -3,7 +3,46 @@
     {
       "id": "admin",
       "password": "123",
-      "name": "Adamastor"
+      "name": "admin",
+      "xp": 100000000,
+      "level": "ADAMASTOR",
+      "stats": {
+        "quiz_win": 100,
+        "calc_budget": 100,
+        "calc_total": 100,
+        "news_search": 100,
+        "news_fav": 114,
+        "stock_search": 100,
+        "types_used": [
+          "juros",
+          "credito",
+          "orcamento",
+          "divida"
+        ]
+      },
+      "conquistas": [
+        "quiz_first_win",
+        "quiz_5_wins",
+        "quiz_20_wins",
+        "calc_budget_use",
+        "calc_10_uses",
+        "calc_all_types",
+        "news_search_5",
+        "news_fav_1",
+        "news_fav_10",
+        "stock_search_5"
+      ],
+      "favoritos": [
+        {
+          "title": "Bio-Techne to Present at the 2026 J.P. Morgan Healthcare Conference",
+          "url": "https://investingnews.com/bio-techne-to-present-at-the-2026-j-p-morgan-healthcare-conference/",
+          "date": "2026-01-04T17:06:57.760Z"
+        }
+      ],
+      "simulador": {
+        "lastDate": "2026-01-04",
+        "plays": 0
+      }
     },
     {
       "id": "40ce",
@@ -81,6 +120,86 @@
       "simulador": {
         "lastDate": null,
         "plays": 0
+      }
+    },
+    {
+      "id": "24b5",
+      "name": "dfg",
+      "password": "123",
+      "xp": 0,
+      "level": 1,
+      "stats": {
+        "quiz_win": 0,
+        "calc_budget": 0,
+        "calc_total": 0,
+        "news_search": 0,
+        "news_fav": 0,
+        "stock_search": 1,
+        "types_used": []
+      },
+      "conquistas": [],
+      "favoritos": [],
+      "simulador": {
+        "lastDate": "2026-01-04",
+        "plays": 0
+      }
+    },
+    {
+      "id": "aba1",
+      "name": "teste1",
+      "password": "123",
+      "xp": 130,
+      "level": 1,
+      "stats": {
+        "quiz_win": 1,
+        "calc_budget": 0,
+        "calc_total": 9,
+        "news_search": 0,
+        "news_fav": 6,
+        "stock_search": 1,
+        "types_used": [
+          "credito"
+        ]
+      },
+      "conquistas": [
+        "news_fav_1",
+        "quiz_first_win"
+      ],
+      "favoritos": [
+        {
+          "title": "Bio-Techne Corp (NASDAQ:TECH) Given Consensus Rating of \"Moderate Buy\" by Analysts",
+          "url": "https://www.marketbeat.com/instant-alerts/bio-techne-corp-nasdaqtech-given-consensus-rating-of-moderate-buy-by-analysts-2026-01-04/",
+          "date": "2026-01-04T17:10:58.506Z"
+        },
+        {
+          "title": "Klaviyo, Wingstop among Stephens Best Ideas for 2026",
+          "url": "https://finance.yahoo.com/news/klaviyo-wingstop-among-stephens-best-122030244.html",
+          "date": "2026-01-04T17:19:33.508Z"
+        },
+        {
+          "title": "Who Owns Bio-Techne Corporation? Top Shareholders and Recent Insider Trades",
+          "url": "https://www.tikr.com/blog/who-owns-bio-techne-corporation-top-shareholders-and-recent-insider-trades",
+          "date": "2026-01-04T17:19:35.422Z"
+        },
+        {
+          "title": "Fort Washington Investment Advisors Inc. OH Buys 35,165 Shares of Bio-Techne Corp $TECH",
+          "url": "https://www.marketbeat.com/instant-alerts/filing-fort-washington-investment-advisors-inc-oh-buys-35165-shares-of-bio-techne-corp-tech-2025-12-31/",
+          "date": "2026-01-04T18:14:57.166Z"
+        },
+        {
+          "title": "Bio-Techne Corp (TECH) Stock Price History & Data",
+          "url": "https://tradersunion.com/currencies/price-history/tech-usd/",
+          "date": "2026-01-04T18:14:58.384Z"
+        },
+        {
+          "title": "Voya Investment Management LLC Has $7.04 Million Holdings in Bio-Techne Corp $TECH",
+          "url": "https://www.marketbeat.com/instant-alerts/filing-voya-investment-management-llc-has-704-million-holdings-in-bio-techne-corp-tech-2025-12-25/",
+          "date": "2026-01-04T18:14:59.380Z"
+        }
+      ],
+      "simulador": {
+        "lastDate": "2026-01-04",
+        "plays": 2
       }
     }
   ],

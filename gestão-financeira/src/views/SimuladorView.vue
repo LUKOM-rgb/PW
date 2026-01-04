@@ -105,7 +105,6 @@ export default {
 </script>
 
 <style scoped>
-.simulador-container { text-align: center; color: white; padding: 20px; }
 .card-desafio { background: white; color: #333; padding: 20px; border-radius: 10px; max-width: 400px; margin: 20px auto; }
 .botoes { display: flex; gap: 10px; justify-content: center; margin-top: 20px; }
 .btn-up { background: #27ae60; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }

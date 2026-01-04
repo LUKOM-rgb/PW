@@ -51,22 +51,8 @@ const fazerRegisto = async () => {
     alert('Conta criada com sucesso! Por favor faça login.');
     router.push('/login');
   } else {
-   
+
     erro.value = resultado.message;
   }
 };
 </script>
-
-<style scoped>
-/* Reutilização dos estilos do login para consistência */
-.login-container { display: flex; justify-content: center; align-items: center; min-height: 80vh; }
-.login-box { background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 100%; max-width: 400px; text-align: center; }
-.form-group { margin-bottom: 1rem; text-align: left; }
-.form-group label { display: block; margin-bottom: 0.5rem; color: #666; }
-.form-group input { width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
-.btn-login { width: 100%; padding: 0.8rem; background-color: #27ae60; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 1rem; margin-top: 1rem; }
-.btn-login:hover { background-color: #219150; }
-.error-msg { color: #e74c3c; margin-top: 1rem; }
-.toggle-text { margin-top: 1.5rem; color: #666; }
-.toggle-text a { color: #27ae60; text-decoration: none; font-weight: bold; }
-</style>

@@ -102,10 +102,9 @@ export default {
       const totalGasto = this.orcamento.rendimento * gastos;
       this.orcamento.resultado = (this.orcamento.rendimento - totalGasto).toFixed(2);
 
-      // --- GAMIFICAÇÃO ---
-      // 1. Conquista "Mão de Vaca" (específica do orçamento)
+      //Conquista "Mão de Vaca" (específica do orçamento)
       this.authStore.incrementarEstatistica('calc_budget');
-      // 2. Contar para o total e tipos diferentes
+      //Contar para o total e tipos diferentes
       this.authStore.incrementarEstatistica('calc_total', 'orcamento');
     },
 
@@ -156,7 +155,7 @@ export default {
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
-/* Estilos para inputs e botões */
+
 input { width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
 label { display: block; text-align: left; margin-bottom: 5px; font-weight: bold; font-size: 0.9rem; }
 .row { display: flex; gap: 10px; margin-top: 10px; }

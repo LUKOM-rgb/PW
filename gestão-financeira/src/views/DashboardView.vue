@@ -53,7 +53,6 @@ export default {
 
 <style scoped>
 .dashboard-container { display: flex; justify-content: center; padding: 40px; }
-.dashboard-box { background: white; padding: 30px; border-radius: 10px; width: 500px; color: #333; }
 .user-list li { display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid #eee; }
 .btn-del { background: #e74c3c; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 4px; }
 .controls { margin-bottom: 15px; }

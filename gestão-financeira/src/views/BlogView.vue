@@ -7,7 +7,7 @@
       </div>
       <div class="filtros">
         <label>
-          <input type="checkbox" v-model="verFavoritos"> Ver Apenas Favoritos ❤️
+          <input type="checkbox" v-model="verFavoritos"> Ver Apenas Favoritos
         </label>
       </div>
     </div>
@@ -21,7 +21,7 @@
           <div class="card-top">
             <h3>{{ n.title }}</h3>
             <button @click="toggleFav(n)" class="btn-fav">
-              {{ verificaFav(n) ? '❤️' : '🤍' }}
+              <img :src="verificaFav(n) ? EstrelaCheia : EstrelaVazia" class="imagemEstrela" />
             </button>
           </div>
           <p class="summary">{{ n.summary?.substring(0, 100) }}...</p>
@@ -36,10 +36,20 @@
 import { mapStores } from 'pinia';
 import { usarStoreAcoes } from '../stores/acoes';
 import { usarStoreAuth } from '../stores/auth';
+import EstrelaVazia from '../assets/starvazia.png';
+import EstrelaCheia from '../assets/star.png';
 
 export default {
   name: 'BlogView',
-  data() { return { termoPesquisa: '', verFavoritos: false }; },
+  data() {
+     return {
+      termoPesquisa: '',
+      verFavoritos: false,
+      EstrelaVazia: EstrelaVazia,
+      EstrelaCheia: EstrelaCheia
+
+     }
+    },
   computed: {
     ...mapStores(usarStoreAcoes, usarStoreAuth),
 
@@ -70,15 +80,15 @@ export default {
 </script>
 
 <style scoped>
-/* Mantém o teu CSS base e adiciona: */
-.blog-container { padding: 20px; color: #333; }
 .header-blog { color: white; text-align: center; margin-bottom: 20px; }
-.card { background: white; border-radius: 8px; overflow: hidden; margin-bottom: 20px; }
+.card { background: rgb(255, 255, 255); border-radius: 8px; overflow: hidden; margin-bottom: 20px; }
 .img { width: 100%; height: 150px; object-fit: cover; }
 .card-content { padding: 15px; }
 .card-top { display: flex; justify-content: space-between; align-items: flex-start; }
-.btn-fav { background: none; border: none; font-size: 1.5rem; cursor: pointer; }
 .btn-ler { color: #2980b9; font-weight: bold; text-decoration: none; }
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
 .filtros { margin-top: 10px; color: #ccc; }
+.btn-fav { background: none; border: none; padding: 0; cursor: pointer; display: flex;}
+.imagemEstrela {width: 24px; height: 24px; transition: transform 0.2s;}
+.imagemEstrela:hover {transform: scale(1.2);}
 </style>

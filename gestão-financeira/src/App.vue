@@ -39,7 +39,6 @@ const authStore = usarStoreAuth()
 </script>
 
 <style scoped>
-/* (Mantém o teu CSS original aqui, não mudei nada no estilo) */
 #app { display: flex; flex-direction: column; min-height: 100vh; background-color: #020B19; font-family: 'Inter', sans-serif; }
 .content-body { display: flex; flex: 1; color: #ccc; }
 .navbar { width: 200px; background-color: #020B19; flex-shrink: 0; }

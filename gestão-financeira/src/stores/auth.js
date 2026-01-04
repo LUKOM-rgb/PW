@@ -30,17 +30,14 @@ export const usarStoreAuth = defineStore('auth', {
   }),
 
   getters: {
-    eAdmin: (state) => state.user && state.user.nome === 'admin',
-
-    // Total de favoritos
+    eAdmin: (state) => state.user && state.user.name === 'admin',
     totalFavoritos: (state) => state.user?.favoritos?.length || 0,
-
-    // --- CÁLCULO DE NÍVEL PROGRESSIVO ---
+    //cálculo do xp
     progressoBarra: (state) => {
       if (!state.user) return 0;
       const nivelAtual = state.user.level || 1;
 
-      // Definição dos patamares (quanto XP total é preciso para chegar ao nível X)
+      //definição dos níveis de xp
       const xpBaseAtual = calcularXPTotalParaNivel(nivelAtual);
       const xpBaseProximo = calcularXPTotalParaNivel(nivelAtual + 1);
 
@@ -60,7 +57,7 @@ export const usarStoreAuth = defineStore('auth', {
   },
 
   actions: {
-    // --- LOGIN ---
+    //login
     async login(nome, password) {
       try {
         const response = await fetch(`http://localhost:3000/users?name=${nome}&password=${password}`)
@@ -84,10 +81,10 @@ export const usarStoreAuth = defineStore('auth', {
           const users = await check.json()
           if (users.length > 0) {
             return { success: false, message: "Este nome de utilizador já existe." }
-          } 
+          }
           // Cria user já com estrutura de gamificação a zeros
           const novoUser = {
-              name: nome,  
+              name: nome,
               password: password,
               xp: 0, level: 1,
               stats: { quiz_win: 0, calc_budget: 0, calc_total: 0, news_search: 0, news_fav: 0, stock_search: 0, types_used: [] },
