@@ -114,7 +114,7 @@ export default {
   name: 'FerramentasView',
   data() {
     return {
-      // Objeto Juros Compostos
+      //  Juros Compostos
       juros: {
         capital: null,
         taxa: null,
@@ -122,14 +122,14 @@ export default {
         anos: null,
         resultado: ''
       },
-      // Objeto Crédito Habitação
+      // Crédito Habitação
       credito: {
         emprestimo: null,
         taxa: null,
         prazo: null,
         resultado: ''
       },
-      // Objeto Orçamento
+      // Orçamento
       orcamento: {
         rendimento: null,
         residencia: null,
@@ -137,7 +137,7 @@ export default {
         investir: null,
         resultado: null
       },
-      // Objeto Dívida
+      // Dívida
       divida: {
         saldo: null,
         taxa: null,
@@ -150,7 +150,7 @@ export default {
     ...mapStores(usarStoreAuth)
   },
   methods: {
-    // --- Lógica Juros Compostos ---
+   
     calcularJuros() {
       if (!this.juros.capital || !this.juros.taxa || !this.juros.anos) {
         this.juros.resultado = 'Preenche todos os campos.';
@@ -170,7 +170,7 @@ export default {
       this.juros = { capital: null, taxa: null, periodos: 1, anos: null, resultado: '—' };
     },
 
-    // --- Lógica Crédito Habitação ---
+    
     calcularEmprestimo() {
       if (!this.credito.emprestimo || !this.credito.taxa || !this.credito.prazo) {
         this.credito.resultado = 'Preenche todos os campos.';
@@ -180,7 +180,7 @@ export default {
       const taxaMensal = (this.credito.taxa / 100) / 12;
       const totalMeses = this.credito.prazo * 12;
 
-      // Fórmula Prestação: (P * i) / (1 - (1+i)^-n)
+      
       const x = Math.pow(1 + taxaMensal, totalMeses);
       const prestacao = (principal * x * taxaMensal) / (x - 1);
 
@@ -195,7 +195,7 @@ export default {
       this.credito = { emprestimo: null, taxa: null, prazo: null, resultado: '—' };
     },
 
-    // --- Lógica Orçamento ---
+    
     calcularOrcamento() {
       if (!this.orcamento.rendimento) return;
 
