@@ -81,7 +81,7 @@ export default {
 
 <style scoped>
 .header-blog { color: white; text-align: center; margin-bottom: 20px; }
-.card { background: rgb(255, 255, 255); border-radius: 8px; overflow: hidden; margin-bottom: 20px; }
+.card { background: #0d2546; border-radius: 8px; overflow: hidden; margin-bottom: 20px; }
 .img { width: 100%; height: 150px; object-fit: cover; }
 .card-content { padding: 15px; }
 .card-top { display: flex; justify-content: space-between; align-items: flex-start; }

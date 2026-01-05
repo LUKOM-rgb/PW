@@ -25,14 +25,14 @@ ul {
 }
 
 .login-box {
-  background: white;
+  background: #0d2546;
   padding: 2rem;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   width: 100%;
   max-width: 400px;
   text-align: center;
-  color: #333;
+  color: whitesmoke;
 }
 
 .form-group {
@@ -158,11 +158,11 @@ ul {
 }
 
 .card {
-  background: white;
+  background: #0d2546;
   padding: 25px;
   border-radius: 12px;
   text-align: center;
-  color: #333;
+  color: white;
   transition: transform 0.3s, box-shadow 0.3s;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   display: flex;
@@ -178,13 +178,13 @@ ul {
 
 .card h3 {
   margin: 10px 0;
-  color: #2c3e50;
+  color: whitesmoke;
   font-size: 1.8rem;
 }
 
 .card p {
   font-size: 1rem;
-  color: #666;
+  color: whitesmoke;
 }
 
 .imgHome {
@@ -200,12 +200,12 @@ ul {
 }
 
 .profile-box {
-  background: white;
+  background: #0d2546;
   padding: 30px;
   border-radius: 12px;
   width: 100%;
   max-width: 600px;
-  color: #333;
+  color: whitesmoke;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
@@ -500,11 +500,11 @@ th {
 }
 
 .dashboard-box {
-  background: white;
+  background: #0d2546;
   padding: 30px;
   border-radius: 10px;
   width: 500px;
-  color: #333;
+  color: whitesmoke;
 }
 
 .user-list li {

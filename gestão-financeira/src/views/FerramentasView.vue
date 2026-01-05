@@ -149,8 +149,8 @@ export default {
   margin-top: 30px;
 }
 .card, .wrapper {
-  background: white;
-  color: #333;
+  background: #0d2546;
+  color: whitesmoke;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
@@ -161,5 +161,5 @@ label { display: block; text-align: left; margin-bottom: 5px; font-weight: bold;
 .row { display: flex; gap: 10px; margin-top: 10px; }
 .btn { flex: 1; padding: 10px; background: #27ae60; color: white; border: none; border-radius: 4px; cursor: pointer; }
 .btn-outline { background: #95a5a6; }
-.result { margin-top: 15px; font-weight: bold; color: #2c3e50; font-size: 1.1rem; }
+.result { margin-top: 15px; font-weight: bold; color: #27ae60; font-size: 1.1rem; }
 </style>

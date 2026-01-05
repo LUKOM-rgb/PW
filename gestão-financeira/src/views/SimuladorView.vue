@@ -105,7 +105,7 @@ export default {
 </script>
 
 <style scoped>
-.card-desafio { background: white; color: #333; padding: 20px; border-radius: 10px; max-width: 400px; margin: 20px auto; }
+.card-desafio { background: #0d2546; color: whitesmoke; padding: 20px; border-radius: 10px; max-width: 400px; margin: 20px auto; }
 .botoes { display: flex; gap: 10px; justify-content: center; margin-top: 20px; }
 .btn-up { background: #27ae60; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
 .btn-down { background: #c0392b; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }

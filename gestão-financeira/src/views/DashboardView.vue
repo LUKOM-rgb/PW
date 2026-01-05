@@ -52,7 +52,7 @@ export default {
 </script>
 
 <style scoped>
-.dashboard-container { display: flex; justify-content: center; padding: 40px; }
+.dashboard-container { display: flex; justify-content: center; padding: 40px;  }
 .user-list li { display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid #eee; }
 .btn-del { background: #e74c3c; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 4px; }
 .controls { margin-bottom: 15px; }

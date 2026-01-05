@@ -9,10 +9,10 @@
       "stats": {
         "quiz_win": 100,
         "calc_budget": 100,
-        "calc_total": 100,
+        "calc_total": 107,
         "news_search": 100,
         "news_fav": 114,
-        "stock_search": 100,
+        "stock_search": 103,
         "types_used": [
           "juros",
           "credito",
@@ -40,7 +40,7 @@
         }
       ],
       "simulador": {
-        "lastDate": "2026-01-04",
+        "lastDate": "2026-01-05",
         "plays": 0
       }
     },
