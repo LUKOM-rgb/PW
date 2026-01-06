@@ -12,7 +12,7 @@
         "calc_total": 107,
         "news_search": 100,
         "news_fav": 114,
-        "stock_search": 103,
+        "stock_search": 104,
         "types_used": [
           "juros",
           "credito",
@@ -101,62 +101,18 @@
       }
     },
     {
-      "id": "958b",
-      "name": "aaa",
-      "password": "123",
-      "xp": 0,
-      "level": 1,
-      "stats": {
-        "quiz_win": 0,
-        "calc_budget": 0,
-        "calc_total": 0,
-        "news_search": 0,
-        "news_fav": 0,
-        "stock_search": 0,
-        "types_used": []
-      },
-      "conquistas": [],
-      "favoritos": [],
-      "simulador": {
-        "lastDate": null,
-        "plays": 0
-      }
-    },
-    {
-      "id": "24b5",
-      "name": "dfg",
-      "password": "123",
-      "xp": 0,
-      "level": 1,
-      "stats": {
-        "quiz_win": 0,
-        "calc_budget": 0,
-        "calc_total": 0,
-        "news_search": 0,
-        "news_fav": 0,
-        "stock_search": 1,
-        "types_used": []
-      },
-      "conquistas": [],
-      "favoritos": [],
-      "simulador": {
-        "lastDate": "2026-01-04",
-        "plays": 0
-      }
-    },
-    {
       "id": "aba1",
       "name": "teste1",
       "password": "123",
-      "xp": 450,
+      "xp": 550,
       "level": 2,
       "stats": {
         "quiz_win": 1,
         "calc_budget": 1,
-        "calc_total": 14,
+        "calc_total": 15,
         "news_search": 0,
         "news_fav": 6,
-        "stock_search": 2,
+        "stock_search": 5,
         "types_used": [
           "credito",
           "juros_compostos",
@@ -170,7 +126,8 @@
         "quiz_first_win",
         "calc_10_uses",
         "calc_all_types",
-        "calc_budget_use"
+        "calc_budget_use",
+        "stock_search_5"
       ],
       "favoritos": [
         {
@@ -205,7 +162,7 @@
         }
       ],
       "simulador": {
-        "lastDate": "2026-01-04",
+        "lastDate": "2026-01-06",
         "plays": 2
       }
     }

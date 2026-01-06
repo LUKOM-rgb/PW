@@ -43,7 +43,7 @@ ul {
 .form-group label {
   display: block;
   margin-bottom: 0.5rem;
-  color: #666;
+  color: whitesmoke;
   font-weight: bold;
 }
 
@@ -274,7 +274,7 @@ ul {
 .xp-info {
   display: flex;
   justify-content: space-between;
-  color: #666;
+  color: whitesmoke;
   font-size: 0.85rem;
 }
 
@@ -309,7 +309,7 @@ ul {
 .btn-toggle {
   background: none;
   border: none;
-  color: #555;
+  color: whitesmoke;
   cursor: pointer;
   font-weight: bold;
   width: 100%;
@@ -321,6 +321,7 @@ ul {
   margin-top: 15px;
   display: flex;
   flex-direction: column;
+  color: #0d2546;
   gap: 8px;
 }
 
