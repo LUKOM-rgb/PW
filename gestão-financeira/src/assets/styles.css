@@ -58,7 +58,7 @@ ul {
 .btn-login {
   width: 100%;
   padding: 0.8rem;
-  background-color: #27ae60;
+  background-color: #24450D;
   color: white;
   border: none;
   border-radius: 4px;
@@ -69,7 +69,7 @@ ul {
 }
 
 .btn-login:hover {
-  background-color: #219150;
+  background-color: #24450D;
 }
 
 .error-msg {
@@ -86,7 +86,7 @@ ul {
 }
 
 .toggle-text a {
-  color: #27ae60;
+  color: #24450D;
   font-weight: bold;
 }
 
@@ -243,7 +243,7 @@ ul {
 .stat-value {
   font-size: 1.4rem;
   font-weight: bold;
-  color: #27ae60;
+  color: #24450D;
   display: block;
 }
 
@@ -266,7 +266,7 @@ ul {
 }
 
 .progress-fill {
-  background: #27ae60;
+  background: #24450D;
   height: 100%;
   transition: width 0.5s;
 }
@@ -292,7 +292,7 @@ ul {
 
 .btn-save {
   width: 100%;
-  background: #2980b9;
+  background: #238db5;
   color: white;
   padding: 12px;
   border: none;
@@ -412,7 +412,7 @@ th {
 }
 
 .loading {
-  color: #f1c40f;
+  color: #fcd764;
   font-weight: bold;
   margin-bottom: 15px;
 }
@@ -430,7 +430,7 @@ th {
 }
 
 .btn-ler {
-  color: #2980b9;
+  color: #238db5;
   font-weight: bold;
   text-decoration: none;
   margin-top: 10px;
@@ -477,7 +477,7 @@ th {
 }
 
 .btn-down {
-  background: #c0392b;
+  background: #88344c;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -517,7 +517,7 @@ th {
 }
 
 .btn-del {
-  background: #e74c3c;
+  background: #88344c;
   color: white;
   border: none;
   padding: 5px 10px;

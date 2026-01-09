@@ -3,8 +3,13 @@
     <div class="header-blog">
       <h1>Blog Financeiro</h1>
       <div class="search-box">
-        <input v-model="termoPesquisa" type="text" placeholder="Pesquisar..." />
-      </div>
+      <input
+        v-model="termoPesquisa"
+        placeholder="Escreva o título da notícia..."
+        class="search-input"
+      />
+      <span  class="typing-indicator"></span>
+    </div>
       <div class="filtros">
         <label>
           <input type="checkbox" v-model="verFavoritos"> Ver Apenas Favoritos
@@ -16,7 +21,13 @@
 
     <div v-else class="grid">
       <div v-for="(n, i) in noticiasExibidas" :key="i" class="card">
-        <img :src="n.banner_image || 'https://via.placeholder.com/300'" class="img" />
+        <img 
+          :src="n.banner_image" 
+          @error="imgErro" 
+          class="img" 
+          alt="Imagem da notícia" 
+        />
+        
         <div class="card-content">
           <div class="card-top">
             <h3>{{ n.title }}</h3>
@@ -38,33 +49,49 @@ import { usarStoreAcoes } from '../stores/acoes';
 import { usarStoreAuth } from '../stores/auth';
 import EstrelaVazia from '../assets/starvazia.png';
 import EstrelaCheia from '../assets/star.png';
+import imgPadrao from '../assets/error.jpg'; 
 
 export default {
   name: 'BlogView',
   data() {
-     return {
+    return {
       termoPesquisa: '',
       verFavoritos: false,
       EstrelaVazia: EstrelaVazia,
       EstrelaCheia: EstrelaCheia
-
-     }
-    },
+    }
+  },
   computed: {
     ...mapStores(usarStoreAcoes, usarStoreAuth),
 
     noticiasExibidas() {
       let lista = this.acoesStore.dadosNoticias;
+
+      // 1. Filtra por texto
       if (this.termoPesquisa) {
         lista = lista.filter(n => n.title.toLowerCase().includes(this.termoPesquisa.toLowerCase()));
       }
+
+      // 2. Filtra por favoritos
       if (this.verFavoritos) {
         lista = lista.filter(n => this.verificaFav(n));
       }
+
+      // 3. Trata as imagens no final (Melhor performance)
+      lista = lista.map(n => ({
+        ...n, 
+        // Se a imagem for válida mantém, senão mete a do Economist
+        banner_image: (n.banner_image && n.banner_image !== "null") ? n.banner_image : imgPadrao
+      }));
+
       return lista;
     }
   },
   methods: {
+    imgErro(event) {
+      event.target.src = imgPadrao;
+    },
+
     verificaFav(noticia) {
       return this.authStore.user?.favoritos?.some(f => f.title === noticia.title);
     },

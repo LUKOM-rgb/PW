@@ -28,7 +28,7 @@ export const usarStoreAcoes = defineStore('acoes', {
         const response = await fetch(url)
         const dados = await response.json()
 
-        //tratamento de erros
+        
         if (dados['Error Message']) throw new Error('Símbolo inválido.')
         if (dados['Note']) throw new Error('Limite de pedidos excedido (espera 1 min).')
 
@@ -67,12 +67,19 @@ export const usarStoreAcoes = defineStore('acoes', {
         if (topico && topico !== 'Geral') {
              url += `&tickers=${topico}`
         }
+        
+        
 
         const response = await fetch(url)
         const dados = await response.json()
 
         if (dados.feed) {
-          this.dadosNoticias = dados.feed
+          this.dadosNoticias = dados.feed.map(noticia => {
+            if (!noticia.banner_image || noticia.banner_image === "null" || noticia.banner_image === "") {
+           noticia.banner_image = null; 
+        }
+            return noticia
+          });
         } else if (dados['Note']) {
             this.erro = 'Limite de API atingido.'
         }

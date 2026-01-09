@@ -11,8 +11,8 @@
         "calc_budget": 100,
         "calc_total": 107,
         "news_search": 100,
-        "news_fav": 114,
-        "stock_search": 104,
+        "news_fav": 120,
+        "stock_search": 108,
         "types_used": [
           "juros",
           "credito",
@@ -34,13 +34,18 @@
       ],
       "favoritos": [
         {
-          "title": "Bio-Techne to Present at the 2026 J.P. Morgan Healthcare Conference",
-          "url": "https://investingnews.com/bio-techne-to-present-at-the-2026-j-p-morgan-healthcare-conference/",
-          "date": "2026-01-04T17:06:57.760Z"
+          "title": "Rep. April McClain Delaney Buys Brown & Brown, Inc. (NYSE:BRO) Shares",
+          "url": "https://www.marketbeat.com/instant-alerts/rep-april-mcclain-delaney-buys-brown-brown-inc-nysebro-shares-2026-01-07/",
+          "date": "2026-01-09T09:29:36.197Z"
+        },
+        {
+          "title": "3 Reasons to Avoid TECH and 1 Stock to Buy Instead",
+          "url": "https://finviz.com/news/268119/3-reasons-to-avoid-tech-and-1-stock-to-buy-instead",
+          "date": "2026-01-09T09:29:47.619Z"
         }
       ],
       "simulador": {
-        "lastDate": "2026-01-05",
+        "lastDate": "2026-01-09",
         "plays": 0
       }
     },
