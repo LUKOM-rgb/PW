@@ -91,6 +91,7 @@ export default {
     imgErro(event) {
       event.target.src = imgPadrao;
     },
+    
 
     verificaFav(noticia) {
       return this.authStore.user?.favoritos?.some(f => f.title === noticia.title);

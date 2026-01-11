@@ -44,7 +44,7 @@
 
         <div class="form-group">
           <label>Nova Password:</label>
-          <input v-model="form.password" type="text" required />
+          <input v-model="form.password" type="password" required />
         </div>
 
         <button type="submit" class="btn-save">Guardar Alterações</button>

@@ -11,7 +11,7 @@ export const usarStoreAcoes = defineStore('acoes', {
   }),
 
   actions: {
-    //função para procurar a ação no api
+    // --- FUNÇÃO 1: Buscar dados da Ação (Gráfico) ---
     async buscarAcao(simbolo) {
       this.aCarregar = true
       this.erro = null
@@ -28,14 +28,13 @@ export const usarStoreAcoes = defineStore('acoes', {
         const response = await fetch(url)
         const dados = await response.json()
 
-        
         if (dados['Error Message']) throw new Error('Símbolo inválido.')
         if (dados['Note']) throw new Error('Limite de pedidos excedido (espera 1 min).')
 
         const serieTemporal = dados['Time Series (Daily)']
 
         if (serieTemporal) {
-          //formatação dos dados do gráfico
+          // Formatação dos dados para o gráfico
           this.dadosAcao = Object.entries(serieTemporal).map(([data, valores]) => ({
             date: data,
             open: parseFloat(valores['1. open']),
@@ -53,7 +52,7 @@ export const usarStoreAcoes = defineStore('acoes', {
       }
     },
 
-    //noticias para o blog
+    // --- FUNÇÃO 2: Buscar Notícias (Feed) ---
     async buscarNoticias(topico) {
       this.aCarregar = true
       this.erro = null
@@ -65,25 +64,35 @@ export const usarStoreAcoes = defineStore('acoes', {
 
         // Se houver tópico específico, adiciona filtro
         if (topico && topico !== 'Geral') {
-             url += `&tickers=${topico}`
+          url += `&tickers=${topico}`
         }
-        
-        
 
         const response = await fetch(url)
         const dados = await response.json()
 
         if (dados.feed) {
-          this.dadosNoticias = dados.feed.map(noticia => {
+          
+          dados.feed.forEach(noticia => {
+            
+           // corrigir caso a imagem seja "null" ou de mais maneiras possiveis vindas da api 
             if (!noticia.banner_image || noticia.banner_image === "null" || noticia.banner_image === "") {
-           noticia.banner_image = null; 
-        }
-            return noticia
+              noticia.banner_image = null; 
+            }
+
+            // verifica se já existe a noticia para não ter duplicados 
+            const noticiaJaExiste = this.dadosNoticias.find(n => n.title === noticia.title)
+
+            // se não tiver duplicado adiciona a noticia
+            if (!noticiaJaExiste) {
+              this.dadosNoticias.push(noticia)
+            }
           });
+
         } else if (dados['Note']) {
-            this.erro = 'Limite de API atingido.'
+          this.erro = 'Limite de API atingido.'
         }
       } catch (e) {
+        console.error(e)
         this.erro = 'Erro ao carregar notícias.'
       } finally {
         this.aCarregar = false
