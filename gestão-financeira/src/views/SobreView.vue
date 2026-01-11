@@ -20,13 +20,11 @@
         <div class="features-grid">
           
           <div class="feature-card">
-            <div class="icon">📰</div>
             <h3>Informação em Tempo Real</h3>
             <p>Acompanhe as últimas notícias do mundo dos investimentos e as inovações tecnológicas que impactam o mercado financeiro global.</p>
           </div>
 
           <div class="feature-card">
-            <div class="icon">🧮</div>
             <h3>Ferramentas Poderosas</h3>
             <p>Simuladores precisos para planejar sua vida:</p>
             <ul class="feature-list">
@@ -38,7 +36,6 @@
           </div>
 
           <div class="feature-card">
-            <div class="icon">📈</div>
             <h3>Análise de Ativos</h3>
             <p>Digite o símbolo da ação e obtenha dados fundamentais instantâneos para decidir se é hora de comprar ou vender.</p>
           </div>
@@ -56,7 +53,6 @@
             Aqui, conhecimento rende juros. Crie seu perfil e complete missões: use as calculadoras, leia notícias e analise ações para ganhar <strong>XP</strong>.
             Suba de nível e desbloqueie recursos exclusivos de investidor veterano.
           </p>
-          <button class="btn-start">Criar Meu Perfil Agora</button>
         </div>
         <div class="gami-visual">
           <div class="level-card">
