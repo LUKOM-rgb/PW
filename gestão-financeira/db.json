@@ -4,15 +4,15 @@
       "id": "admin",
       "password": "123",
       "name": "admin",
-      "xp": 100000000,
+      "xp": 100000100,
       "level": "ADAMASTOR",
       "stats": {
-        "quiz_win": 100,
+        "quiz_win": 102,
         "calc_budget": 100,
         "calc_total": 107,
         "news_search": 100,
         "news_fav": 120,
-        "stock_search": 108,
+        "stock_search": 109,
         "types_used": [
           "juros",
           "credito",
@@ -45,8 +45,8 @@
         }
       ],
       "simulador": {
-        "lastDate": "2026-01-09",
-        "plays": 0
+        "lastDate": "2026-01-12",
+        "plays": 2
       }
     },
     {
@@ -81,28 +81,6 @@
       "simulador": {
         "lastDate": "2026-01-03",
         "plays": 2
-      }
-    },
-    {
-      "id": "6738",
-      "name": "Lucas",
-      "password": "123",
-      "xp": 0,
-      "level": 1,
-      "stats": {
-        "quiz_win": 0,
-        "calc_budget": 0,
-        "calc_total": 0,
-        "news_search": 0,
-        "news_fav": 0,
-        "stock_search": 0,
-        "types_used": []
-      },
-      "conquistas": [],
-      "favoritos": [],
-      "simulador": {
-        "lastDate": null,
-        "plays": 0
       }
     },
     {
@@ -168,6 +146,30 @@
       ],
       "simulador": {
         "lastDate": "2026-01-06",
+        "plays": 2
+      }
+    },
+    {
+      "id": "5c3e",
+      "name": "lucas",
+      "password": "123",
+      "xp": 100,
+      "level": 1,
+      "stats": {
+        "quiz_win": 1,
+        "calc_budget": 0,
+        "calc_total": 0,
+        "news_search": 0,
+        "news_fav": 0,
+        "stock_search": 2,
+        "types_used": []
+      },
+      "conquistas": [
+        "quiz_first_win"
+      ],
+      "favoritos": [],
+      "simulador": {
+        "lastDate": "2026-01-12",
         "plays": 2
       }
     }

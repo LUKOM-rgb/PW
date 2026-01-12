@@ -1,6 +1,6 @@
 <template>
   <div class="simulador-container">
-    <h1>📈 Simulador de Mercado</h1>
+    <h1>Simulador de Mercado</h1>
     <p>Treina a tua intuição. Tens de adivinhar se a ação subiu ou desceu no dia seguinte.</p>
 
     <div v-if="loading" class="loading">A preparar desafio...</div>

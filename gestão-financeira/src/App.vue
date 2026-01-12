@@ -4,19 +4,42 @@
       <nav class="navbar">
         <h1 class="logo">Gestão Financeira</h1>
         <ul>
-          <li><router-link to="/">Início</router-link></li>
-          <li><router-link to="/ferramentas">Ferramentas</router-link></li>
-          <li><router-link to="/simulador">Simulador</router-link></li>
-          <li><router-link to="/blog">Blog</router-link></li>
-          <li><router-link to="/sobre">Sobre Nós</router-link></li>
+          <li>
+            <router-link to="/" class="link-com-icone">
+              <img :src="imgHome" alt="Início" class="nav-icon">
+              <span>Início</span>
+            </router-link>
+          </li>
+          <li><router-link to="/ferramentas" class="link-com-icone">
+            <img :src="imgTools" alt="Ferramentas" class="nav-icon">
+            <span>Ferramentas</span>
+          </router-link></li>
+          <li><router-link to="/simulador" class="link-com-icone">
+            <img :src="imgConsole" alt="Simulador" class="nav-icon">
+            <span>Simulador</span>
+          </router-link></li>
+          <li><router-link to="/blog" class="link-com-icone">
+            <img :src="imgBlog" alt="Blog" class="nav-icon">
+            <span>Blog</span>
+          </router-link></li>
+          <li><router-link to="/sobre" class="link-com-icone">
+            <img :src="imgAbout" alt="Sobre Nós" class="nav-icon">
+            <span>Sobre Nós</span>
+          </router-link></li>
 
-          <li v-if="authStore.isAuthenticated"><router-link to="/investir">Investir</router-link></li>
+          <li v-if="authStore.isAuthenticated"><router-link to="/investir">
+            <img :src="imgInvest" alt="Investir" class="nav-icon">
+            <span>Investir</span>
+          </router-link></li>
 
           <li v-if="authStore.eAdmin"><router-link to="/dashboard">Dashboard</router-link></li>
 
           <li v-if="!authStore.isAuthenticated"><router-link to="/login">Login</router-link></li>
 
-          <li v-else><router-link to="/perfil">Perfil</router-link></li>
+          <li v-else><router-link to="/perfil">
+            <img :src="imgPerfil" alt="Perfil" class="nav-icon">
+            <span>Perfil</span>
+          </router-link></li>
         </ul>
       </nav>
 
@@ -35,6 +58,13 @@
 import { RouterLink, RouterView } from 'vue-router'
 import { usarStoreAuth } from './stores/auth'
 
+import imgHome from './assets/house-chimney.png'
+import imgTools from './assets/calculator2.png'
+import imgConsole from './assets/console-controller.png'
+import imgBlog from './assets/blog-text.png'
+import imgAbout from './assets/book-user.png'
+import imgInvest from './assets/growth-chart-invest.png'
+import imgPerfil from './assets/user.png'
 const authStore = usarStoreAuth()
 </script>
 
@@ -49,4 +79,5 @@ const authStore = usarStoreAuth()
 main { flex-grow: 1; padding: 2rem; width: calc(100% - 250px); }
 footer { background-color: #020B19; color: white; text-align: center; padding: 1rem; flex-shrink: 0; }
 .logo { font-size: 1.5rem; padding-left: 10px; }
+.nav-icon { width: 20px; height: 20px; margin-right: 8px; vertical-align: middle; margin-bottom: 2px; color:white }
 </style>
