@@ -69,9 +69,9 @@ const authStore = usarStoreAuth()
 </script>
 
 <style scoped>
-#app { display: flex; flex-direction: column; min-height: 100vh; background-color: #020B19; font-family: 'Inter', sans-serif; }
+#app { display: flex; flex-direction: column; min-height: 100vh; background-color: #0c0e13; font-family: 'Inter', sans-serif; }
 .content-body { display: flex; flex: 1; color: #ccc; }
-.navbar { width: 200px; background-color: #020B19; flex-shrink: 0; }
+.navbar { width: 200px; background-color: #0a0b0e; flex-shrink: 0; }
 .navbar ul { position: -webkit-sticky; position: sticky; top: 0; padding-inline-start: 0; display: flex; flex-direction: column; padding-left: 10px; margin: 0; list-style: none; }
 .navbar a { color: #ccc; text-decoration: none; font-weight: 500; display: block; padding: 12px; border-radius: 4px; transition: 0.2s; }
 .navbar a:hover { background-color: #002b73; color: white; }
