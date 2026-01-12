@@ -1,6 +1,6 @@
 <template>
   <div class="simulador-container">
-    <h1>📈 Simulador de Mercado</h1>
+    <h1>Simulador de Mercado</h1>
     <p>Treina a tua intuição. Tens de adivinhar se a ação subiu ou desceu no dia seguinte.</p>
 
     <div v-if="loading" class="loading">A preparar desafio...</div>
@@ -16,8 +16,8 @@
         <p class="pergunta">No dia seguinte, fechou em Alta ou Baixa?</p>
 
         <div class="botoes">
-          <button @click="adivinhar('subiu')" class="btn-up">🔼 Subiu</button>
-          <button @click="adivinhar('desceu')" class="btn-down">🔽 Desceu</button>
+          <button @click="adivinhar('subiu')" class="btn-up">Subiu</button>
+          <button @click="adivinhar('desceu')" class="btn-down">Desceu</button>
         </div>
       </div>
       <p class="tentativas">Jogadas hoje: {{ authStore.user?.simulador?.plays || 0 }} / 2</p>

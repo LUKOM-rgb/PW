@@ -9,15 +9,16 @@
       "stats": {
         "quiz_win": 100,
         "calc_budget": 100,
-        "calc_total": 107,
+        "calc_total": 108,
         "news_search": 100,
-        "news_fav": 120,
-        "stock_search": 108,
+        "news_fav": 116,
+        "stock_search": 104,
         "types_used": [
           "juros",
           "credito",
           "orcamento",
-          "divida"
+          "divida",
+          "juros_compostos"
         ]
       },
       "conquistas": [
@@ -34,18 +35,23 @@
       ],
       "favoritos": [
         {
-          "title": "Rep. April McClain Delaney Buys Brown & Brown, Inc. (NYSE:BRO) Shares",
-          "url": "https://www.marketbeat.com/instant-alerts/rep-april-mcclain-delaney-buys-brown-brown-inc-nysebro-shares-2026-01-07/",
-          "date": "2026-01-09T09:29:36.197Z"
+          "title": "Bio-Techne to Present at the 2026 J.P. Morgan Healthcare Conference",
+          "url": "https://investingnews.com/bio-techne-to-present-at-the-2026-j-p-morgan-healthcare-conference/",
+          "date": "2026-01-04T17:06:57.760Z"
         },
         {
-          "title": "3 Reasons to Avoid TECH and 1 Stock to Buy Instead",
-          "url": "https://finviz.com/news/268119/3-reasons-to-avoid-tech-and-1-stock-to-buy-instead",
-          "date": "2026-01-09T09:29:47.619Z"
+          "title": "Bio-Techne Corp (NASDAQ:TECH) Given Consensus Rating of \"Moderate Buy\" by Analysts",
+          "url": "https://www.marketbeat.com/instant-alerts/bio-techne-corp-nasdaqtech-given-consensus-rating-of-moderate-buy-by-analysts-2026-01-04/",
+          "date": "2026-01-05T14:56:47.980Z"
+        },
+        {
+          "title": "Fort Washington Investment Advisors Inc. OH Buys 35,165 Shares of Bio-Techne Corp $TECH",
+          "url": "https://www.marketbeat.com/instant-alerts/filing-fort-washington-investment-advisors-inc-oh-buys-35165-shares-of-bio-techne-corp-tech-2025-12-31/",
+          "date": "2026-01-05T14:56:50.350Z"
         }
       ],
       "simulador": {
-        "lastDate": "2026-01-09",
+        "lastDate": "2026-01-05",
         "plays": 0
       }
     },
@@ -53,15 +59,15 @@
       "id": "40ce",
       "name": "teste",
       "password": "123",
-      "xp": 150,
-      "level": 1,
+      "xp": 300,
+      "level": 2,
       "stats": {
-        "quiz_win": 1,
+        "quiz_win": 2,
         "calc_budget": 1,
         "calc_total": 1,
         "news_search": 0,
-        "news_fav": 4,
-        "stock_search": 4,
+        "news_fav": 6,
+        "stock_search": 8,
         "types_used": [
           "orcamento"
         ]
@@ -69,23 +75,65 @@
       "conquistas": [
         "news_fav_1",
         "quiz_first_win",
-        "calc_budget_use"
+        "calc_budget_use",
+        "stock_search_5"
       ],
       "favoritos": [
         {
           "title": "Assenagon Asset Management S.A. Invests $2.75 Million in Bio-Techne Corp $TECH",
           "url": "https://www.marketbeat.com/instant-alerts/filing-assenagon-asset-management-sa-invests-275-million-in-bio-techne-corp-tech-2025-12-24/",
           "date": "2026-01-03T15:21:07.644Z"
+        },
+        {
+          "title": "Summit Creek Advisors LLC Sells 16,450 Shares of Bio-Techne Corp $TECH",
+          "url": "https://www.marketbeat.com/instant-alerts/filing-summit-creek-advisors-llc-sells-16450-shares-of-bio-techne-corp-tech-2026-01-12/",
+          "date": "2026-01-12T14:30:01.244Z"
+        },
+        {
+          "title": "Exosomes Market Is Going to Boom |Thermo Fisher Scientific, Inc., Bio-Techne, QIAGEN",
+          "url": "https://www.openpr.com/news/4344194/exosomes-market-is-going-to-boom-thermo-fisher-scientific",
+          "date": "2026-01-12T14:30:02.732Z"
         }
       ],
       "simulador": {
-        "lastDate": "2026-01-03",
-        "plays": 2
+        "lastDate": "2026-01-12",
+        "plays": 1
       }
     },
     {
       "id": "6738",
       "name": "Lucas",
+      "password": "123",
+      "xp": 130,
+      "level": 1,
+      "stats": {
+        "quiz_win": 1,
+        "calc_budget": 0,
+        "calc_total": 0,
+        "news_search": 0,
+        "news_fav": 1,
+        "stock_search": 4,
+        "types_used": []
+      },
+      "conquistas": [
+        "news_fav_1",
+        "quiz_first_win"
+      ],
+      "favoritos": [
+        {
+          "title": "Bio-Techne Corp (NASDAQ:TECH) Given Consensus Rating of \"Moderate Buy\" by Analysts",
+          "url": "https://www.marketbeat.com/instant-alerts/bio-techne-corp-nasdaqtech-given-consensus-rating-of-moderate-buy-by-analysts-2026-01-04/",
+          "date": "2026-01-05T14:51:19.496Z"
+        }
+      ],
+      "simulador": {
+        "lastDate": "2026-01-05",
+        "plays": 2
+      }
+    },
+    {
+      "id": "958b",
+      "name": "aaa",
       "password": "123",
       "xp": 0,
       "level": 1,
@@ -106,18 +154,40 @@
       }
     },
     {
+      "id": "24b5",
+      "name": "dfg",
+      "password": "123",
+      "xp": 0,
+      "level": 1,
+      "stats": {
+        "quiz_win": 0,
+        "calc_budget": 0,
+        "calc_total": 0,
+        "news_search": 0,
+        "news_fav": 0,
+        "stock_search": 1,
+        "types_used": []
+      },
+      "conquistas": [],
+      "favoritos": [],
+      "simulador": {
+        "lastDate": "2026-01-04",
+        "plays": 0
+      }
+    },
+    {
       "id": "aba1",
       "name": "teste1",
       "password": "123",
-      "xp": 550,
+      "xp": 450,
       "level": 2,
       "stats": {
         "quiz_win": 1,
         "calc_budget": 1,
-        "calc_total": 15,
+        "calc_total": 14,
         "news_search": 0,
         "news_fav": 6,
-        "stock_search": 5,
+        "stock_search": 2,
         "types_used": [
           "credito",
           "juros_compostos",
@@ -131,8 +201,7 @@
         "quiz_first_win",
         "calc_10_uses",
         "calc_all_types",
-        "calc_budget_use",
-        "stock_search_5"
+        "calc_budget_use"
       ],
       "favoritos": [
         {
@@ -167,8 +236,30 @@
         }
       ],
       "simulador": {
-        "lastDate": "2026-01-06",
+        "lastDate": "2026-01-04",
         "plays": 2
+      }
+    },
+    {
+      "id": "87ca",
+      "name": "lucas",
+      "password": "133",
+      "xp": 0,
+      "level": 1,
+      "stats": {
+        "quiz_win": 0,
+        "calc_budget": 0,
+        "calc_total": 0,
+        "news_search": 0,
+        "news_fav": 0,
+        "stock_search": 0,
+        "types_used": []
+      },
+      "conquistas": [],
+      "favoritos": [],
+      "simulador": {
+        "lastDate": null,
+        "plays": 0
       }
     }
   ],
