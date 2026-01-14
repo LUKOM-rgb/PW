@@ -211,7 +211,7 @@ export const usarStoreAuth = defineStore('auth', {
 
       if (nivelCalculado > this.user.level) {
         this.user.level = nivelCalculado;
-        alert(`🎉 SUBIU DE NÍVEL!\nAgora é Nível ${this.user.level}`);
+        alert(` SUBIU DE NÍVEL!\nAgora é Nível ${this.user.level}`);
       }
 
       await this.atualizarUserAPI();
@@ -249,7 +249,7 @@ export const usarStoreAuth = defineStore('auth', {
       }
     },
 
-    async carregarUsuarios() {
+    async carregarUtilizador() {
         const res = await fetch('http://localhost:3000/users');
         this.listaUsuarios = await res.json();
     },

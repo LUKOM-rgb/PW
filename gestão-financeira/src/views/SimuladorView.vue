@@ -49,7 +49,7 @@ export default {
   data() {
     return {
       loading: false,
-      acaoSymbol: 'IBM', // Podes mudar para AAPL, TSLA, etc.
+      acaoSymbol: 'IBM', 
       dataReferencia: '',
       precoAbertura: 0,
       precoFecho: 0,

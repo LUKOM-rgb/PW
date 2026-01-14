@@ -47,7 +47,7 @@ export default {
       if (confirm(`Apagar ${u.name}?`)) this.authStore.removerUsuario(u.id);
     }
   },
-  mounted() { this.authStore.carregarUsuarios(); }
+  mounted() { this.authStore.carregarUtilizador(); }
 };
 </script>
 

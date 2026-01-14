@@ -86,7 +86,6 @@ export default {
       mostrarConquistas: false,
       form: {
         name: '',
-        email: '',
         password: ''
       }
     };
@@ -143,7 +142,6 @@ export default {
     // Preenche o formulário com os dados atuais quando a página abre
     if (this.authStore.user) {
       this.form.name = this.authStore.user.name;
-      this.form.email = this.authStore.user.email;
       this.form.password = this.authStore.user.password;
     }
   }
