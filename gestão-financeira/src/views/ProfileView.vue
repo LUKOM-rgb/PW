@@ -105,6 +105,24 @@ export default {
     async atualizarPerfil() {
       if (!this.authStore.user) return;
 
+      if (this.form.password.length < 6) {
+        alert('A password deve ter pelo menos 6 caracteres.');
+        return;
+      }
+
+      if (this.form.name.trim() === '') {
+        alert('O nome não pode estar vazio.');
+        return;
+      }
+
+      if (this.form.name === this.authStore.user.name &&
+          this.form.password === this.authStore.user.password) {
+        alert('Nenhuma alteração feita.');
+        return;
+      }
+
+
+
       // 1. Atualiza o estado local na store
       this.authStore.user.name = this.form.name;
       this.authStore.user.password = this.form.password;

@@ -2,7 +2,7 @@
   "users": [
     {
       "id": "admin",
-      "password": "123",
+      "password": "adamastor",
       "name": "admin",
       "xp": 100000100,
       "level": "ADAMASTOR",
@@ -45,8 +45,8 @@
         }
       ],
       "simulador": {
-        "lastDate": "2026-01-12",
-        "plays": 2
+        "lastDate": "2026-01-14",
+        "plays": 0
       }
     },
     {
