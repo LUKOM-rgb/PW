@@ -23,16 +23,21 @@
             <span>Blog</span>
           </router-link></li>
           <li><router-link to="/sobre" class="link-com-icone">
-            <img :src="imgAbout" alt="Sobre Nós" class="nav-icon">
-            <span>Sobre Nós</span>
-          </router-link></li>
+    <img :src="imgAbout" alt="Sobre Nós" class="nav-icon">
+    <span>Sobre Nós</span>
+</router-link></li>
 
-          <li v-if="authStore.isAuthenticated"><router-link to="/investir">
-            <img :src="imgInvest" alt="Investir" class="nav-icon">
-            <span>Investir</span>
-          </router-link></li>
+<li v-if="authStore.isAuthenticated"><router-link to="/investir" class="link-com-icone">
+    <img :src="imgInvest" alt="Investir" class="nav-icon">
+    <span>Investir</span>
+</router-link></li>
 
-          <li v-if="authStore.eAdmin"><router-link to="/dashboard">Dashboard</router-link></li>
+<li v-if="authStore.eAdmin">
+    <router-link to="/dashboard" class="link-com-icone">
+        <img :src="imgDashboard" alt="Dashboard" class="nav-icon">
+        <span>Admin</span>
+    </router-link>
+</li>
 
           <li v-if="!authStore.isAuthenticated"><router-link to="/login">Login</router-link></li>
 
@@ -40,7 +45,11 @@
             <img :src="imgPerfil" alt="Perfil" class="nav-icon">
             <span>Perfil</span>
           </router-link></li>
+          <footer>
+          <p>© 2025 Gestão Financeira — Todos os direitos reservados.</p>
+        </footer>
         </ul>
+        
       </nav>
 
       <main>
@@ -48,9 +57,6 @@
       </main>
     </div>
 
-    <footer>
-      <p>© 2025 Gestão Financeira — Todos os direitos reservados.</p>
-    </footer>
   </div>
 </template>
 
@@ -65,6 +71,7 @@ import imgBlog from './assets/blog-text.png'
 import imgAbout from './assets/book-user.png'
 import imgInvest from './assets/growth-chart-invest.png'
 import imgPerfil from './assets/user.png'
+import  imgDashboard from './assets/dashboard-panel.png'
 const authStore = usarStoreAuth()
 </script>
 
@@ -77,7 +84,7 @@ const authStore = usarStoreAuth()
 .navbar a:hover { background-color: #002b73; color: white; }
 .navbar a.router-link-active { background-color: #002b73; color: white; border-left: 4px solid #4a90e2; }
 main { flex-grow: 1; padding: 2rem; width: calc(100% - 250px); }
-footer { background-color: #020B19; color: white; text-align: center; padding: 1rem; flex-shrink: 0; }
+footer {margin-top: 200px;  color: white; text-align: center; padding: 1rem; flex-shrink: 0; font-size: 0.500rem; }
 .logo { font-size: 1.5rem; padding-left: 10px; }
 .nav-icon { width: 20px; height: 20px; margin-right: 8px; vertical-align: middle; margin-bottom: 2px; color:white }
 </style>
