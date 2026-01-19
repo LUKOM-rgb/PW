@@ -194,6 +194,28 @@
         "lastDate": "2026-01-19",
         "plays": 2
       }
+    },
+    {
+      "id": "99f6",
+      "name": "Lukinhass",
+      "password": "1234567",
+      "xp": 0,
+      "level": 1,
+      "stats": {
+        "quiz_win": 0,
+        "calc_budget": 0,
+        "calc_total": 0,
+        "news_search": 0,
+        "news_fav": 0,
+        "stock_search": 0,
+        "types_used": []
+      },
+      "conquistas": [],
+      "favoritos": [],
+      "simulador": {
+        "lastDate": null,
+        "plays": 0
+      }
     }
   ]
 }
