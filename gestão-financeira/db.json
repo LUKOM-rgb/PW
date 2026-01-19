@@ -12,7 +12,7 @@
         "calc_total": 107,
         "news_search": 100,
         "news_fav": 120,
-        "stock_search": 112,
+        "stock_search": 124,
         "types_used": [
           "juros",
           "credito",
@@ -45,8 +45,8 @@
         }
       ],
       "simulador": {
-        "lastDate": "2026-01-14",
-        "plays": 2
+        "lastDate": "2026-01-19",
+        "plays": 0
       }
     },
     {
@@ -185,16 +185,15 @@
         "calc_total": 0,
         "news_search": 0,
         "news_fav": 0,
-        "stock_search": 0,
+        "stock_search": 1,
         "types_used": []
       },
       "conquistas": [],
       "favoritos": [],
       "simulador": {
-        "lastDate": "2026-01-14",
+        "lastDate": "2026-01-19",
         "plays": 2
       }
     }
-  ],
-  "portfolio": []
+  ]
 }

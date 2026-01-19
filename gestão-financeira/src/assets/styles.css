@@ -321,7 +321,7 @@ ul {
   margin-top: 15px;
   display: flex;
   flex-direction: column;
-  color: #0d2546;
+  color: whitesmoke;
   gap: 8px;
 }
 
@@ -338,7 +338,7 @@ ul {
 .conquista-item.unlocked {
   opacity: 1;
   border-color: #f1c40f;
-  background: #fffdf0;
+  background: #1a1a1a;
 }
 
 /*investirPesquisaVue*/

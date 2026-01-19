@@ -47,7 +47,7 @@
     <section class="gamification-banner">
       <div class="container gamification-content">
         <div class="gami-text">
-          <span class="badge">Nível UP! 🚀</span>
+          <span class="badge">Nível UP! </span>
           <h2>Aprenda e Ganhe XP</h2>
           <p>
             Aqui, conhecimento rende juros. Crie seu perfil e complete missões: use as calculadoras, leia notícias e analise ações para ganhar <strong>XP</strong>.
@@ -56,7 +56,6 @@
         </div>
         <div class="gami-visual">
           <div class="level-card">
-            <div class="avatar-circle">👤</div>
             <div class="xp-bar">
               <div class="xp-fill" style="width: 70%"></div>
             </div>
