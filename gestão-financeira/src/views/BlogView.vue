@@ -17,7 +17,12 @@
       </div>
     </div>
 
-    <div v-if="acoesStore.aCarregar" class="loading">A carregar...</div>
+    <div v-if="acoesStore.aCarregar" class="loading-overlay">
+  <div class="spinner-container">
+    <div class="spinner"></div>
+    <p>A analisar notícias...</p>
+  </div>
+</div>
 
     <div v-else class="grid">
       <div v-for="(n, i) in noticiasExibidas" :key="i" class="card">

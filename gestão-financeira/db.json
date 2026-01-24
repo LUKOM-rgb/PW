@@ -4,10 +4,10 @@
       "id": "admin",
       "password": "Adamastor123",
       "name": "admin",
-      "xp": 100000150,
+      "xp": 100000200,
       "level": "ADAMASTOR",
       "stats": {
-        "quiz_win": 103,
+        "quiz_win": 104,
         "calc_budget": 100,
         "calc_total": 107,
         "news_search": 100,
@@ -45,8 +45,8 @@
         }
       ],
       "simulador": {
-        "lastDate": "2026-01-19",
-        "plays": 0
+        "lastDate": "2026-01-24",
+        "plays": 1
       }
     },
     {
@@ -197,24 +197,27 @@
     },
     {
       "id": "99f6",
-      "name": "Lukinhass",
+      "name": "Lukinhas",
       "password": "1234567",
-      "xp": 0,
-      "level": 1,
+      "xp": 250,
+      "level": 2,
       "stats": {
-        "quiz_win": 0,
+        "quiz_win": 2,
         "calc_budget": 0,
         "calc_total": 0,
         "news_search": 0,
         "news_fav": 0,
-        "stock_search": 0,
+        "stock_search": 6,
         "types_used": []
       },
-      "conquistas": [],
+      "conquistas": [
+        "stock_search_5",
+        "quiz_first_win"
+      ],
       "favoritos": [],
       "simulador": {
-        "lastDate": null,
-        "plays": 0
+        "lastDate": "2026-01-24",
+        "plays": 2
       }
     }
   ]

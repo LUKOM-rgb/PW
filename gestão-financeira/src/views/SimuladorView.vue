@@ -3,21 +3,34 @@
     <h1>Simulador de Mercado</h1>
     <p>Treina a tua intuição. Tens de adivinhar se a ação subiu ou desceu no dia seguinte.</p>
 
-    <div v-if="loading" class="loading">A preparar desafio...</div>
+    <div v-if="loading" class="loading-overlay">
+      <div class="spinner-container">
+        <div class="spinner"></div>
+        <p>A carregar simulador...</p>
+      </div>
+    </div>
 
     <div v-else-if="!resultado && podeJogar" class="game-area">
       <div class="card-desafio">
         <h2>{{ acaoSymbol }}</h2>
         <p class="data">Data Referência: {{ dataReferencia }}</p>
+        
         <div class="preco-box">
-          <span>Abertura:</span>
           <strong>${{ precoAbertura }}</strong>
         </div>
+        
         <p class="pergunta">No dia seguinte, fechou em Alta ou Baixa?</p>
 
-        <div class="botoes">
-          <button @click="adivinhar('subiu')" class="btn-up">🔼 Subiu</button>
-          <button @click="adivinhar('desceu')" class="btn-down">🔽 Desceu</button>
+        <div class="game-buttons">
+          
+          <button @click="adivinhar('subiu')" class="btn-game btn-up" title="Subiu">
+            <img src="../assets/up-trend-round-svgrepo-com.svg" alt="Subiu" />
+          </button>
+
+          <button @click="adivinhar('desceu')" class="btn-game btn-down" title="Desceu">
+            <img src="../assets/down-trend-svgrepo-com.svg" alt="Desceu" />
+          </button>
+
         </div>
       </div>
       <p class="tentativas">Jogadas hoje: {{ authStore.user?.simulador?.plays || 0 }} / 2</p>
@@ -48,7 +61,7 @@ export default {
   name: 'SimuladorView',
   data() {
     return {
-      loading: false,
+      loading: false, // Usei a tua variável local 'loading' em vez de store.aCarregar para controlar fluxo do jogo
       acaoSymbol: 'IBM', 
       dataReferencia: '',
       precoAbertura: 0,
@@ -60,7 +73,8 @@ export default {
   computed: {
     ...mapStores(usarStoreAuth, usarStoreAcoes),
     podeJogar() {
-      return this.authStore.podeJogarHoje();
+      // Verifica se a store e o user existem antes de tentar aceder
+      return this.authStore.user ? this.authStore.podeJogarHoje() : false;
     }
   },
   methods: {
@@ -75,7 +89,7 @@ export default {
       const dados = this.acoesStore.dadosAcao;
 
       if (dados && dados.length > 10) {
-        // Escolher dia aleatório (evita os primeiros dias que podem ser hoje)
+        // Escolher dia aleatório
         const indiceAleatorio = Math.floor(Math.random() * (dados.length - 10)) + 5;
         const dia = dados[indiceAleatorio];
 
@@ -92,7 +106,7 @@ export default {
       this.ganhou = (subiuRealmente === palpiteSubiu);
       this.resultado = true;
 
-      // Registar (Store dá XP e bloqueia se necessário)
+      // Registar
       await this.authStore.registarJogoSimulador(this.ganhou);
     }
   },
@@ -105,13 +119,103 @@ export default {
 </script>
 
 <style scoped>
-.card-desafio { background: #0d2546; color: whitesmoke; padding: 20px; border-radius: 10px; max-width: 400px; margin: 20px auto; }
-.botoes { display: flex; gap: 10px; justify-content: center; margin-top: 20px; }
-.btn-up { background: #27ae60; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
-.btn-down { background: #c0392b; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
-.win { color: #27ae60; font-size: 2rem; }
-.lose { color: #c0392b; font-size: 2rem; }
-.xp-gain { color: #f1c40f; font-weight: bold; font-size: 1.2rem; }
-.btn-again { margin-top: 20px; padding: 10px 20px; font-size: 1rem; cursor: pointer; }
-.limit-area { margin-top: 50px; background: rgba(255,255,255,0.1); padding: 30px; border-radius: 10px; display: inline-block;}
+.simulador-container {
+  text-align: center;
+  color: white;
+  padding: 20px;
+}
+
+.card-desafio { 
+  background: #0d2546; 
+  color: whitesmoke; 
+  padding: 30px; 
+  border-radius: 15px; 
+  max-width: 400px; 
+  margin: 20px auto; 
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+.preco-box {
+  background: rgba(255,255,255,0.1);
+  padding: 10px;
+  border-radius: 8px;
+  margin: 10px 0;
+  font-size: 1.7rem;
+}
+
+/* --- ESTILO DOS BOTÕES COM IMAGEM --- */
+.game-buttons { 
+  display: flex; 
+  gap: 30px; /* Espaço entre botões */
+  justify-content: center; 
+  margin-top: 30px; 
+}
+
+.btn-game { 
+  width: 80px;  /* Tamanho do círculo */
+  height: 80px; /* Tamanho do círculo */
+  border-radius: 50%; /* Faz ser redondo */
+  border: none; 
+  cursor: pointer; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+  background: #2c3e50; /* Cor base se a imagem falhar */
+}
+
+/* Estilo da Imagem SVG dentro do botão */
+.btn-game img {
+  width: 45px;  /* Tamanho do ícone */
+  height: 45px;
+  pointer-events: none; /* Garante que o clique vai para o botão */
+}
+
+/* Hover e Cores Específicas */
+.btn-up { background: rgba(39, 174, 96, 0.2); border: 2px solid #27ae60; }
+.btn-up:hover { 
+  background: #27ae60; 
+  transform: scale(1.1); 
+  box-shadow: 0 0 15px rgba(39, 174, 96, 0.6);
+}
+
+.btn-down { background: rgba(192, 57, 43, 0.2); border: 2px solid #c0392b; }
+.btn-down:hover { 
+  background: #c0392b; 
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(192, 57, 43, 0.6);
+}
+
+/* --- RESULTADOS --- */
+.win { color: #2ecc71; font-size: 2.5rem; margin-bottom: 10px; }
+.lose { color: #e74c3c; font-size: 2.5rem; margin-bottom: 10px; }
+.xp-gain { color: #f1c40f; font-weight: bold; font-size: 1.4rem; animation: pulse 1s infinite; }
+
+.btn-again { 
+  margin-top: 20px; 
+  padding: 12px 24px; 
+  font-size: 1rem; 
+  cursor: pointer; 
+  background: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+.btn-again:hover { background: #2980b9; }
+
+.limit-area { margin-top: 50px; background: rgba(255,255,255,0.05); padding: 30px; border-radius: 10px; display: inline-block;}
+
+/* --- SPINNER DE CARREGAMENTO --- */
+.loading-overlay {
+  display: flex; justify-content: center; padding: 40px;
+}
+.spinner {
+  width: 40px; height: 40px; 
+  border: 4px solid rgba(255,255,255,0.1); 
+  border-top-color: #3498db; 
+  border-radius: 50%; 
+  animation: spin 1s linear infinite;
+  margin: 0 auto 10px auto;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
 </style>

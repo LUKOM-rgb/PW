@@ -99,7 +99,7 @@
             <button type="button" @click="limparDivida" class="btn btn-outline">Limpar</button>
           </div>
 
-          <div class="result"> {{ divida.meses }} meses para pagar a dívida</div>
+          <div class="result"> {{ divida.meses }} Meses para pagar a dívida</div>
         </form>
       </article>
     </section>
@@ -247,22 +247,41 @@ export default {
 </script>
 
 <style scoped>
-.container { padding: 20px; color: #fff; text-align: center; }
+.container { 
+  padding: 20px; 
+  color: #fff; 
+  text-align: center; 
+}
+
+
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 20px;
   margin-top: 30px;
+  align-items: stretch; 
 }
+
 .card {
   background: #0d2546;
   color: whitesmoke;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  
+
   display: flex;
   flex-direction: column;
+  height: 100%; 
 }
+
+
+.card form {
+  display: flex;
+  flex-direction: column;
+  flex: 1; 
+}
+
 
 input, select { 
   width: 100%; 
@@ -283,7 +302,14 @@ label {
   color: #a8d5e2;
 }
 
-.row { display: flex; gap: 10px; margin-top: auto; } /* margin-top auto empurra botões para baixo se os cards tiverem alturas diferentes */
+
+.row { 
+  display: flex; 
+  gap: 10px; 
+  margin-top: auto; 
+  padding-top: 10px;
+}
+
 
 .btn { 
   flex: 1; 
@@ -296,23 +322,32 @@ label {
   font-weight: bold;
   transition: background 0.3s;
 }
-.btn:hover { background: #219150; }
+
+.btn:hover { 
+  background: #219150; 
+}
 
 .btn-outline { 
   background: transparent; 
   border: 1px solid #95a5a6; 
   color: #bdc3c7;
 }
-.btn-outline:hover { background: #95a5a6; color: #fff; }
+
+.btn-outline:hover { 
+  background: #95a5a6; 
+  color: #fff; 
+}
+
 
 .result { 
-  margin-top: 20px; 
+  margin-top: 15px; 
   padding: 10px;
   background: rgba(39, 174, 96, 0.1);
   border-radius: 5px;
   font-weight: bold; 
   color: #2ecc71; 
-  font-size: 1.2rem; 
+  font-size: 1.2rem;
+  text-align: center;
 }
 
 .gamification-badge {

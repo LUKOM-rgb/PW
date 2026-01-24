@@ -5,13 +5,19 @@
     <div class="search-box">
       <input
         v-model="termo"
-        placeholder="Escreve o símbolo (ex: AAPL, TSLA)..."
+        placeholder="Escreve um símbolo:"
         class="search-input"
       />
       <span v-if="aDigitar" class="typing-indicator">Wait...</span>
     </div>
 
-    <div v-if="acoesStore.aCarregar" class="loading">A carregar dados...</div>
+    <div v-if="acoesStore.aCarregar" class="loading-overlay">
+  <div class="spinner-container">
+    <div class="spinner"></div>
+    <p>A carregar o grafico...</p>
+  </div>
+</div>
+
     <div v-if="acoesStore.erro" class="error">{{ acoesStore.erro }}</div>
 
     <div v-if="!acoesStore.aCarregar && acoesStore.dadosAcao.length > 0" class="results-area">
@@ -40,6 +46,20 @@
         </table>
       </div>
     </div>
+
+    <div v-else-if="!acoesStore.aCarregar && !acoesStore.erro" class="empty-state">
+      <div class="empty-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+          <line x1="8" y1="21" x2="16" y2="21"></line>
+          <line x1="12" y1="17" x2="12" y2="21"></line>
+          <polyline points="6 12 10 9 14 13 18 8"></polyline>
+        </svg>
+      </div>
+      <p>Pesquisa um símbolo para ver o gráfico.</p>
+      <small>Exemplos populares: NVDA, MSFT, AMZN</small>
+    </div>
+
   </div>
 </template>
 
@@ -55,23 +75,31 @@ export default {
     return {
       termo: '',
       chartInstance: null,
-      timer: null,      // Para guardar o temporizador
-      aDigitar: false   // Para mostrar efeito visual
+      timer: null,
+      aDigitar: false
     }
   },
   computed: {
     ...mapStores(usarStoreAcoes, usarStoreAuth)
   },
   watch: {
-    // Vigia o campo de pesquisa
     termo(novoValor) {
-      clearTimeout(this.timer); // Cancela a pesquisa anterior se ainda estiveres a escrever
-      this.acoesStore.erro = null; // Limpa erros antigos
+      clearTimeout(this.timer);
+      this.acoesStore.erro = null;
+
+      // Se o utilizador apagar o texto, limpamos os dados antigos para mostrar a imagem padrão
+      if (!novoValor) {
+          this.acoesStore.dadosAcao = []; 
+          if (this.chartInstance) {
+              this.chartInstance.destroy();
+              this.chartInstance = null;
+          }
+          this.aDigitar = false;
+          return;
+      }
 
       if (novoValor && novoValor.length > 1) {
         this.aDigitar = true;
-
-        // Espera 800ms (quase 1 segundo) após parares de escrever
         this.timer = setTimeout(() => {
           this.pesquisar();
           this.aDigitar = false;
@@ -86,12 +114,13 @@ export default {
       if (!this.termo) return;
 
       await this.acoesStore.buscarAcao(this.termo);
-
-      // Se encontrou dados válidos
+      
       if (!this.acoesStore.erro && this.acoesStore.dadosAcao.length > 0) {
-        this.renderChart();
-
-        // Gamificação: Só dá XP se for uma pesquisa válida
+        // Usamos $nextTick para garantir que o HTML do gráfico existe antes de desenhar
+        this.$nextTick(() => {
+            this.renderChart();
+        });
+        
         if (this.authStore.user) {
              this.authStore.incrementarEstatistica('stock_search');
         }
@@ -113,17 +142,25 @@ export default {
             label: 'Preço de Fecho',
             data: dadosGrafico.map(d => d.close),
             borderColor: '#3498db',
-            backgroundColor: 'rgba(52, 152, 219, 0.2)',
+            backgroundColor: (context) => {
+              const ctx = context.chart.ctx;
+              const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+              gradient.addColorStop(0, 'rgba(52, 152, 219, 0.4)');
+              gradient.addColorStop(1, 'rgba(52, 152, 219, 0.0)');
+              return gradient;
+            },
             fill: true,
-            tension: 0.3
+            tension: 0.3,
+            pointRadius: 2
           }]
         },
         options: {
           responsive: true,
-          plugins: { legend: { labels: { color: 'white' } } },
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
           scales: {
-            y: { ticks: { color: '#ccc' }, grid: { color: '#444' } },
-            x: { ticks: { color: '#ccc' }, grid: { display: false } }
+            y: { ticks: { color: '#888' }, grid: { color: '#333' } },
+            x: { ticks: { color: '#888' }, grid: { display: false } }
           }
         }
       });
@@ -132,3 +169,44 @@ export default {
 }
 </script>
 
+<style scoped>
+/* Adicione isto ao seu CSS */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+  color: #666;
+  text-align: center;
+  border: 2px dashed #333; /* Borda tracejada para dar aspeto de placeholder */
+  border-radius: 12px;
+  margin-top: 20px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.empty-icon svg {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 1rem;
+  opacity: 0.3; /* Deixa o ícone subtil */
+  color: #3498db;
+}
+
+.empty-state p {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.empty-state small {
+  color: #444;
+}
+
+/* Garante que o container do gráfico tem altura fixa */
+.chart-wrapper {
+  position: relative;
+  height: 300px; 
+  width: 100%;
+}
+</style>
