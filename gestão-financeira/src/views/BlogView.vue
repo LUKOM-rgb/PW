@@ -26,13 +26,13 @@
 
     <div v-else class="grid">
       <div v-for="(n, i) in noticiasExibidas" :key="i" class="card">
-        <img 
-          :src="n.banner_image" 
-          @error="imgErro" 
-          class="img" 
-          alt="Imagem da notícia" 
+        <img
+          :src="n.banner_image"
+          @error="imgErro"
+          class="img"
+          alt="Imagem da notícia"
         />
-        
+
         <div class="card-content">
           <div class="card-top">
             <h3>{{ n.title }}</h3>
@@ -54,7 +54,7 @@ import { usarStoreAcoes } from '../stores/acoes';
 import { usarStoreAuth } from '../stores/auth';
 import EstrelaVazia from '../assets/starvazia.png';
 import EstrelaCheia from '../assets/star.png';
-import imgPadrao from '../assets/error.jpg'; 
+import imgPadrao from '../assets/error.jpg';
 
 export default {
   name: 'BlogView',
@@ -82,10 +82,9 @@ export default {
         lista = lista.filter(n => this.verificaFav(n));
       }
 
-      // 3. Trata as imagens no final (Melhor performance)
+      // 3. Trata as imagens no final
       lista = lista.map(n => ({
-        ...n, 
-        // Se a imagem for válida mantém, senão mete a do Economist
+        ...n,
         banner_image: (n.banner_image && n.banner_image !== "null") ? n.banner_image : imgPadrao
       }));
 
@@ -96,7 +95,7 @@ export default {
     imgErro(event) {
       event.target.src = imgPadrao;
     },
-    
+
 
     verificaFav(noticia) {
       return this.authStore.user?.favoritos?.some(f => f.title === noticia.title);

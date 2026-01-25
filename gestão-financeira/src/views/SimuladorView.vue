@@ -14,15 +14,15 @@
       <div class="card-desafio">
         <h2>{{ acaoSymbol }}</h2>
         <p class="data">Data Referência: {{ dataReferencia }}</p>
-        
+
         <div class="preco-box">
           <strong>${{ precoAbertura }}</strong>
         </div>
-        
+
         <p class="pergunta">No dia seguinte, fechou em Alta ou Baixa?</p>
 
         <div class="game-buttons">
-          
+
           <button @click="adivinhar('subiu')" class="btn-game btn-up" title="Subiu">
             <img src="../assets/up-trend-round-svgrepo-com.svg" alt="Subiu" />
           </button>
@@ -61,8 +61,8 @@ export default {
   name: 'SimuladorView',
   data() {
     return {
-      loading: false, // Usei a tua variável local 'loading' em vez de store.aCarregar para controlar fluxo do jogo
-      acaoSymbol: 'IBM', 
+      loading: false,
+      acaoSymbol: 'IBM',
       dataReferencia: '',
       precoAbertura: 0,
       precoFecho: 0,
@@ -73,7 +73,7 @@ export default {
   computed: {
     ...mapStores(usarStoreAuth, usarStoreAcoes),
     podeJogar() {
-      // Verifica se a store e o user existem antes de tentar aceder
+
       return this.authStore.user ? this.authStore.podeJogarHoje() : false;
     }
   },
@@ -125,13 +125,13 @@ export default {
   padding: 20px;
 }
 
-.card-desafio { 
-  background: #0d2546; 
-  color: whitesmoke; 
-  padding: 30px; 
-  border-radius: 15px; 
-  max-width: 400px; 
-  margin: 20px auto; 
+.card-desafio {
+  background: #0d2546;
+  color: whitesmoke;
+  padding: 30px;
+  border-radius: 15px;
+  max-width: 400px;
+  margin: 20px auto;
   box-shadow: 0 10px 25px rgba(0,0,0,0.3);
 }
 
@@ -144,19 +144,19 @@ export default {
 }
 
 /* --- ESTILO DOS BOTÕES COM IMAGEM --- */
-.game-buttons { 
-  display: flex; 
+.game-buttons {
+  display: flex;
   gap: 30px; /* Espaço entre botões */
-  justify-content: center; 
-  margin-top: 30px; 
+  justify-content: center;
+  margin-top: 30px;
 }
 
-.btn-game { 
+.btn-game {
   width: 80px;  /* Tamanho do círculo */
   height: 80px; /* Tamanho do círculo */
   border-radius: 50%; /* Faz ser redondo */
-  border: none; 
-  cursor: pointer; 
+  border: none;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -164,7 +164,7 @@ export default {
   background: #2c3e50; /* Cor base se a imagem falhar */
 }
 
-/* Estilo da Imagem SVG dentro do botão */
+
 .btn-game img {
   width: 45px;  /* Tamanho do ícone */
   height: 45px;
@@ -173,15 +173,15 @@ export default {
 
 /* Hover e Cores Específicas */
 .btn-up { background: rgba(39, 174, 96, 0.2); border: 2px solid #27ae60; }
-.btn-up:hover { 
-  background: #27ae60; 
-  transform: scale(1.1); 
+.btn-up:hover {
+  background: #27ae60;
+  transform: scale(1.1);
   box-shadow: 0 0 15px rgba(39, 174, 96, 0.6);
 }
 
 .btn-down { background: rgba(192, 57, 43, 0.2); border: 2px solid #c0392b; }
-.btn-down:hover { 
-  background: #c0392b; 
+.btn-down:hover {
+  background: #c0392b;
   transform: scale(1.1);
   box-shadow: 0 0 15px rgba(192, 57, 43, 0.6);
 }
@@ -191,11 +191,11 @@ export default {
 .lose { color: #e74c3c; font-size: 2.5rem; margin-bottom: 10px; }
 .xp-gain { color: #f1c40f; font-weight: bold; font-size: 1.4rem; animation: pulse 1s infinite; }
 
-.btn-again { 
-  margin-top: 20px; 
-  padding: 12px 24px; 
-  font-size: 1rem; 
-  cursor: pointer; 
+.btn-again {
+  margin-top: 20px;
+  padding: 12px 24px;
+  font-size: 1rem;
+  cursor: pointer;
   background: #3498db;
   color: white;
   border: none;
@@ -210,10 +210,10 @@ export default {
   display: flex; justify-content: center; padding: 40px;
 }
 .spinner {
-  width: 40px; height: 40px; 
-  border: 4px solid rgba(255,255,255,0.1); 
-  border-top-color: #3498db; 
-  border-radius: 50%; 
+  width: 40px; height: 40px;
+  border: 4px solid rgba(255,255,255,0.1);
+  border-top-color: #3498db;
+  border-radius: 50%;
   animation: spin 1s linear infinite;
   margin: 0 auto 10px auto;
 }

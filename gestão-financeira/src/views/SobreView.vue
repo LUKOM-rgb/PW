@@ -1,6 +1,6 @@
 <template>
   <div class="about-page">
-    
+
     <section class="hero-section">
       <div class="container">
         <h1 class="hero-title">Dominando o Mercado, <span class="highlight">Um Nível de Cada Vez.</span></h1>
@@ -18,7 +18,7 @@
         </div>
 
         <div class="features-grid">
-          
+
           <div class="feature-card">
             <h3>Informação em Tempo Real</h3>
             <p>Acompanhe as últimas notícias do mundo dos investimentos e as inovações tecnológicas que impactam o mercado financeiro global.</p>
@@ -99,11 +99,11 @@
   font-size: 2.5rem;
   font-weight: 800;
   margin-bottom: 16px;
-  color: #cbd5e1; 
+  color: #cbd5e1;
 }
 
 .highlight {
-  color: #2563eb; /* Azul Institucional */
+  color: #2563eb;
   background: linear-gradient(120deg, rgba(37, 99, 235, 0.1) 0%, rgba(37, 99, 235, 0) 100%);
   padding: 0 5px;
   border-radius: 4px;
@@ -116,7 +116,7 @@
   margin: 0 auto;
 }
 
-/* --- FEATURES GRID --- */
+
 .features-section {
   padding: 60px 0;
 
@@ -155,7 +155,7 @@
 .feature-card h3 {
   font-size: 1.25rem;
   margin-bottom: 12px;
-  color: #cbd5e1; 
+  color: #cbd5e1;
 }
 
 .feature-list {
@@ -175,7 +175,7 @@
   border-bottom: none;
 }
 
-/* --- GAMIFICATION BANNER --- */
+
 .gamification-banner {
   background-color: #1e293b; /* Fundo escuro para destaque */
   color: #fff;
@@ -208,7 +208,7 @@
 
 .gami-text p {
   color: #cbd5e1;
-  margin-bottom: 25px;  
+  margin-bottom: 25px;
   max-width: 500px;
 }
 
@@ -228,7 +228,7 @@
   background-color: #2563eb;
 }
 
-/* Visual do Card de Nível */
+
 .level-card {
   background: rgba(255, 255, 255, 0.1);
   padding: 20px;
@@ -260,7 +260,7 @@
 
 .xp-fill {
   height: 100%;
-  background-color: #fbbf24; /* Amarelo XP */
+  background-color: #fbbf24;
 }
 
 .level-text {
@@ -269,19 +269,18 @@
   margin: 0;
 }
 
-/* --- FOOTER CTA --- */
+
 .footer-cta {
   text-align: center;
   padding: 40px 0 80px;
 }
 
-/* --- RESPONSIVIDADE --- */
 @media (max-width: 768px) {
   .gamification-content {
     flex-direction: column;
     text-align: center;
   }
-  
+
   .gami-text p {
     margin: 0 auto 25px;
   }

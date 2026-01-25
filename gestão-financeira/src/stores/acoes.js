@@ -11,7 +11,7 @@ export const usarStoreAcoes = defineStore('acoes', {
   }),
 
   actions: {
-    // --- FUNÇÃO 1: Buscar dados da Ação (Gráfico) ---
+    // --- FUNÇÃO 1: Buscar dados da Ação  ---
     async buscarAcao(simbolo) {
       this.aCarregar = true
       this.erro = null
@@ -52,7 +52,7 @@ export const usarStoreAcoes = defineStore('acoes', {
       }
     },
 
-    // --- FUNÇÃO 2: Buscar Notícias (Feed) ---
+    // --- FUNÇÃO 2: Buscar Notícias  ---
     async buscarNoticias(topico) {
       this.aCarregar = true
       this.erro = null
@@ -71,15 +71,15 @@ export const usarStoreAcoes = defineStore('acoes', {
         const dados = await response.json()
 
         if (dados.feed) {
-          
+
           dados.feed.forEach(noticia => {
-            
-           // corrigir caso a imagem seja "null" ou de mais maneiras possiveis vindas da api 
+
+           // corrigir caso a imagem seja "null" ou de mais maneiras possiveis vindas da api
             if (!noticia.banner_image || noticia.banner_image === "null" || noticia.banner_image === "") {
-              noticia.banner_image = null; 
+              noticia.banner_image = null;
             }
 
-            // verifica se já existe a noticia para não ter duplicados 
+            // verifica se já existe a noticia para não ter duplicados
             const noticiaJaExiste = this.dadosNoticias.find(n => n.title === noticia.title)
 
             // se não tiver duplicado adiciona a noticia

@@ -126,7 +126,7 @@ export default {
       this.authStore.user.name = this.form.name;
       this.authStore.user.password = this.form.password;
 
-      // 2. Manda guardar tudo no servidor (chama a função que corrigimos no auth.js)
+      // 2. Manda guardar tudo no servidor
       const sucesso = await this.authStore.atualizarUserAPI();
 
       if (sucesso) alert('Perfil atualizado com sucesso!');

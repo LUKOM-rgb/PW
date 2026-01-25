@@ -43,7 +43,7 @@ const fazerRegisto = async () => {
   // Limpar erro anterior
   erro.value = null;
 
-  // Agora recebemos um objeto { success, message }
+  // Agora recebemos um objeto
   const resultado = await authStore.registar(name.value, password.value);
 
   // Verificamos a propriedade .success

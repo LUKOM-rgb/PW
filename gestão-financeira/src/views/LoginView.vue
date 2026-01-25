@@ -39,7 +39,6 @@ const route = useRoute();
 
 const nome = ref('');
 const password = ref('');
-// Mudei 'erro' para guardar a mensagem de texto em vez de apenas true/false
 const erro = ref(null);
 
 // Verifica se no link existe "?semPermissao=true"
@@ -56,7 +55,6 @@ const fazerLogin = async () => {
   if (resultado.success) {
 
     // --- LÓGICA DE REDIRECIONAMENTO ---
-    // ATENÇÃO: Usar 'name' porque é assim que está na base de dados json-server
     if (authStore.user?.name === 'admin') {
       router.push('/dashboard');
     } else {
@@ -65,7 +63,7 @@ const fazerLogin = async () => {
     // ----------------------------------
 
   } else {
-    // 3. Mostrar a mensagem de erro que vem da Store (ex: "Senha incorreta")
+    // 3. Mostrar a mensagem de erro que vem da Store
     erro.value = resultado.message;
   }
 };
