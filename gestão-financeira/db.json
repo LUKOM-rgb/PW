@@ -80,6 +80,46 @@
         "lastDate": null,
         "plays": 0
       }
+    },
+    {
+      "id": "b0de",
+      "name": "goncalo",
+      "password": "12345",
+      "xp": 30,
+      "level": 1,
+      "stats": {
+        "quiz_win": 0,
+        "calc_budget": 0,
+        "calc_total": 0,
+        "news_search": 0,
+        "news_fav": 4,
+        "stock_search": 0,
+        "types_used": []
+      },
+      "conquistas": [
+        "news_fav_1"
+      ],
+      "favoritos": [
+        {
+          "title": "Campbell & CO Investment Adviser LLC Sells 30,867 Shares of Bio-Techne Corp $TECH",
+          "url": "https://www.marketbeat.com/instant-alerts/filing-campbell-co-investment-adviser-llc-sells-30867-shares-of-bio-techne-corp-tech-2026-01-25/",
+          "date": "2026-01-25T23:10:54.508Z"
+        },
+        {
+          "title": "Picks and Shovels of the Bio-Revolution: A Deep Dive into Bio-Techne Corporation (TECH)",
+          "url": "https://markets.financialcontent.com/wral/article/finterra-2026-1-22-picks-and-shovels-of-the-bio-revolution-a-deep-dive-into-bio-techne-corporation-tech",
+          "date": "2026-01-25T23:10:57.008Z"
+        },
+        {
+          "title": "Exosomes Market Is Going to Boom |Thermo Fisher Scientific, Inc., Bio-Techne, QIAGEN",
+          "url": "https://www.openpr.com/news/4344194/exosomes-market-is-going-to-boom-thermo-fisher-scientific",
+          "date": "2026-01-25T23:11:00.347Z"
+        }
+      ],
+      "simulador": {
+        "lastDate": null,
+        "plays": 0
+      }
     }
   ]
 }

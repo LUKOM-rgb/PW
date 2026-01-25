@@ -44,10 +44,10 @@ const router = createRouter({
       path: '/simulador',
       name: 'simulador',
       component: SimuladorView,
-      meta: { requiresAuth: true } // <--- Nova Rota Protegida
+      meta: { requiresAuth: true }
     },
 
-    // Rota EXCLUSIVA Admin
+    // Rota EXCLUSIVA do npAdmin
     {
       path: '/dashboard',
       name: 'dashboard',

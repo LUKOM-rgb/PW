@@ -4,7 +4,7 @@
       <nav class="navbar">
         <div class="nav-header">
           <h1 class="logo">Gestão Financeira</h1>
-          
+
           <button class="hamburger" @click="toggleMenu" :class="{ 'is-active': menuAberto }">
             <span></span>
             <span></span>
@@ -59,7 +59,10 @@
           </li>
 
           <li v-if="!authStore.isAuthenticated">
-            <router-link to="/login" @click="fecharMenu">Login</router-link>
+            <router-link to="/login" @click="fecharMenu">
+              <img :src="imgPerfil" alt="Login" class="nav-icon">
+              <span>Login</span>
+            </router-link>
           </li>
 
           <li v-else>
@@ -86,7 +89,6 @@
 import { ref } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
 import { usarStoreAuth } from './stores/auth'
-
 import imgHome from './assets/house-chimney.png'
 import imgTools from './assets/calculator2.png'
 import imgConsole from './assets/console-controller.png'
@@ -98,7 +100,7 @@ import imgDashboard from './assets/dashboard-panel.png'
 
 const authStore = usarStoreAuth()
 
-// --- Lógica do Menu Mobile ---
+// Menu Mobile
 const menuAberto = ref(false)
 
 function toggleMenu() {
@@ -112,11 +114,12 @@ function fecharMenu() {
 </script>
 
 <style scoped>
-#app { display: flex; flex-direction: column; min-height: 100vh; background-color: #0c0e13; font-family: 'Inter', sans-serif; }
+#app { display: flex; flex-direction: column; min-height: 100vh; background-color: #0c0e13; font-family: 'Inter', sans-serif; padding-left: 200px; box-sizing: border-box;}
 .content-body { display: flex; flex: 1; color: #ccc; }
 
 /* Navbar Desktop (Padrão) */
-.navbar { width: 200px; background-color: #0a0b0e; flex-shrink: 0; display: flex; flex-direction: column; }
+.navbar { width: 200px; background-color: #0a0b0e; flex-shrink: 0; display: flex;
+flex-direction: column; position: fixed; top: 0; left: 0; height: 100vh;overflow-y: auto; }
 .navbar ul { position: -webkit-sticky; position: sticky; top: 0; padding-inline-start: 0; display: flex; flex-direction: column; padding-left: 10px; margin: 0; list-style: none; }
 .navbar a { color: #ccc; text-decoration: none; font-weight: 500; display: block; padding: 12px; border-radius: 4px; transition: 0.2s; }
 .navbar a:hover { background-color: #002b73; color: white; }
@@ -137,12 +140,12 @@ footer { margin-top: auto; color: white; text-align: center; padding: 1rem; flex
 
 /* --- VERSÃO MOBILE --- */
 @media (max-width: 768px) {
-  .content-body { flex-direction: column; } 
-  
+  .content-body { flex-direction: column; }
+
   .navbar { width: 100%; height: auto; position: relative; }
-  
+
   .nav-header { padding: 0 10px; background-color: #0a0b0e; z-index: 101; }
-  
+
   /* Mostrar botão Hambúrguer */
   .hamburger { display: block; }
 
@@ -153,12 +156,12 @@ footer { margin-top: auto; color: white; text-align: center; padding: 1rem; flex
 
   /* Esconder o menu por padrão no mobile */
   .navbar ul {
-    display: none; 
+    display: none;
     flex-direction: column;
     width: 100%;
     background-color: #0a0b0e;
     padding-bottom: 20px;
-    padding-left: 0; 
+    padding-left: 0;
   }
 
   /* Mostrar menu quando estiver aberto */
