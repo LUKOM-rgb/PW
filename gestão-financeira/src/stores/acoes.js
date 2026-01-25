@@ -11,7 +11,7 @@ export const usarStoreAcoes = defineStore('acoes', {
   }),
 
   actions: {
-    // --- FUNÇÃO 1: Buscar dados da Ação (Gráfico) ---
+    // --- FUNÇÃO 1: Buscar dados da Ação  ---
     async buscarAcao(simbolo) {
       this.aCarregar = true
       this.erro = null
@@ -52,7 +52,7 @@ export const usarStoreAcoes = defineStore('acoes', {
       }
     },
 
-    // --- FUNÇÃO 2: Buscar Notícias (Feed) ---
+    // --- FUNÇÃO 2: Buscar Notícias  ---
     async buscarNoticias(topico) {
       this.aCarregar = true
       this.erro = null
