@@ -42,47 +42,63 @@
           </div>
           <p class="summary">{{ n.summary?.substring(0, 100) }}...</p>
           <a :href="n.url" target="_blank" class="btn-ler">Ler mais</a>
-        </div>
+          </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapStores } from 'pinia';
 import { usarStoreAcoes } from '../stores/acoes';
 import { usarStoreAuth } from '../stores/auth';
-import EstrelaVazia from '../assets/starvazia.png';
-import EstrelaCheia from '../assets/star.png';
-import imgPadrao from '../assets/error.jpg';
+import imgPadrao from '@/assets/blog-text.png';
+import EstrelaCheia from '@/assets/star.png';
+import EstrelaVazia from '@/assets/starvazia.png';
 
 export default {
-  name: 'BlogView',
+  setup() {
+    const acoesStore = usarStoreAcoes();
+    const authStore = usarStoreAuth();
+    return { acoesStore, authStore };
+  },
   data() {
     return {
-      termoPesquisa: '',
-      verFavoritos: false,
-      EstrelaVazia: EstrelaVazia,
-      EstrelaCheia: EstrelaCheia
+      termoPesquisa: "",
+      verFavoritos: localStorage.getItem('blog_filtroFavoritos') === 'true',
+
+      imgPadrao,
+      EstrelaCheia,
+      EstrelaVazia
+    };
+  },
+
+  // Grava o state
+  watch: {
+    verFavoritos(novoValor) {
+      localStorage.setItem('blog_filtroFavoritos', novoValor);
     }
   },
-  computed: {
-    ...mapStores(usarStoreAcoes, usarStoreAuth),
 
+  computed: {
     noticiasExibidas() {
       let lista = this.acoesStore.dadosNoticias;
 
-      // 1. Filtra por texto
+      // 1. Filtra por pesquisa
       if (this.termoPesquisa) {
-        lista = lista.filter(n => n.title.toLowerCase().includes(this.termoPesquisa.toLowerCase()));
+        const termo = this.termoPesquisa.toLowerCase();
+        lista = lista.filter(n => n.title.toLowerCase().includes(termo));
       }
 
       // 2. Filtra por favoritos
       if (this.verFavoritos) {
-        lista = lista.filter(n => this.verificaFav(n));
+        if (!this.authStore.isAuthenticated) {
+            // Lógica opcional se não tiver login
+        }
+        const meusFavs = this.authStore.user?.favoritos?.map(f => f.title) || [];
+        lista = lista.filter(n => meusFavs.includes(n.title));
       }
 
-      // 3. Trata as imagens no final
+      // 3. Trata as imagens
       lista = lista.map(n => ({
         ...n,
         banner_image: (n.banner_image && n.banner_image !== "null") ? n.banner_image : imgPadrao
@@ -95,7 +111,6 @@ export default {
     imgErro(event) {
       event.target.src = imgPadrao;
     },
-
 
     verificaFav(noticia) {
       return this.authStore.user?.favoritos?.some(f => f.title === noticia.title);
