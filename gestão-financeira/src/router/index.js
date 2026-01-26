@@ -47,7 +47,7 @@ const router = createRouter({
       meta: { requiresAuth: true }
     },
 
-    // Rota EXCLUSIVA do npAdmin
+    // Rota EXCLUSIVA do Admin
     {
       path: '/dashboard',
       name: 'dashboard',

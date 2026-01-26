@@ -74,7 +74,7 @@ export const usarStoreAuth = defineStore('auth', {
       return { success: false, message: "Erro de conexão ao servidor." }
     },
 
-    // --- REGISTO ---
+    // Registo
     async registar(nome,  password) {
         try {
           const check = await fetch(`http://localhost:3000/users?name=${nome}`)
@@ -102,7 +102,7 @@ export const usarStoreAuth = defineStore('auth', {
       }
     },
 
-    // --- INICIALIZADOR DE DADOS (Evita erros em users antigos) ---
+    // Inicializador de dados
     _inicializarUser(user) {
       if (!user.xp) user.xp = 0;
       if (!user.level) user.level = 1;
@@ -113,7 +113,7 @@ export const usarStoreAuth = defineStore('auth', {
       return user;
     },
 
-    // --- SISTEMA DE ESTATÍSTICAS E CONQUISTAS ---
+    // Sistema das conquistas
     async incrementarEstatistica(tipo, subtipo = null) {
       if (!this.user) return;
 
@@ -154,7 +154,7 @@ export const usarStoreAuth = defineStore('auth', {
       else await this.atualizarUserAPI();
     },
 
-    // --- FAVORITOS ---
+    // Favs
     async toggleFavorito(noticia) {
       if (!this.user) return;
       if (!this.user.favoritos) this.user.favoritos = [];
@@ -170,7 +170,7 @@ export const usarStoreAuth = defineStore('auth', {
       }
     },
 
-    // --- SIMULADOR ---
+    // Simulador
     podeJogarHoje() {
       if (!this.user) return false;
       const hoje = new Date().toISOString().split('T')[0];
@@ -194,7 +194,7 @@ export const usarStoreAuth = defineStore('auth', {
       }
     },
 
-    // --- GANHAR XP E SUBIR DE NÍVEL (Progressivo) ---
+    // Ganhar xp e subir de nivel
     async ganharXP(qtd) {
       this.user.xp += qtd;
 
@@ -217,13 +217,13 @@ export const usarStoreAuth = defineStore('auth', {
       await this.atualizarUserAPI();
     },
 
-    // --- API & AUXILIARES ---
+    // API e extra
     async atualizarUserAPI() {
       // 1. Atualiza o LocalStorage
       localStorage.setItem('user', JSON.stringify(this.user));
 
       try {
-        // 2. Atualiza o Servidor (db.json)
+        // 2. Atualiza o Servidor
         await fetch(`http://localhost:3000/users/${this.user.id}`, {
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json' },
@@ -267,7 +267,7 @@ export const usarStoreAuth = defineStore('auth', {
   }
 })
 
-// Função auxiliar (Fórmula de progressão: Nível * 200)
+// Função auxiliar
 function calcularXPTotalParaNivel(nivelAlvo) {
     let total = 0;
     for (let i = 1; i < nivelAlvo; i++) {

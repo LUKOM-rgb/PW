@@ -118,7 +118,7 @@ export default {
       juros: {
         capital: null,
         taxa: null,
-        periodos: 1, 
+        periodos: 1,
         anos: null,
         resultado: ''
       },
@@ -150,7 +150,7 @@ export default {
     ...mapStores(usarStoreAuth)
   },
   methods: {
-   
+
     calcularJuros() {
       if (!this.juros.capital || !this.juros.taxa || !this.juros.anos) {
         this.juros.resultado = 'Preenche todos os campos.';
@@ -159,7 +159,7 @@ export default {
       const r = this.juros.taxa / 100;
       const n = this.juros.periodos;
       const t = this.juros.anos;
-      
+
       // Fórmula: A = P(1 + r/n)^(nt)
       const montante = this.juros.capital * Math.pow((1 + r / n), n * t);
       this.juros.resultado = `${montante.toFixed(2)} €`;
@@ -170,7 +170,7 @@ export default {
       this.juros = { capital: null, taxa: null, periodos: 1, anos: null, resultado: '—' };
     },
 
-    
+
     calcularEmprestimo() {
       if (!this.credito.emprestimo || !this.credito.taxa || !this.credito.prazo) {
         this.credito.resultado = 'Preenche todos os campos.';
@@ -180,7 +180,7 @@ export default {
       const taxaMensal = (this.credito.taxa / 100) / 12;
       const totalMeses = this.credito.prazo * 12;
 
-      
+
       const x = Math.pow(1 + taxaMensal, totalMeses);
       const prestacao = (principal * x * taxaMensal) / (x - 1);
 
@@ -195,7 +195,7 @@ export default {
       this.credito = { emprestimo: null, taxa: null, prazo: null, resultado: '—' };
     },
 
-    
+
     calcularOrcamento() {
       if (!this.orcamento.rendimento) return;
 
@@ -213,7 +213,7 @@ export default {
       this.orcamento = { rendimento: null, residencia: null, alimentacao: null, investir: null, resultado: null };
     },
 
-    // --- Lógica Dívida ---
+    // Lógica da dívida
     calcularDivida() {
       if (!this.divida.saldo || !this.divida.pagamento) return;
 
@@ -247,10 +247,10 @@ export default {
 </script>
 
 <style scoped>
-.container { 
-  padding: 20px; 
-  color: #fff; 
-  text-align: center; 
+.container {
+  padding: 20px;
+  color: #fff;
+  text-align: center;
 }
 
 
@@ -259,7 +259,7 @@ export default {
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 20px;
   margin-top: 30px;
-  align-items: stretch; 
+  align-items: stretch;
 }
 
 .card {
@@ -268,93 +268,93 @@ export default {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  
+
 
   display: flex;
   flex-direction: column;
-  height: 100%; 
+  height: 100%;
 }
 
 
 .card form {
   display: flex;
   flex-direction: column;
-  flex: 1; 
+  flex: 1;
 }
 
 
-input, select { 
-  width: 100%; 
-  padding: 10px; 
-  margin-bottom: 15px; 
-  border: 1px solid #ddd; 
-  border-radius: 4px; 
+input, select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
   box-sizing: border-box;
   font-size: 1rem;
 }
 
-label { 
-  display: block; 
-  text-align: left; 
-  margin-bottom: 5px; 
-  font-weight: bold; 
-  font-size: 0.9rem; 
+label {
+  display: block;
+  text-align: left;
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 0.9rem;
   color: #a8d5e2;
 }
 
 
-.row { 
-  display: flex; 
-  gap: 10px; 
-  margin-top: auto; 
+.row {
+  display: flex;
+  gap: 10px;
+  margin-top: auto;
   padding-top: 10px;
 }
 
 
-.btn { 
-  flex: 1; 
-  padding: 12px; 
-  background: #27ae60; 
-  color: white; 
-  border: none; 
-  border-radius: 4px; 
-  cursor: pointer; 
+.btn {
+  flex: 1;
+  padding: 12px;
+  background: #27ae60;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
   font-weight: bold;
   transition: background 0.3s;
 }
 
-.btn:hover { 
-  background: #219150; 
+.btn:hover {
+  background: #219150;
 }
 
-.btn-outline { 
-  background: transparent; 
-  border: 1px solid #95a5a6; 
+.btn-outline {
+  background: transparent;
+  border: 1px solid #95a5a6;
   color: #bdc3c7;
 }
 
-.btn-outline:hover { 
-  background: #95a5a6; 
-  color: #fff; 
+.btn-outline:hover {
+  background: #95a5a6;
+  color: #fff;
 }
 
 
-.result { 
-  margin-top: 15px; 
+.result {
+  margin-top: 15px;
   padding: 10px;
   background: rgba(39, 174, 96, 0.1);
   border-radius: 5px;
-  font-weight: bold; 
-  color: #2ecc71; 
+  font-weight: bold;
+  color: #2ecc71;
   font-size: 1.2rem;
   text-align: center;
 }
 
 .gamification-badge {
-  margin-top: 10px; 
+  margin-top: 10px;
   padding: 8px;
   border-radius: 4px;
-  background: #e0f2f7; 
+  background: #e0f2f7;
   color: #007bff;
   font-size: 0.9rem;
   font-weight: bold;

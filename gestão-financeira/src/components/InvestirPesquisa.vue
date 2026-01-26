@@ -86,10 +86,8 @@ export default {
     termo(novoValor) {
       clearTimeout(this.timer);
       this.acoesStore.erro = null;
-
-      // Se o utilizador apagar o texto, limpamos os dados antigos para mostrar a imagem padrão
-      if (!novoValor) {
-          this.acoesStore.dadosAcao = []; 
+      if (!novoValor) {// Se o utilizador apagar o texto, limpamos os dados antigos para mostrar a imagem padrão
+          this.acoesStore.dadosAcao = [];
           if (this.chartInstance) {
               this.chartInstance.destroy();
               this.chartInstance = null;
@@ -112,15 +110,12 @@ export default {
   methods: {
     async pesquisar() {
       if (!this.termo) return;
-
       await this.acoesStore.buscarAcao(this.termo);
-      
       if (!this.acoesStore.erro && this.acoesStore.dadosAcao.length > 0) {
-        // Usamos $nextTick para garantir que o HTML do gráfico existe antes de desenhar
-        this.$nextTick(() => {
+        this.$nextTick(() => { // Usamos $nextTick para garantir que o HTML do gráfico existe antes de desenhar
             this.renderChart();
         });
-        
+
         if (this.authStore.user) {
              this.authStore.incrementarEstatistica('stock_search');
         }
@@ -170,7 +165,6 @@ export default {
 </script>
 
 <style scoped>
-/* Adicione isto ao seu CSS */
 .empty-state {
   display: flex;
   flex-direction: column;
@@ -179,7 +173,7 @@ export default {
   padding: 3rem 1rem;
   color: #666;
   text-align: center;
-  border: 2px dashed #333; /* Borda tracejada para dar aspeto de placeholder */
+  border: 2px dashed #333;
   border-radius: 12px;
   margin-top: 20px;
   background: rgba(255, 255, 255, 0.02);
@@ -189,7 +183,7 @@ export default {
   width: 80px;
   height: 80px;
   margin-bottom: 1rem;
-  opacity: 0.3; /* Deixa o ícone subtil */
+  opacity: 0.3;
   color: #3498db;
 }
 
@@ -206,7 +200,7 @@ export default {
 /* Garante que o container do gráfico tem altura fixa */
 .chart-wrapper {
   position: relative;
-  height: 300px; 
+  height: 300px;
   width: 100%;
 }
 </style>

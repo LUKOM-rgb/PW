@@ -11,7 +11,7 @@ export const usarStoreAcoes = defineStore('acoes', {
   }),
 
   actions: {
-    // --- FUNÇÃO 1: Buscar dados da Ação  ---
+    // 1. Buscar dados da Ação
     async buscarAcao(simbolo) {
       this.aCarregar = true
       this.erro = null
@@ -34,8 +34,7 @@ export const usarStoreAcoes = defineStore('acoes', {
         const serieTemporal = dados['Time Series (Daily)']
 
         if (serieTemporal) {
-          // Formatação dos dados para o gráfico
-          this.dadosAcao = Object.entries(serieTemporal).map(([data, valores]) => ({
+          this.dadosAcao = Object.entries(serieTemporal).map(([data, valores]) => ({ // Formatação dos dados para o gráfico
             date: data,
             open: parseFloat(valores['1. open']),
             close: parseFloat(valores['4. close']),
@@ -52,7 +51,7 @@ export const usarStoreAcoes = defineStore('acoes', {
       }
     },
 
-    // --- FUNÇÃO 2: Buscar Notícias  ---
+    // 2. Procurar Notícias
     async buscarNoticias(topico) {
       this.aCarregar = true
       this.erro = null
@@ -61,9 +60,7 @@ export const usarStoreAcoes = defineStore('acoes', {
 
       try {
         let url = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&apikey=${API_KEY}&limit=10`
-
-        // Se houver tópico específico, adiciona filtro
-        if (topico && topico !== 'Geral') {
+        if (topico && topico !== 'Geral') {  // Se houver tópico específico, adiciona filtro
           url += `&tickers=${topico}`
         }
 
@@ -73,7 +70,6 @@ export const usarStoreAcoes = defineStore('acoes', {
         if (dados.feed) {
 
           dados.feed.forEach(noticia => {
-
            // corrigir caso a imagem seja "null" ou de mais maneiras possiveis vindas da api
             if (!noticia.banner_image || noticia.banner_image === "null" || noticia.banner_image === "") {
               noticia.banner_image = null;

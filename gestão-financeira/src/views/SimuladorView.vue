@@ -142,36 +142,33 @@ export default {
   margin: 10px 0;
   font-size: 1.7rem;
 }
-
-/* --- ESTILO DOS BOTÕES COM IMAGEM --- */
 .game-buttons {
   display: flex;
-  gap: 30px; /* Espaço entre botões */
+  gap: 30px;
   justify-content: center;
   margin-top: 30px;
 }
 
 .btn-game {
-  width: 80px;  /* Tamanho do círculo */
-  height: 80px; /* Tamanho do círculo */
-  border-radius: 50%; /* Faz ser redondo */
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: transform 0.2s, box-shadow 0.2s;
-  background: #2c3e50; /* Cor base se a imagem falhar */
+  background: #2c3e50;
 }
 
 
 .btn-game img {
-  width: 45px;  /* Tamanho do ícone */
+  width: 45px;
   height: 45px;
-  pointer-events: none; /* Garante que o clique vai para o botão */
+  pointer-events: none;
 }
 
-/* Hover e Cores Específicas */
 .btn-up { background: rgba(39, 174, 96, 0.2); border: 2px solid #27ae60; }
 .btn-up:hover {
   background: #27ae60;
@@ -186,7 +183,7 @@ export default {
   box-shadow: 0 0 15px rgba(192, 57, 43, 0.6);
 }
 
-/* --- RESULTADOS --- */
+
 .win { color: #2ecc71; font-size: 2.5rem; margin-bottom: 10px; }
 .lose { color: #e74c3c; font-size: 2.5rem; margin-bottom: 10px; }
 .xp-gain { color: #f1c40f; font-weight: bold; font-size: 1.4rem; animation: pulse 1s infinite; }
@@ -205,7 +202,7 @@ export default {
 
 .limit-area { margin-top: 50px; background: rgba(255,255,255,0.05); padding: 30px; border-radius: 10px; display: inline-block;}
 
-/* --- SPINNER DE CARREGAMENTO --- */
+/* A carregar  */
 .loading-overlay {
   display: flex; justify-content: center; padding: 40px;
 }

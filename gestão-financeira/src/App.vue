@@ -138,7 +138,7 @@ footer { margin-top: auto; color: white; text-align: center; padding: 1rem; flex
 .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 10px; }
 .hamburger span { display: block; width: 25px; height: 3px; background-color: white; margin: 5px 0; transition: 0.3s; }
 
-/* --- VERSÃO MOBILE --- */
+/* "Mobile" */
 @media (max-width: 768px) {
   .content-body { flex-direction: column; }
 

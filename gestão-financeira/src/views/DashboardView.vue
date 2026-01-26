@@ -55,7 +55,7 @@ export default {
 .dashboard-container { display: flex; justify-content: center; padding: 40px;  }
 .user-list li { display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid #eee; }
 .btn-del { background: #e74c3c; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 4px; }
-/* 1. O Container (.controls) */
+/* 1. O Container */
 /* Alinha o label e o select na mesma linha */
 .controls {
   display: flex;
@@ -82,9 +82,9 @@ export default {
 
   /* Estilização da caixa */
   background-color: #ffffff;
-  border: 1px solid #d1d5db; /* Borda cinza suave */
-  border-radius: 6px;        /* Cantos arredondados */
-  padding: 8px 36px 8px 12px; /* Espaço extra na direita para a seta */
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 8px 36px 8px 12px;
   font-size: 0.95rem;
   color: #1f2937;
   cursor: pointer;
@@ -92,23 +92,19 @@ export default {
   transition: all 0.2s ease-in-out;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 
-  /* A Seta Mágica (Ícone SVG embutido) */
+  /* A Seta Mágica */
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3e%3cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3e%3c/path%3e%3c/svg%3e");
   background-repeat: no-repeat;
   background-position: right 10px center;
   background-size: 1rem;
 }
-
-/* Efeito ao passar o mouse */
 .controls select:hover {
   border-color: #9ca3af;
   background-color: #f9fafb;
 }
-
-/* Efeito ao clicar/focar */
 .controls select:focus {
-  border-color: #3b82f6; /* Azul destaque */
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2); /* Anel azul suave */
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
 
 

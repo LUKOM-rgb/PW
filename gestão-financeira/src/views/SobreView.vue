@@ -5,7 +5,7 @@
       <div class="container">
         <h1 class="hero-title">Dominando o Mercado, <span class="highlight">Um Nível de Cada Vez.</span></h1>
         <p class="hero-subtitle">
-          Unimos a inteligência dos dados financeiros com a tecnologia para criar o ecossistema definitivo para investidores. Notícias, cálculos precisos e uma jornada gamificada para o seu sucesso financeiro.
+          Unimos a inteligência dos dados financeiros com a tecnologia para criar o ecossistema definitivo para os investidores. Notícias, cálculos precisos e uma jornada gamificada para o seu sucesso financeiro.
         </p>
       </div>
     </section>
@@ -13,8 +13,8 @@
     <section class="features-section">
       <div class="container">
         <div class="section-header">
-          <h2>Nossa Plataforma</h2>
-          <p>Tudo o que precisa para tomar as melhores decisões.</p>
+          <h2>A Nossa Plataforma</h2>
+          <p>Tudo o que precisa para tomar as melhores decisões financeiras.</p>
         </div>
 
         <div class="features-grid">
@@ -26,7 +26,7 @@
 
           <div class="feature-card">
             <h3>Ferramentas Poderosas</h3>
-            <p>Simuladores precisos para planejar sua vida:</p>
+            <p>Simuladores precisos para planear sua vida:</p>
             <ul class="feature-list">
               <li>Calculadora de Juros Compostos</li>
               <li>Simulador de Crédito Habitação</li>
@@ -37,7 +37,7 @@
 
           <div class="feature-card">
             <h3>Análise de Ativos</h3>
-            <p>Digite o símbolo da ação e obtenha dados fundamentais instantâneos para decidir se é hora de comprar ou vender.</p>
+            <p>Digite o símbolo da ação e obtenha dados fundamentais instantâneos para decidir se é hora de comprar ou de vender.</p>
           </div>
 
         </div>
@@ -50,7 +50,7 @@
           <span class="badge">Nível UP! </span>
           <h2>Aprenda e Ganhe XP</h2>
           <p>
-            Aqui, conhecimento rende juros. Crie seu perfil e complete missões: use as calculadoras, leia notícias e analise ações para ganhar <strong>XP</strong>.
+            Aqui, conhecimento rende juros. Crie o seu perfil e complete missões: use as calculadoras, leia notícias e analise ações para ganhar <strong>XP</strong>.
             Suba de nível e desbloqueie recursos exclusivos de investidor veterano.
           </p>
         </div>

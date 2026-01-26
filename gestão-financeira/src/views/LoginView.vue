@@ -48,19 +48,18 @@ const fazerLogin = async () => {
   // Limpar erros anteriores
   erro.value = null;
 
-  // 1. Receber o objeto { success, message } da store
+  // 1. Receber o objeto da store
   const resultado = await authStore.login(nome.value, password.value);
 
   // 2. Verificar a propriedade .success
   if (resultado.success) {
 
-    // --- LÓGICA DE REDIRECIONAMENTO ---
+    // Redirecionar do admin
     if (authStore.user?.name === 'admin') {
       router.push('/dashboard');
     } else {
       router.push('/perfil');
     }
-    // ----------------------------------
 
   } else {
     // 3. Mostrar a mensagem de erro que vem da Store
